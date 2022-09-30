@@ -6,7 +6,7 @@ from arrus.utils.imaging import *
 import cupy as cp
 from collections import deque
 
-virtual_source_z = [-13e-3]  # [m]
+virtual_source_z = [13e-3]  # [m]
 prf = 5e3  # [Hz]
 # Assumed speed of sound.
 speed_of_sound = 1450  # [m/s]
@@ -63,7 +63,7 @@ def get_dwi_sequence(probe_model):
     ) for vs in virtual_source_z]
     return TxRxSequence(
         ops=ops,
-        tgc_curve=np.ndarray([]),  # Will be set later.
+        tgc_curve=[],  # Will be set later.
         # How many times this sequence should be repeated before
         # starting data transfer from us4R to host PC.
         n_repeats=1,
@@ -134,7 +134,7 @@ def get_imaging(sequence, tx_foc, tx_ang_zx, tx_ang_zy,
 def get_dwi_imaging(**kwargs):
     return get_imaging(
         tx_ang_zx=np.array([0.0]), tx_ang_zy=np.array([0.0]),
-        tx_foc=np.array([virtual_source_z]),
+        tx_foc=np.array([-virtual_source_z[0]]),
         **kwargs
     )
 
