@@ -9,7 +9,7 @@ from arrus.utils.imaging import *
 from arrus.utils.gui import Display2D
 from parameters import *
 
-arrus.set_clog_level(arrus.logging.TRACE)
+arrus.set_clog_level(arrus.logging.INFO)
 arrus.add_log_file("test.log", arrus.logging.INFO)
 
 
@@ -27,7 +27,7 @@ def main():
             tx_rx_sequence=seq,
             processing=processing
         )
-        us4r.set_tgc(np.linspace(0, 60, 10), np.linspace(14, 54, 10))
+        us4r.set_tgc((tgc_t, tgc_values))
         buffer, metadata = sess.upload(scheme)
         display = Display2D(metadata=metadata,
                             value_range=(20, 80), cmap="gray",

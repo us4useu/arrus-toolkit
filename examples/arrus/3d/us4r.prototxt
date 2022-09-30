@@ -1,7 +1,7 @@
 us4r: {
     probe_id: {
         manufacturer: "vermon"
-        name: "mat3d"
+        name: "mat-3d"
     }
 
     adapter_id: {
