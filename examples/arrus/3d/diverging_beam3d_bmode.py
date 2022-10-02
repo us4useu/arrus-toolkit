@@ -8,6 +8,7 @@ from parameters import *
 from arrus.ops.us4r import *
 from arrus.utils.imaging import *
 from arrus.utils.gui import Display2D
+from datetime import datetime
 
 arrus.set_clog_level(arrus.logging.INFO)
 arrus.add_log_file("test.log", arrus.logging.INFO)
@@ -17,8 +18,7 @@ def main():
     # Here starts communication with the device.
     with arrus.Session("./us4r.prototxt") as sess:
         us4r = sess.get_device("/Us4R:0")
-        us4r.set_hv_voltage(5)
-        
+        us4r.set_hv_voltage(tx_voltage)
         probe_model = us4r.get_probe_model()
         seq = get_dwi_sequence(probe_model)
         processing, rf_queue = get_dwi_imaging(sequence=seq)
@@ -27,7 +27,7 @@ def main():
             tx_rx_sequence=seq,
             processing=processing
         )
-        us4r.set_tgc(np.linspace(0, 60, 10), np.linspace(14, 54, 10))
+        us4r.set_tgc((tgc_t, tgc_values))
         # Upload the scheme on the us4r-lite device.
         buffer, metadata = sess.upload(scheme)
         # Created 2D image display.
@@ -40,7 +40,8 @@ def main():
         # The below function blocks current thread until the window is closed.
         display.start(buffer)
         data = np.stack(rf_queue)
-        filename = f"dwi_3d_{sys.argv[1]}"
+        current_date = datetime.today().strftime('%Y-%m-%d')
+        filename = f"dwi_3d_{current_date}"
         pickle.dump({"rf": data, "metadata": metadata},
                     open(f"{filename}.pkl", "wb"))
         print("Display closed, stopping the script.")

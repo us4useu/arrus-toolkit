@@ -2,10 +2,11 @@ import math
 import numpy as np
 from arrus.ops.us4r import *
 from arrus.ops.imaging import *
+from arrus.utils.imaging import *
 import cupy as cp
 from collections import deque
 
-virtual_source_z = [-13e-3]  # [m]
+virtual_source_z = [13e-3]  # [m]
 prf = 5e3  # [Hz]
 # Assumed speed of sound.
 speed_of_sound = 1450  # [m/s]
@@ -16,8 +17,10 @@ n_periods = 2
 x_grid = np.arange(-5, 5, 0.15) * 1e-3  # [m]
 y_grid = np.arange(-5, 5, 0.15) * 1e-3  # [m]
 z_grid = np.arange(0, 60, 0.15) * 1e-3  # [m]
+max_depth = np.max(z_grid)
 tx_voltage = 5  # [V]
-
+tgc_t = np.linspace(0, max_depth, 10)/speed_of_sound  # [s]
+tgc_values = np.linspace(14, 54, 10)  # [dB]
 
 def get_delays(tx_focus, tx_ang_zx, tx_ang_zy, probe_model, speed_of_sound):
     pitch = probe_model.pitch
@@ -110,7 +113,7 @@ def get_sequence(probe_model, tx_focus, tx_ang_zx, tx_ang_zy):
     ) for d in delays]
     return TxRxSequence(
         ops=ops,
-        tgc_curve=np.ndarray([]),  # Will be set later.
+        tgc_curve=[],  # Will be set later.
         # How many times this sequence should be repeated before
         # starting data transfer from us4R to host PC.
         n_repeats=1,
@@ -123,7 +126,8 @@ def get_imaging(sequence, tx_focus, tx_ang_zx, tx_ang_zy,
     x_grid_size = len(x_grid)
     y_grid_size = len(y_grid)
     rf_queue = deque(maxlen=n_last_frames_to_save)
-
+    print(x_grid_size)
+    print(y_grid_size)
     pipeline = Pipeline(
         steps=(
             RemapToLogicalOrder(),
@@ -142,10 +146,11 @@ def get_imaging(sequence, tx_focus, tx_ang_zx, tx_ang_zy,
             EnvelopeDetection(),
             LogCompression(),
             # Get the center
+            Lambda(lambda data: data, prepare_func=lambda metadata: (print(metadata.input_shape), metadata)[1]),
             Lambda(
                 lambda data: cp.concatenate((
                     data[y_grid_size // 2, :, :].T,
-                    data[:, x_grid_size // 2:, :].T), axis=1),
+                    data[:, x_grid_size // 2, :].T), axis=1),
                 lambda metadata: metadata.copy(
                     input_shape=(z_grid_size, x_grid_size + y_grid_size))),
         ),
