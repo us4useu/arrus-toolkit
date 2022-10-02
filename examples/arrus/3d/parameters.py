@@ -10,7 +10,6 @@ virtual_source_z = [13e-3]  # [m]
 prf = 5e3  # [Hz]
 # Assumed speed of sound.
 speed_of_sound = 1450  # [m/s]
-n_samples = 4096  # TODO replace with max depth
 tx_frequency = 3e6  # [Hz]
 n_periods = 2
 #  Imaged area.
@@ -18,9 +17,12 @@ x_grid = np.arange(-5, 5, 0.15) * 1e-3  # [m]
 y_grid = np.arange(-5, 5, 0.15) * 1e-3  # [m]
 z_grid = np.arange(0, 60, 0.15) * 1e-3  # [m]
 max_depth = np.max(z_grid)
+n_samples = 4096  # TODO replace with max depth
 tx_voltage = 5  # [V]
-tgc_t = np.linspace(0, max_depth, 10)/speed_of_sound  # [s]
+#Note: 65e6 is the system sampling frequency
+tgc_t = np.linspace(0, n_samples/65e6, 10)  # [s],
 tgc_values = np.linspace(14, 54, 10)  # [dB]
+
 
 def get_delays(tx_focus, tx_ang_zx, tx_ang_zy, probe_model, speed_of_sound):
     pitch = probe_model.pitch

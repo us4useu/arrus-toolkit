@@ -20,8 +20,17 @@ def main():
         us4r.set_hv_voltage(tx_voltage)
         probe_model = us4r.get_probe_model()
 
-        seq = get_pwi_sequence(probe_model)
-        processing, rf_queue = get_pwi_imaging(sequence=seq)
+        tx_focus = [np.inf]
+        tx_ang_zx = [0]
+        tx_ang_zy = [0]
+
+        seq = get_sequence(
+            probe_model=probe_model,
+            tx_focus=tx_focus, tx_ang_zx=tx_ang_zx, tx_ang_zy=tx_ang_zy)
+
+        processing, rf_queue = get_imaging(
+            sequence=seq,
+            tx_focus=tx_focus, tx_ang_zx=tx_ang_zx, tx_ang_zy=tx_ang_zy)
         # Declare the complete scheme to execute on the devices.
         scheme = Scheme(
             tx_rx_sequence=seq,
