@@ -19,36 +19,86 @@ z_grid = np.arange(0, 60, 0.15) * 1e-3  # [m]
 tx_voltage = 5  # [V]
 
 
-def get_dwi_delays(probe_model, virtual_source_z, speed_of_sound):
-    """
-    This function assumes a probe with 3 intermediate rows (as it is prepared
-    by Vermon).
-    """
+def get_delays(tx_focus, tx_ang_zx, tx_ang_zy, probe_model, speed_of_sound):
     pitch = probe_model.pitch
     n_elements = probe_model.n_elements
-    n_ox = int(round(math.sqrt(n_elements)))
-    assert n_ox ** 2 == n_elements, "Only square probes are supported"
-    n_rows = n_ox + 3
-    x = (np.arange(0, n_ox) - n_ox // 2 + 0.5) * pitch
-    y = (np.arange(0, n_rows) - n_rows // 2 + 0.5) * pitch
-    x = np.atleast_2d(x)
-    y = np.atleast_2d(y).T
-    delays = (np.sqrt(
-        virtual_source_z ** 2 + x ** 2 + y ** 2) - virtual_source_z) / speed_of_sound
-    # Remove the "intermediate" rows.
-    delays = np.delete(delays, (n_ox // 4, n_ox // 2 + 1, 3 * n_ox // 4 + 2),
-                       axis=0)
+    return get_delays_raw(tx_focus, tx_ang_zx, tx_ang_zy, pitch,
+                          n_elements, speed_of_sound)
+
+
+def get_delays_raw(tx_focus, tx_ang_zx, tx_ang_zy, pitch, n_elements,
+                   speed_of_sound):
+    n_x = int(round(math.sqrt(n_elements)))
+    assert n_x ** 2 == n_elements, "Only square probes are supported"
+    # Assuming, that here are 4 groups of 256 elements separated by a single
+    # dead row.
+    n_y = n_x + 3
+    # Positions of the elements. Assuming that the coordinate system origin
+    # (0, 0, 0) is in the center of probe.
+    x = (np.arange(0, n_x) - n_x//2 + 0.5)*pitch  # [m]
+    y = (np.arange(0, n_y) - n_y//2 + 0.5)*pitch  # [m]
+    x = np.atleast_2d(x)  # (1, n_x)
+    y = np.atleast_2d(y).T  # (n_y, 1)
+    # Assuming all elements are at z = 0
+    z = np.zeros((n_y, n_x), dtype=np.float64)
+    delays = []
+    center_delays = []
+    for f, ang_zx, ang_zy in zip(tx_focus, tx_ang_zx, tx_ang_zy):
+        # Convert plane inclinations to the spherical angles
+        ang_zenith = np.hypot(np.tan(ang_zx), np.tan(ang_zy))
+        ang_zenith = np.arctan(ang_zenith)
+        ang_azimuth = np.arctan2(np.tan(ang_zy), np.tan(ang_zx))
+        # NOTE: for moving TX aperture, tx centers are needed.
+        if np.isinf(f):
+            # Plane wave transmission
+            tx_dist = z*np.cos(ang_zenith) \
+                      + (x*np.cos(ang_azimuth)+y*np.sin(ang_azimuth)) \
+                        * np.sin(ang_zenith)
+            tx_center_distance = 0  # Note: this will not work with the moving
+                                    # aperture.
+        else:
+            # Note: assuming the center of aperture in (0, 0, 0)
+            z_foc = f*np.cos(ang_zenith)
+            x_foc = f*np.sin(ang_zenith)*np.cos(ang_azimuth)  # + tx ap center x
+            y_foc = f*np.sin(ang_zenith)*np.sin(ang_azimuth)  # + tx ap center y
+            tx_dist = np.sqrt((x_foc-x)**2 + (y_foc-y)**2 + (z_foc-z)**2)
+            tx_center_distance = 0
+        delay = tx_dist/speed_of_sound
+        if f > 0:
+            delay = delay*(-1)
+        center_delay = tx_center_distance/speed_of_sound
+        delays.append(delay)
+        center_delays.append(center_delay)
+    delays = np.stack(delays)
+    center_delays = np.stack(center_delays)
+
+    min_delays = np.min(delays)
+    delays = delays-min_delays
+    center_delays = center_delays-min_delays
+
+    tx_center_delay = np.max(center_delays)
+    for i in range(delays.shape[0]):
+        delays[i] = delays[i] - center_delays[i] + tx_center_delay
+    delays = np.delete(delays, (n_x // 4, n_x // 2 + 1, 3 * n_x // 4 + 2),
+        axis=1)
     return delays.flatten()
 
 
-def get_dwi_sequence(probe_model):
+def get_sequence(probe_model, tx_focus, tx_ang_zx, tx_ang_zy):
     n_elements = probe_model.n_elements
+    delays = get_delays(
+        tx_focus=tx_focus,
+        tx_ang_zx=tx_ang_zx,
+        tx_ang_zy=tx_ang_zy,
+        probe_model=probe_model,
+        speed_of_sound=speed_of_sound
+    )
     ops = [TxRx(
         tx=Tx(
             aperture=[True] * n_elements,  # Full TX aperture.
             excitation=Pulse(center_frequency=tx_frequency, n_periods=n_periods,
                              inverse=False),
-            delays=get_dwi_delays(probe_model, vs, speed_of_sound)
+            delays=d
         ),
         rx=Rx(
             # Full RX aperture
@@ -57,7 +107,7 @@ def get_dwi_sequence(probe_model):
             sample_range=(0, n_samples)
         ),
         pri=1 / prf
-    ) for vs in virtual_source_z]
+    ) for d in delays]
     return TxRxSequence(
         ops=ops,
         tgc_curve=np.ndarray([]),  # Will be set later.
@@ -67,29 +117,7 @@ def get_dwi_sequence(probe_model):
     )
 
 
-def get_pwi_sequence(probe_model):
-    # TODO make it to accept any zx and zy angles
-    n_elements = probe_model.n_elements
-    return TxRxSequence(
-        ops=[
-            TxRx(
-                Tx(aperture=[True] * n_elements,
-                   excitation=Pulse(
-                       center_frequency=tx_frequency, n_periods=n_periods,
-                       inverse=False),
-                   # Custom delays 1.
-                   delays=[0]*n_elements),
-                Rx(aperture=[True]*n_elements,
-                   sample_range=(0, n_samples),
-                   downsampling_factor=1),
-                pri=1/prf
-            ),
-        ],
-        tgc_curve=[]
-    )
-
-
-def get_imaging(sequence, tx_foc, tx_ang_zx, tx_ang_zy,
+def get_imaging(sequence, tx_focus, tx_ang_zx, tx_ang_zy,
                 n_last_frames_to_save=10):
     z_grid_size = len(z_grid)
     x_grid_size = len(x_grid)
@@ -107,7 +135,7 @@ def get_imaging(sequence, tx_foc, tx_ang_zx, tx_ang_zy,
             Decimation(decimation_factor=20, cic_order=2),
             ReconstructLri3D(
                 x_grid=x_grid, y_grid=y_grid, z_grid=z_grid,
-                tx_foc=tx_foc,
+                tx_foc=tx_focus,
                 tx_ang_zx=tx_ang_zx, tx_ang_zy=tx_ang_zy,
                 speed_of_sound=speed_of_sound),
             Squeeze(),
@@ -124,19 +152,3 @@ def get_imaging(sequence, tx_foc, tx_ang_zx, tx_ang_zy,
         placement="/GPU:0"
     )
     return pipeline, rf_queue
-
-
-def get_dwi_imaging(**kwargs):
-    return get_imaging(
-        tx_ang_zx=np.array([0.0]), tx_ang_zy=np.array([0.0]),
-        tx_foc=np.array([virtual_source_z]),
-        **kwargs
-    )
-
-
-def get_pwi_imaging(**kwargs):
-    return get_imaging(
-        tx_ang_zx=np.array([0.0]), tx_ang_zy=np.array([0.0]),
-        tx_foc=np.array([np.inf]),
-        **kwargs
-    )
