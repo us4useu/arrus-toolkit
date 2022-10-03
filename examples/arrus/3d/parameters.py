@@ -6,22 +6,21 @@ from arrus.utils.imaging import *
 import cupy as cp
 from collections import deque
 
-virtual_source_z = [13e-3]  # [m]
 prf = 5e3  # [Hz]
 # Assumed speed of sound.
 speed_of_sound = 1450  # [m/s]
-tx_frequency = 3e6  # [Hz]
+tx_frequency = 3.0e6  # [Hz]
 n_periods = 2
 #  Imaged area.
-x_grid = np.arange(-5, 5, 0.15) * 1e-3  # [m]
-y_grid = np.arange(-5, 5, 0.15) * 1e-3  # [m]
-z_grid = np.arange(0, 60, 0.15) * 1e-3  # [m]
+x_grid = np.arange(-5, 5, 0.1) * 1e-3  # [m]
+y_grid = np.arange(-5, 5, 0.1) * 1e-3  # [m]
+z_grid = np.arange(0, 60, 0.1) * 1e-3  # [m]
 max_depth = np.max(z_grid)
-n_samples = 4096  # TODO replace with max depth
+n_samples = 8192  # TODO replace with max depth
 tx_voltage = 5  # [V]
 #Note: 65e6 is the system sampling frequency
-tgc_t = np.linspace(0, n_samples/65e6, 10)  # [s],
-tgc_values = np.linspace(14, 54, 10)  # [dB]
+tgc_t = np.linspace(0, n_samples/65e6, 20)  # [s],
+tgc_values = np.linspace(14, 54, 20)  # [dB]
 
 
 def get_delays(tx_focus, tx_ang_zx, tx_ang_zy, probe_model, speed_of_sound):
@@ -86,7 +85,7 @@ def get_delays_raw(tx_focus, tx_ang_zx, tx_ang_zy, pitch, n_elements,
         delays[i] = delays[i] - center_delays[i] + tx_center_delay
     delays = np.delete(delays, (n_x // 4, n_x // 2 + 1, 3 * n_x // 4 + 2),
         axis=1)
-    return delays.flatten()
+    return delays.reshape(-1, n_elements)
 
 
 def get_sequence(probe_model, tx_focus, tx_ang_zx, tx_ang_zy):
@@ -128,8 +127,6 @@ def get_imaging(sequence, tx_focus, tx_ang_zx, tx_ang_zy,
     x_grid_size = len(x_grid)
     y_grid_size = len(y_grid)
     rf_queue = deque(maxlen=n_last_frames_to_save)
-    print(x_grid_size)
-    print(y_grid_size)
     pipeline = Pipeline(
         steps=(
             RemapToLogicalOrder(),
@@ -138,7 +135,7 @@ def get_imaging(sequence, tx_focus, tx_ang_zx, tx_ang_zy,
             Lambda(lambda data: (rf_queue.append(data.get()), data)[1]),
             BandpassFilter(),
             QuadratureDemodulation(),
-            Decimation(decimation_factor=20, cic_order=2),
+            Decimation(decimation_factor=30, cic_order=2),
             ReconstructLri3D(
                 x_grid=x_grid, y_grid=y_grid, z_grid=z_grid,
                 tx_foc=tx_focus,
@@ -146,15 +143,34 @@ def get_imaging(sequence, tx_focus, tx_ang_zx, tx_ang_zy,
                 speed_of_sound=speed_of_sound),
             Squeeze(),
             EnvelopeDetection(),
+            Lambda(lambda data: data/cp.nanmax(data)),
             LogCompression(),
-            # Get the center
-            Lambda(lambda data: data, prepare_func=lambda metadata: (print(metadata.input_shape), metadata)[1]),
             Lambda(
                 lambda data: cp.concatenate((
                     data[y_grid_size // 2, :, :].T,
                     data[:, x_grid_size // 2, :].T), axis=1),
                 lambda metadata: metadata.copy(
                     input_shape=(z_grid_size, x_grid_size + y_grid_size))),
+        ),
+        placement="/GPU:0"
+    )
+    return pipeline, rf_queue
+
+
+def get_rf_imaging(sequence, n_last_frames_to_save=10):
+    rf_queue = deque(maxlen=n_last_frames_to_save)
+    pipeline = Pipeline(
+        steps=(
+            RemapToLogicalOrder(),
+            Squeeze(),
+            # Transpose(axes=(0, 1, 3, 2)),
+            # Reshape(len(sequence.ops), 32, 32, n_samples),
+            # Lambda(
+            #     lambda data: cp.concatenate((
+            #         data[0, 16, :, :].T,
+            #         data[0, :, 16, :].T), axis=1),
+            #     lambda metadata: metadata.copy(
+            #         input_shape=(n_samples, 64))),
         ),
         placement="/GPU:0"
     )

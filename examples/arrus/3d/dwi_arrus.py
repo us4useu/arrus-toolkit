@@ -28,7 +28,8 @@ def main():
         seq = get_sequence(
             probe_model,
             tx_focus=tx_focus, tx_ang_zx=tx_ang_zx, tx_ang_zy=tx_ang_zy)
-
+            
+        # processing, rf_queue = get_rf_imaging(sequence=seq)
         processing, rf_queue = get_imaging(
             sequence=seq,
             tx_focus=tx_focus, tx_ang_zx=tx_ang_zx, tx_ang_zy=tx_ang_zy)
@@ -41,7 +42,7 @@ def main():
         # Upload the scheme on the us4r-lite device.
         buffer, metadata = sess.upload(scheme)
         # Created 2D image display.
-        display = Display2D(metadata=metadata, value_range=(-80, 0), cmap="gray",
+        display = Display2D(metadata=metadata, value_range=(-40, 0), cmap="gray",
                             title="B-mode", xlabel="OX+OY (px)",
                             ylabel="OZ (px)",
                             show_colorbar=True)
