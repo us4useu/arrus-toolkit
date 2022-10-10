@@ -1,15 +1,7 @@
-import os.path
-
-import arrus.medium
 from gui4us.cfg.environment import *
 from gui4us.cfg.display import *
-from arrus.ops.us4r import *
 from arrus.utils.imaging import *
-from arrus.ops.imaging import *
 from arrus.devices.probe import ProbeModel, ProbeModelId
-from arrus.medium import Medium
-import numpy as np
-import scipy.signal
 import importlib
 import sys
 import gui4us.cfg
