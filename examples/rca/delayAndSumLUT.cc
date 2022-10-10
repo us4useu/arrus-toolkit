@@ -78,9 +78,6 @@ __global__ void delayAndSumLUT(complex<float> *output, const complex<float> *inp
                     rxDelay = rxDelays[IDX_3D(rx, y, z, nYPix, nZPix)];
                     delay = txDelay + rxDelay;
                     delaySample = delay*fs;
-//                    if(x == 50 && y == 50 && z == 100) {
-//                        printf("tx: %d, rx: %d, nRx: %d, nSamples: %d\n", tx, rx, nRx, nSamples);
-//                    }
                     value = interpLinear(&input[IDX_3D(tx, rx, 0, nRx, nSamples)], delaySample, nSamples);
                     __sincosf(omega*delay, &modSin, &modCos);
                     modFactor = complex<float>(modCos, modSin);
