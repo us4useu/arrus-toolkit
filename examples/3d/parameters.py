@@ -16,11 +16,19 @@ x_grid = np.arange(-5, 5, 0.1) * 1e-3  # [m]
 y_grid = np.arange(-5, 5, 0.1) * 1e-3  # [m]
 z_grid = np.arange(0, 60, 0.1) * 1e-3  # [m]
 max_depth = np.max(z_grid)
+downsampling_factor = 1
 n_samples = 8192  # TODO replace with max depth
 tx_voltage = 5  # [V]
+fs = 65e6/downsampling_factor
 #Note: 65e6 is the system sampling frequency
-tgc_t = np.linspace(0, n_samples/65e6, 20)  # [s],
-tgc_values = np.linspace(14, 54, 20)  # [dB]
+# tgc_t = np.linspace(0, n_samples/65e6, 20)  # [s],
+sampling_time = np.arange(start=round(400/downsampling_factor),
+          stop=n_samples,
+          step=round(150/downsampling_factor))/fs*speed_of_sound
+tgc_start = 14
+tgc_slope = 2e2
+distance = sampling_time*speed_of_sound
+tgc_values = tgc_start + distance*tgc_slope
 
 
 def get_delays(tx_focus, tx_ang_zx, tx_ang_zy, probe_model, speed_of_sound):

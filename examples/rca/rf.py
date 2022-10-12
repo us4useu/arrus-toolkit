@@ -33,7 +33,7 @@ def main():
     # Here starts communication with the device.
     with arrus.Session("./us4r.prototxt") as sess:
         center_frequency = 6e6
-        tx_voltage = 5
+        tx_voltage = 20
         us4r = sess.get_device("/Us4R:0")
         us4r.set_hv_voltage(tx_voltage)
 
@@ -46,7 +46,7 @@ def main():
 
         tx_aperture = rows
         tx_aperture_size = np.sum(tx_aperture)
-        rx_aperture = rows
+        rx_aperture = columns
         seq = TxRxSequence(
             ops=[
                 TxRx(
@@ -61,7 +61,7 @@ def main():
                 ),
             ],
             # Turn off TGC.
-            tgc_curve=[], #34]*20,  # [dB]
+            tgc_curve=[34]*24,  # [dB]
             # Time between consecutive acquisitions, i.e. 1/frame rate.
             sri=20e-3
         )
@@ -84,8 +84,7 @@ def main():
         # Upload the scheme on the us4r-lite device.
         buffer, metadata = sess.upload(scheme)
         # Created 2D image display.
-        display = Display2D(metadata=metadata, value_range=(-1000, 1000),
-                            extent=[0, 64, 50, 0], cmap="viridis")
+        display = Display2D(metadata=metadata, value_range=(-100, 100), cmap="viridis")
         input("Are you sure you want to continue?")
         # Start the scheme.
         sess.start_scheme()

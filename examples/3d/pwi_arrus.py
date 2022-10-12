@@ -13,31 +13,36 @@ arrus.set_clog_level(arrus.logging.INFO)
 arrus.add_log_file("test.log", arrus.logging.INFO)
 
 
+def initialize():
+    sess = arrus.Session("us4r.prototxt")
+    us4r = sess.get_device("/Us4R:0")
+    us4r.set_hv_voltage(tx_voltage)
+    probe_model = us4r.get_probe_model()
+
+    tx_focus = [np.inf]
+    tx_ang_zx = [0]
+    tx_ang_zy = [0]
+
+    seq = get_sequence(
+        probe_model=probe_model,
+        tx_focus=tx_focus, tx_ang_zx=tx_ang_zx, tx_ang_zy=tx_ang_zy)
+
+    processing, rf_queue = get_imaging(
+        sequence=seq,
+        tx_focus=tx_focus, tx_ang_zx=tx_ang_zx, tx_ang_zy=tx_ang_zy)
+    # Declare the complete scheme to execute on the devices.
+    scheme = Scheme(
+        tx_rx_sequence=seq,
+        processing=processing
+    )
+    us4r.set_tgc((tgc_t, tgc_values))
+    buffer, metadata = sess.upload(scheme)
+    return buffer, metadata
+
+
 def main():
     # Here starts communication with the device.
-    with arrus.Session("us4r.prototxt") as sess:
-        us4r = sess.get_device("/Us4R:0")
-        us4r.set_hv_voltage(tx_voltage)
-        probe_model = us4r.get_probe_model()
 
-        tx_focus = [np.inf]
-        tx_ang_zx = [0]
-        tx_ang_zy = [0]
-
-        seq = get_sequence(
-            probe_model=probe_model,
-            tx_focus=tx_focus, tx_ang_zx=tx_ang_zx, tx_ang_zy=tx_ang_zy)
-
-        processing, rf_queue = get_imaging(
-            sequence=seq,
-            tx_focus=tx_focus, tx_ang_zx=tx_ang_zx, tx_ang_zy=tx_ang_zy)
-        # Declare the complete scheme to execute on the devices.
-        scheme = Scheme(
-            tx_rx_sequence=seq,
-            processing=processing
-        )
-        us4r.set_tgc((tgc_t, tgc_values))
-        buffer, metadata = sess.upload(scheme)
         display = Display2D(metadata=metadata,
                             value_range=(-80, 0), cmap="gray",
                             title="B-mode", xlabel="OX (mm)", ylabel="OZ (mm)",

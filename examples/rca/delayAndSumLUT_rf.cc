@@ -10,7 +10,7 @@
 
 
 __forceinline__
-        __device__ complex<float> interpLinear(const complex<float> *input, float sample, int nSamples) {
+        __device__ float interpLinear(const float *input, float sample, int nSamples) {
     float interpWgh = modff(sample, &sample);
     int intSample = int(sample);
     if(intSample >= nSamples-1) {
@@ -42,7 +42,7 @@ __forceinline__
    @param fs: sampling frequency (Hz)
  */
 extern "C"
-__global__ void delayAndSumLUT(complex<float> *output, const complex<float> *input,
+__global__ void delayAndSumLUT(float *output, const float *input,
                                const unsigned char *txApodization, const float *rxApodization,
                                const float *txDelays, const float *rxDelays,
                                const int nTx, const int nSamples, const int nRx,
@@ -56,17 +56,14 @@ __global__ void delayAndSumLUT(complex<float> *output, const complex<float> *inp
     if (z >= nZPix || x >= nXPix || y >= nYPix) {
         return;
     }
-    complex<float> pixelValue(0.0f, 0.0f);
-    complex<float> value(0.0f, 0.0f);
-    complex<float> modFactor(0.0f, 0.0f);
+    float pixelValue = 0.0f;
+    float value = 0.0f;
     float pixelWeight = 0.0f;
     float txDelay, rxDelay, txWeight, rxWeight, delay, delaySample;
 
-    const float omega = 2*M_PI*fc;
-    float modSin, modCos;
 
     for(int tx = 0; tx < nTx; ++tx) {
-        pixelValue = complex<float>(0.0f, 0.0f);
+        pixelValue = 0.0f;
         pixelWeight = 0.0f;
 
         txDelay = txDelays[IDX_3D(tx, x, z, nXPix, nZPix)];
@@ -79,9 +76,7 @@ __global__ void delayAndSumLUT(complex<float> *output, const complex<float> *inp
                     delay = txDelay + rxDelay;
                     delaySample = delay*fs;
                     value = interpLinear(&input[IDX_3D(tx, rx, 0, nRx, nSamples)], delaySample, nSamples);
-                    __sincosf(omega*delay, &modSin, &modCos);
-                    modFactor = complex<float>(modSin, modCos);
-                    pixelValue += value*rxWeight*modFactor;
+                    pixelValue += value*rxWeight;
                     pixelWeight += rxWeight;
                 }
             }

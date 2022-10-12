@@ -13,7 +13,7 @@ us4r: {
         },
         voltage_range {
             begin: 0,
-            end: 20
+            end: 50
         }
     }
 
@@ -37,7 +37,7 @@ us4r: {
         pga_gain: 30
         lpf_cutoff: 15000000
         active_termination: 200
-	    dtgc_attenuation: 0
+	    # dtgc_attenuation: 0
     }
 
     hv: {
