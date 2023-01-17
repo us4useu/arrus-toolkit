@@ -44,7 +44,6 @@ from arrus.utils.gui import (
     Display2D,
     Layer2D
 )
-import keyboard
 
 import cupy as cp
 
@@ -181,33 +180,24 @@ def main():
     )
 
     # Here starts communication with the device.
-    with arrus.Session("/home/pjarosik/us4r.prototxt") as sess:
+    with arrus.Session() as sess:
         us4r = sess.get_device("/Us4R:0")
         us4r.set_hv_voltage(30)
 
         # Upload sequence on the us4r-lite device.
         buffer, (doppler_metadata, bmode_metadata) = sess.upload(scheme)
-        # buffer, metadata = sess.upload(scheme)
-
-        # display = Display2D(metadata=metadata, value_range=(20, 80), cmap="gray",
-        #                 title="B-mode", xlabel="OX (mm)", ylabel="OZ (mm)",
-        #                 extent=get_extent(x_grid, z_grid)*1e3,
-        #                 show_colorbar=True)
 
         display = Display2D(
             layers=(
                 Layer2D(metadata=bmode_metadata, value_range=(-40, 0), cmap="gray", input=0),
                 Layer2D(metadata=doppler_metadata, cmap="bwr", value_range=(-300, 300), input=1, value_func=value_func)
             )
-            # xlabel="OX (mm)", ylabel="OZ (mm)",
-            # extent=arrus.utils.imaging.get_extent(x_grid*1e3, z_grid*1e3),
-            # show_colorbar=1, colorbar_fraction=0.025, colorbar_title="Velocity (mm/s)",
         )
         sess.start_scheme()
         display.start(buffer)
 
         print("Display closed, stopping the script.")
-    pickle.dump({"rf": np.stack(queue), "metadata": bmode_metadata}, open(f"data_doppler_{datetime.now().strftime('%H-%M-%S')}.pkl", "wb"))
+    # pickle.dump({"rf": np.stack(queue), "metadata": bmode_metadata}, open(f"data_doppler_{datetime.now().strftime('%H-%M-%S')}.pkl", "wb"))
     print("Stopping the example.")
 
 
