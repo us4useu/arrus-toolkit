@@ -1,37 +1,29 @@
-.. _arrus-installation:
+.. _arrus-toolkit-installation:
 
 ============
 Installation
 ============
 
-Requirements
-============
+Configurations
+==============
 
-The Microsoft® Windows 10 x64 operating system is supported.
+Installing each component separately
+====================================
 
-Make sure that you have installed the following dependencies:
+Firmware
+--------
 
-- `Microsoft Visual C++ Redistributable for Visual Studio 2017 <https://aka.ms/vs/16/release/vc_redist.x64.exe>`_
+Note: currently the firmware update is supported on Windows only.
 
-Installation
-============
-
-Startup
--------
-
-.. caution::
-
-    If you use the **MSI GS65 notebook** and connect with the device via a Thunderbolt-3
-    cable, you have to follow this extended startup procedure:
-
-    1. Turn off the notebook and your device, plug off Thunderbolt-3 cable.
-    2. Turn on the system, then connect it to the notebook using the provided
-       Thunderbolt-3 cable.
-    3. Turn on the notebook.
-    4. After Windows 10 loads, restart the notebook.
 
 Drivers
 -------
+
+Linux
+~~~~~
+
+Windows
+~~~~~~~
 
 Make sure that your us4R-lite device is properly connected via a Thunderbolt-3
 cable and is enabled in your Thunderbolt software, e.g.:
@@ -100,7 +92,7 @@ Python
 
 Requirements:
 
-- Python 3.8,
+- Python 3.8 (or newer, for ARRUS >= 0.9.0),
 - NVIDIA CUDA Toolkit >= 10.0.
 
 We recommend using `Miniconda3 <https://docs.conda.io/en/latest/miniconda.html>`__
