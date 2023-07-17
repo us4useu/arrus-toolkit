@@ -1,4 +1,4 @@
-.. _api-reference-installation:
+.. _arrus-toolkit-api-reference:
 
 =============
 API Reference
@@ -7,4 +7,4 @@ API Reference
 ARRUS
 =====
 
-Please visit API reference `here <https://github.com/us4useu/arrus/releases>`__.
+The API reference is available in the ARRUS documentation `here <https://github.com/us4useu/arrus/releases>`__.

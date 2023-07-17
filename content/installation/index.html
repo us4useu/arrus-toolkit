@@ -86,18 +86,17 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#installing-each-component-separately">Installing each component separately</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#firmware">Firmware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-software-components-separately">Installing software components separately</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#drivers">Drivers</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#linux">Linux</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#windows">Windows</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#uninstall-arius-drivers-if-previously-installed">Uninstall ARIUS drivers (if previously installed)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#install-us4oem-drivers">Install Us4OEM drivers</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#arrus">ARRUS</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#matlab">MATLAB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#us4oem-us4oem-firmware">us4OEM+/us4OEM firmware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">ARRUS</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#python">Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#matlab">MATLAB</a></li>
 </ul>
 </li>
 </ul>
@@ -176,16 +175,99 @@
             
   <div class="section" id="installation">
 <span id="arrus-toolkit-installation"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="installing-each-component-separately">
-<h2>Installing each component separately<a class="headerlink" href="#installing-each-component-separately" title="Permalink to this headline">¶</a></h2>
-<table class="docutils align-default">
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>Operating system:</p>
+<ul class="simple">
+<li><p>Linux: Ubuntu 20.04 or newer is recommended,</p></li>
+<li><p>Windows: Windows 10 and Windows 11 are supported.</p></li>
+</ul>
+<p>Before proceeding please also make sure that your us4R/us4R-lite device is
+properly connected and enabled in the operating system settings.</p>
+<p>For devices with <strong>Thunderbolt-3</strong> interface, please check if your us4R/us4R-lite
+is properly connected via Thunderbolt-3 cable and is enabled in your System
+Settings and/or Thunderbolt Software:</p>
+<p><strong>Ubuntu 20.04 or newer</strong></p>
+<p>Please check in the system settings → Thunderbolt the “LT Link” device is
+authorized.</p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="../../_images/thunderbolt_ubuntu.png"><img alt="../../_images/thunderbolt_ubuntu.png" src="../../_images/thunderbolt_ubuntu.png" style="width: 725.6px; height: 605.6px;" /></a>
+</div>
+<p>Alternatively, you can activate the thunderbolt device from the command line
+using the <code class="docutils literal notranslate"><span class="pre">boltctl</span></code> command (e.g. when you don’t have access to the
+graphical interface).</p>
+<ol class="arabic simple">
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">boltctl</span></code> to determine uuid of the connected device.</p></li>
+<li><p>Run as super user: <code class="docutils literal notranslate"><span class="pre">boltctl</span> <span class="pre">enroll</span> <span class="pre">{uuid}</span> <span class="pre">--policy</span> <span class="pre">auto</span></code>, where <code class="docutils literal notranslate"><span class="pre">{uuid}</span></code> should be the uuid of the device.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># boltctl
+o LT-LINK  NVME #4
+  ├─ type:          peripheral
+  ├─ name:          LT-LINK NVME
+  ├─ vendor:        LT-LINK
+  ├─ uuid:          00a1809d-414f-1502-ffff-ffffffffffff
+  ├─ status:        connected
+  │  ├─ domain:     cf030000-0090-8718-23d2-7d0b9a815120
+  │  └─ authflags:  none
+  ├─ authorized:    fri, 14 jul 2023, 14:18:04
+  ├─ connected:     fri, 14 jul 2023, 14:18:04
+  └─ stored:        no
+# sudo boltctl enroll 00a1809d-414f-1502-ffff-ffffffffffff --policy auto
+</pre></div>
+</div>
+<p><strong>Windows 10</strong></p>
+<p>Please check if the LT Link device is enabled in the Thunderbolt software
+installed on your computer.</p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="../../_images/thunderbolt.png"><img alt="../../_images/thunderbolt.png" src="../../_images/thunderbolt.png" style="width: 392.0px; height: 468.8px;" /></a>
+</div>
+<p>The <cite>Connection status</cite> should read <cite>Connected</cite> (or something similar).</p>
+<p>For devices with <strong>Thunderbolt-3</strong> or the <strong>direct PCI-e</strong> connection,
+please check if your operating system properly detected us4R/us4R-lite
+components:</p>
+<p><strong>Ubuntu 20.04 or newer</strong></p>
+<p>Please check the output of <code class="docutils literal notranslate"><span class="pre">lspci</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">e005</span></code>. You should see the output
+similar to the below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0000</span><span class="p">:</span><span class="mi">98</span><span class="p">:</span><span class="mf">00.0</span> <span class="n">Unclassified</span> <span class="n">device</span> <span class="p">[</span><span class="mi">0011</span><span class="p">]:</span> <span class="n">Altera</span> <span class="n">Corporation</span> <span class="n">Device</span> <span class="n">e005</span>
+<span class="mi">0000</span><span class="p">:</span><span class="mi">99</span><span class="p">:</span><span class="mf">00.0</span> <span class="n">Unclassified</span> <span class="n">device</span> <span class="p">[</span><span class="mi">0011</span><span class="p">]:</span> <span class="n">Altera</span> <span class="n">Corporation</span> <span class="n">Device</span> <span class="n">e005</span>
+</pre></div>
+</div>
+<p>The number of output lines should be equal to the number of us4OEMs in your
+us4R/us4R-lite.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>NOTE: the above output should <strong>not</strong> contain the suffix <code class="docutils literal notranslate"><span class="pre">(rev</span> <span class="pre">ff)</span></code>.
+If you see this suffix, this means probably you will also get the
+<code class="docutils literal notranslate"><span class="pre">Incompatible</span> <span class="pre">version</span> <span class="pre">firmware</span> <span class="pre">…</span> <span class="pre">actual</span> <span class="pre">ffffffff</span></code> when running ARRUS package.
+Just reconnect the Thunderbolt cable or restart your computer (in case
+your are using the direct PCIe connect) and check the <code class="docutils literal notranslate"><span class="pre">lspci</span></code> output again.</p>
+</div>
+<p><strong>Windows 10</strong></p>
+<p>Please check in the device manager whether there are <code class="docutils literal notranslate"><span class="pre">PCI</span> <span class="pre">Device</span></code> or <code class="docutils literal notranslate"><span class="pre">us4oem</span></code>
+nodes there, in the number equal to the number of modules that your
+us4R/us4R-lite has.</p>
+</div>
+<div class="section" id="installing-software-components-separately">
+<h2>Installing software components separately<a class="headerlink" href="#installing-software-components-separately" title="Permalink to this headline">¶</a></h2>
+<p>The ARRUS toolkit consists of the following packages and software:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/us4useu/arrus/">ARRUS</a>,</p></li>
+<li><p><a class="reference external" href="https://github.com/us4useu/us4r-drivers">us4R/us4R-lite driver and utils</a>,</p></li>
+<li><p>device firmware.</p></li>
+</ul>
+<p>You can install each of these components manually, but please remember to use
+compatible versions, otherwise you will receive an error message that some two
+components are not compatible with each other.</p>
+<p>The below table shows which versions are compatible.</p>
+<blockquote>
+<div><table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 32%" />
-<col style="width: 15%" />
-<col style="width: 15%" />
-<col style="width: 16%" />
-<col style="width: 12%" />
+<col style="width: 26%" />
+<col style="width: 50%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 5%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>ARRUS</p></th>
@@ -197,78 +279,78 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>v0.9.0-dev</p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.9.0-dev-first">v0.9.0-dev</a></p></td>
 <td><p>v0.10.0-dev, Windows: WD1450</p></td>
 <td><p>0.2.0</p></td>
 <td><p>0.1.0, TX: a</p></td>
 <td><p>0x243a5479</p></td>
 <td><p>0x705c9732</p></td>
 </tr>
-<tr class="row-odd"><td><p>v0.8.0</p></td>
-<td><p>v0.9.0, Linux: 0.2.0, Windows: WD1450</p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.8.0">v0.8.0</a></p></td>
+<td><p>v0.9.0, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.9.0-dev-first/us4r-driver-v0.2.0-dev20221007.run">0.2.0</a>, Windows: WD1450</p></td>
 <td><p>x</p></td>
 <td><p>0x0f255c84, TX: a</p></td>
 <td><p>0x243a5479</p></td>
 <td><p>0x705c9732</p></td>
 </tr>
-<tr class="row-even"><td><p>v0.7.8</p></td>
-<td><p>v0.8.7, Linux: 0.1.5, Windows: WD1450</p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.7.8">v0.7.8</a></p></td>
+<td><p>v0.8.7, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run">0.1.5</a>, Windows: WD1450</p></td>
 <td><p>x</p></td>
 <td><p>0xbd612458, TX: a</p></td>
 <td><p>0x243a5479</p></td>
 <td><p>0xffe07334</p></td>
 </tr>
-<tr class="row-odd"><td><p>v0.7.7</p></td>
-<td><p>v0.8.7, Linux: 0.1.5, Windows: WD1450</p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.7.7">v0.7.7</a></p></td>
+<td><p>v0.8.7, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run">0.1.5</a>, Windows: WD1450</p></td>
 <td><p>x</p></td>
 <td><p>0xbd612458, TX: a</p></td>
 <td><p>0x243a5479</p></td>
 <td><p>0xffe07334</p></td>
 </tr>
-<tr class="row-even"><td><p>v0.7.6</p></td>
-<td><p>v0.8.7, Linux: 0.1.5, Windows: WD1450</p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.7.6">v0.7.6</a></p></td>
+<td><p>v0.8.7, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run">0.1.5</a>, Windows: WD1450</p></td>
 <td><p>x</p></td>
 <td><p>0xbd612458, TX: a</p></td>
 <td><p>0x243a5479</p></td>
 <td><p>0xffe07334</p></td>
 </tr>
-<tr class="row-odd"><td><p>v0.7.5</p></td>
-<td><p>v0.8.7, Linux: 0.1.5, Windows: WD1450</p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.7.5">v0.7.5</a></p></td>
+<td><p>v0.8.7, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run">0.1.5</a>, Windows: WD1450</p></td>
 <td><p>x</p></td>
 <td><p>0xbd612458, TX: a</p></td>
 <td><p>0x243a5479</p></td>
 <td><p>0xffe07334</p></td>
 </tr>
-<tr class="row-even"><td><p>v0.7.4</p></td>
-<td><p>v0.8.7, Linux: 0.1.5, Windows: WD1450</p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.7.4">v0.7.4</a></p></td>
+<td><p>v0.8.7, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run">0.1.5</a>, Windows: WD1450</p></td>
 <td><p>x</p></td>
 <td><p>0xbd612458, TX: a</p></td>
 <td><p>0x243a5479</p></td>
 <td><p>0xffe07334</p></td>
 </tr>
-<tr class="row-odd"><td><p>v0.7.3</p></td>
-<td><p>v0.8.7, Linux: 0.1.5, Windows: WD1450</p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.7.3">v0.7.3</a></p></td>
+<td><p>v0.8.7, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run">0.1.5</a>, Windows: WD1450</p></td>
 <td><p>x</p></td>
 <td><p>0xbd612458, TX: a</p></td>
 <td><p>0x243a5479</p></td>
 <td><p>0xffe07334</p></td>
 </tr>
-<tr class="row-even"><td><p>v0.7.2</p></td>
-<td><p>v0.8.6, Linux: 0.1.5, Windows: WD1450</p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.7.2">v0.7.2</a></p></td>
+<td><p>v0.8.6, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run">0.1.5</a>, Windows: WD1450</p></td>
 <td><p>x</p></td>
 <td><p>0xbd612458, TX: a</p></td>
 <td><p>0x243a5479</p></td>
 <td><p>0xffe07334</p></td>
 </tr>
-<tr class="row-odd"><td><p>v0.7.1</p></td>
-<td><p>v0.8.6, Linux: 0.1.5, Windows: WD1450</p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.7.1">v0.7.1</a></p></td>
+<td><p>v0.8.6, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run">0.1.5</a>, Windows: WD1450</p></td>
 <td><p>x</p></td>
 <td><p>0xbd612458, TX: a</p></td>
 <td><p>0x243a5479</p></td>
 <td><p>0xffe07334</p></td>
 </tr>
-<tr class="row-even"><td><p>v0.7.0</p></td>
-<td><p>v0.8.6, Linux: 0.1.5, Windows: WD1450</p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.7.0">v0.7.0</a></p></td>
+<td><p>v0.8.6, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run">0.1.5</a>, Windows: WD1450</p></td>
 <td><p>x</p></td>
 <td><p>0xbd612458, TX: a</p></td>
 <td><p>0x243a5479</p></td>
@@ -276,26 +358,34 @@
 </tr>
 </tbody>
 </table>
-<div class="section" id="firmware">
-<h3>Firmware<a class="headerlink" href="#firmware" title="Permalink to this headline">¶</a></h3>
-<p>Note: currently the firmware update is supported on Windows only.</p>
-</div>
+</div></blockquote>
 <div class="section" id="drivers">
 <h3>Drivers<a class="headerlink" href="#drivers" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="linux">
 <h4>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h4>
+<p>Download the linux driver then in command line run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="o">./</span><span class="p">{</span><span class="n">us4r</span><span class="o">-</span><span class="n">driver</span><span class="o">.</span><span class="n">run</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">{us4r-driver.run}</span></code> is the name of the downloaded file.</p>
+<p>After executing the above command, there should be <code class="docutils literal notranslate"><span class="pre">us4oem*</span></code> nodes in the <code class="docutils literal notranslate"><span class="pre">/dev</span></code>
+folder, e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ls /dev/us4oem*</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">us4oem9800</span>  <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">us4oem9900</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Currently it is necessary to re-run the above installer after every
+Linux Kernel upgrade
+(which can be performed silently in the background by Ubuntu).
+This inconvenience will be fixed in the future.</p>
+</div>
 </div>
 <div class="section" id="windows">
 <h4>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h4>
-<p>Make sure that your us4R-lite device is properly connected via a Thunderbolt-3
-cable and is enabled in your Thunderbolt software, e.g.:</p>
-<div class="figure align-default">
-<a class="reference internal image-reference" href="../../_images/thunderbolt.png"><img alt="../../_images/thunderbolt.png" src="../../_images/thunderbolt.png" style="width: 392.0px; height: 468.8px;" /></a>
-</div>
-<p>The <cite>Connection status</cite> should read <cite>Connected</cite> (or something similar).</p>
-</div>
 <div class="section" id="uninstall-arius-drivers-if-previously-installed">
-<h4>Uninstall ARIUS drivers (if previously installed)<a class="headerlink" href="#uninstall-arius-drivers-if-previously-installed" title="Permalink to this headline">¶</a></h4>
+<h5>Uninstall ARIUS drivers (if previously installed)<a class="headerlink" href="#uninstall-arius-drivers-if-previously-installed" title="Permalink to this headline">¶</a></h5>
 <p>If ARIUS drivers are installed on your computer, uninstall them first. ARIUS
 drivers are the legacy drivers that were required before the 0.4.3 version.</p>
 <ol class="arabic simple">
@@ -311,7 +401,7 @@ devices available in the “Jungo Connectivity” node. <strong>Check
 </ol>
 </div>
 <div class="section" id="install-us4oem-drivers">
-<h4>Install Us4OEM drivers<a class="headerlink" href="#install-us4oem-drivers" title="Permalink to this headline">¶</a></h4>
+<h5>Install Us4OEM drivers<a class="headerlink" href="#install-us4oem-drivers" title="Permalink to this headline">¶</a></h5>
 <ol class="arabic simple">
 <li><p>Download and extract <code class="docutils literal notranslate"><span class="pre">us4oem-drivers-1450.zip</span></code> (contact us4us support to make sure you get the newest version).</p></li>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">install.bat</span></code> with <strong>administrative privileges</strong>. Confirm driver
@@ -324,29 +414,30 @@ Device Manager.</p>
 </div>
 </div>
 </div>
-<div class="section" id="arrus">
-<h3>ARRUS<a class="headerlink" href="#arrus" title="Permalink to this headline">¶</a></h3>
-<p>Before you proceed, please make sure the device is properly connected to the computer.</p>
-<p>The list of the ARRUS package release is available <a class="reference external" href="https://github.com/us4useu/arrus/releases">here</a>.</p>
-<p>Download and extract the package for the programming language you want to use. Follow the necessary
-steps below.</p>
-<div class="section" id="matlab">
-<h4>MATLAB<a class="headerlink" href="#matlab" title="Permalink to this headline">¶</a></h4>
-<p>Requirements:</p>
-<ul class="simple">
-<li><p>MATLAB 2019a,</p></li>
-<li><p>NVIDIA CUDA Toolkit 10.0.</p></li>
-</ul>
-<p>Add <code class="docutils literal notranslate"><span class="pre">arrus</span></code> subdirectory to the MATLAB search paths.</p>
-<p>To check if everything is ok run script
-<code class="docutils literal notranslate"><span class="pre">examples\Us4R_control.m</span></code> (for Esaote adapter) or
-<code class="docutils literal notranslate"><span class="pre">examples\Us4RUltrasonix_control.m</span></code> (for Ultrasonix adapter).</p>
 </div>
+<div class="section" id="us4oem-us4oem-firmware">
+<h3>us4OEM+/us4OEM firmware<a class="headerlink" href="#us4oem-us4oem-firmware" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Currently the firmware update is supported on Windows only.</p>
+</div>
+<p>Download the appropriate firmware version from this <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases">page</a>,
+extract and run <code class="docutils literal notranslate"><span class="pre">update.bat</span></code>.</p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="../../_images/firmware_update_result.png"><img alt="../../_images/firmware_update_result.png" src="../../_images/firmware_update_result.png" style="width: 694.0px; height: 73.0px;" /></a>
+</div>
+<p><strong>After the update, please remember to do a full power cycle of the us4R/us4R-lite and the connected PC.</strong></p>
+</div>
+<div class="section" id="id1">
+<h3>ARRUS<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>The list of the ARRUS package releases is available <a class="reference external" href="https://github.com/us4useu/arrus/releases">here</a>.</p>
+<p>Download and extract the package for the programming language you want to use.
+Follow the necessary steps described below.</p>
 <div class="section" id="python">
 <h4>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h4>
 <p>Requirements:</p>
 <ul class="simple">
-<li><p>Python 3.8 (or newer, for ARRUS &gt;= 0.9.0),</p></li>
+<li><p>Python 3.8 (also 3.9 and 3.10 for ARRUS &gt;= 0.9.0),</p></li>
 <li><p>NVIDIA CUDA Toolkit &gt;= 10.0.</p></li>
 </ul>
 <p>We recommend using <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda3</a>
@@ -363,8 +454,16 @@ to manage Python environments.</p>
 </pre></div>
 </div>
 <p>Where <code class="docutils literal notranslate"><span class="pre">xyz</span></code> is the version of the CUDA Toolkit installed on your host PC.</p>
+</div>
+<div class="section" id="matlab">
+<h4>MATLAB<a class="headerlink" href="#matlab" title="Permalink to this headline">¶</a></h4>
+<p>Requirements:</p>
+<ul class="simple">
+<li><p>MATLAB 2022a,</p></li>
+<li><p>CUDA 11.0 at least.</p></li>
+</ul>
 <p>To check if everything is ok, run one of the scripts available
-<a class="reference external" href="https://github.com/us4useu/arrus/tree/master/api/python/examples">here</a>.</p>
+<a class="reference external" href="https://github.com/us4useu/arrus/tree/master/api/matlab/examples">here</a>.</p>
 </div>
 </div>
 </div>

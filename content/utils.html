@@ -88,11 +88,23 @@
 <li class="toctree-l1"><a class="reference internal" href="installation/index.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Utils</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#us4oem-control">Us4OEM Control</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#us4oem-status">Us4OEM Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#hv-control">HV Control</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#dbar-lite-status">DBAR-Lite Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#dbar-status">DBAR Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#us4oem">us4OEM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#firmware-update">Firmware update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#device-control">Device Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#device-status">Device Status</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#high-voltage-supplier-hv256-or-us4rpsc">High-Voltage supplier (HV256 or Us4RPSC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dbar-lite">DBAR-Lite</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Firmware update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Device Status</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dbar">DBAR</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Firmware update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Device Status</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
@@ -164,26 +176,125 @@
            <div itemprop="articleBody">
             
   <div class="section" id="utils">
-<span id="utils-installation"></span><h1>Utils<a class="headerlink" href="#utils" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="us4oem-control">
-<h2>Us4OEM Control<a class="headerlink" href="#us4oem-control" title="Permalink to this headline">¶</a></h2>
-<p>TBD</p>
+<span id="arrus-toolkit-utils"></span><h1>Utils<a class="headerlink" href="#utils" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="us4oem">
+<h2>us4OEM<a class="headerlink" href="#us4oem" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="firmware-update">
+<h3>Firmware update<a class="headerlink" href="#firmware-update" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">us4OEMFirmwareUpdate</span>
+<span class="n">Allowed</span> <span class="n">options</span><span class="p">:</span>
+<span class="o">--</span><span class="n">help</span>                <span class="n">produce</span> <span class="n">help</span> <span class="n">message</span>
+<span class="o">--</span><span class="n">rpd</span><span class="o">-</span><span class="n">file</span> <span class="n">arg</span>        <span class="n">RPD</span> <span class="n">bitstream</span> <span class="n">file</span>
+<span class="o">--</span><span class="n">sea</span><span class="o">-</span><span class="n">file</span> <span class="n">arg</span>        <span class="n">SEA</span> <span class="n">bitstream</span> <span class="n">file</span>
+<span class="o">--</span><span class="n">sed</span><span class="o">-</span><span class="n">file</span> <span class="n">arg</span>        <span class="n">SED</span> <span class="n">bitstream</span> <span class="n">file</span>
+<span class="o">--</span><span class="n">us4OEM</span><span class="o">-</span><span class="n">count</span> <span class="n">arg</span>    <span class="n">Number</span> <span class="n">of</span> <span class="n">us4OEM</span> <span class="n">modules</span>
+</pre></div>
 </div>
-<div class="section" id="us4oem-status">
-<h2>Us4OEM Status<a class="headerlink" href="#us4oem-status" title="Permalink to this headline">¶</a></h2>
-<p>TBD</p>
+<p>Examples:</p>
+<ol class="arabic simple">
+<li><p>Display help message: <code class="docutils literal notranslate"><span class="pre">./us4OEMFirmwareUpdate</span> <span class="pre">--help</span></code></p></li>
+<li><p>Update us4OEM ARRIA firmware only: <code class="docutils literal notranslate"><span class="pre">/us4OEMFirmwareUpdate</span> <span class="pre">--us4OEM-count</span> <span class="pre">2</span> <span class="pre">--rpd-file</span> <span class="pre">.\us4oem_0xbd612458.rpd</span></code></p></li>
+<li><p>Update us4OEM TX firmware only: <code class="docutils literal notranslate"><span class="pre">/us4OEMFirmwareUpdate</span> <span class="pre">--us4OEM-count</span> <span class="pre">2</span> <span class="pre">--sea-file</span> <span class="pre">us4oem_tx_a0a0a0a0a0.sea</span> <span class="pre">--sed-file</span> <span class="pre">us4oem_tx_a0a0a0a0a0.sed</span></code></p></li>
+<li><p>Update us4OEM ARRIA and TX firmware: <code class="docutils literal notranslate"><span class="pre">./us4OEMFirmwareUpdate</span> <span class="pre">--us4OEM-count</span> <span class="pre">2</span> <span class="pre">--rpd-file</span> <span class="pre">.\us4oem_0xbd612458.rpd</span> <span class="pre">--sea-file</span> <span class="pre">us4oem_tx_a0a0a0a0a0.sea</span> <span class="pre">--sed-file</span> <span class="pre">us4oem_tx_a0a0a0a0a0.sed</span></code></p></li>
+</ol>
+<p>After updating us4R device system should be power-cycled.</p>
 </div>
-<div class="section" id="hv-control">
-<h2>HV Control<a class="headerlink" href="#hv-control" title="Permalink to this headline">¶</a></h2>
-<p>TBD</p>
+<div class="section" id="device-control">
+<h3>Device Control<a class="headerlink" href="#device-control" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">Us4OEMControl</span>
+<span class="n">Allowed</span> <span class="n">options</span><span class="p">:</span>
+<span class="o">--</span><span class="n">help</span>                <span class="n">produce</span> <span class="n">help</span> <span class="n">message</span>
+<span class="o">--</span><span class="n">system</span> <span class="n">arg</span>          <span class="n">us4rlite</span> <span class="ow">or</span> <span class="n">us4r</span>
+<span class="o">--</span><span class="n">oem</span><span class="o">-</span><span class="nb">id</span> <span class="n">arg</span>          <span class="n">OEM</span> <span class="n">ID</span> <span class="p">(</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span> <span class="k">for</span> <span class="n">us4rlite</span><span class="p">,</span> <span class="mi">0</span><span class="o">-</span><span class="mi">7</span> <span class="k">for</span> <span class="n">us4r</span><span class="p">)</span>
+<span class="o">--</span><span class="n">afe</span><span class="o">-</span><span class="n">write</span> <span class="n">arg</span>       <span class="n">Write</span> <span class="n">AFE</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">register</span>
+<span class="o">--</span><span class="n">afe</span><span class="o">-</span><span class="n">read</span> <span class="n">arg</span>        <span class="n">Read</span> <span class="n">AFE</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">register</span>
+<span class="o">--</span><span class="n">reg</span> <span class="n">arg</span>             <span class="n">AFE</span> <span class="n">register</span> <span class="n">address</span>
+<span class="o">--</span><span class="n">value</span> <span class="n">arg</span>           <span class="n">AFE</span> <span class="n">register</span> <span class="n">value</span>
+<span class="o">--</span><span class="n">io</span><span class="o">-</span><span class="n">std</span> <span class="n">arg</span>          <span class="n">Sets</span> <span class="n">IO</span> <span class="n">level</span> <span class="p">(</span><span class="n">standard</span> <span class="n">mode</span><span class="p">)</span>
+<span class="o">--</span><span class="n">io</span><span class="o">-</span><span class="n">wave</span>             <span class="n">Sets</span> <span class="n">example</span> <span class="n">IO</span> <span class="n">waveform</span> <span class="n">mode</span>
+<span class="o">--</span><span class="n">seq</span><span class="o">-</span><span class="n">check</span>           <span class="n">Prints</span> <span class="n">sequencer</span> <span class="n">ctrl</span> <span class="o">&amp;</span> <span class="n">conf</span> <span class="n">registers</span>
+</pre></div>
 </div>
-<div class="section" id="dbar-lite-status">
-<h2>DBAR-Lite Status<a class="headerlink" href="#dbar-lite-status" title="Permalink to this headline">¶</a></h2>
-<p>TBD</p>
 </div>
-<div class="section" id="dbar-status">
-<h2>DBAR Status<a class="headerlink" href="#dbar-status" title="Permalink to this headline">¶</a></h2>
-<p>TBD</p>
+<div class="section" id="device-status">
+<h3>Device Status<a class="headerlink" href="#device-status" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">Us4OEMStatus</span>
+<span class="n">Allows</span> <span class="n">to</span> <span class="n">check</span> <span class="n">FPGA</span> <span class="n">firmware</span> <span class="n">version</span><span class="p">,</span> <span class="n">TX</span> <span class="n">firmware</span> <span class="n">version</span><span class="p">,</span> <span class="n">FPGA</span> <span class="n">temperature</span><span class="p">:</span>
+<span class="o">--</span><span class="n">help</span>                <span class="n">produce</span> <span class="n">help</span> <span class="n">message</span>
+<span class="o">--</span><span class="n">clearrail</span>           <span class="n">Clear</span> <span class="n">UCD</span> <span class="n">rail</span> <span class="n">status</span>
+<span class="o">--</span><span class="n">clearlog</span>            <span class="n">Clear</span> <span class="n">UCD</span> <span class="n">rail</span> <span class="n">fault</span> <span class="n">logs</span>
+<span class="o">--</span><span class="n">clearbb</span>             <span class="n">Clear</span> <span class="n">UCD</span> <span class="n">rail</span> <span class="n">fault</span> <span class="n">black</span> <span class="n">box</span>
+<span class="o">--</span><span class="n">vucd</span>                <span class="n">Prints</span> <span class="n">UCD</span> <span class="n">rail</span> <span class="n">status</span> <span class="ow">and</span> <span class="n">logs</span>
+<span class="o">--</span><span class="n">nUS4OEM</span> <span class="n">arg</span>         <span class="n">Number</span> <span class="n">of</span> <span class="n">US4OEM</span> <span class="n">devices</span>
+<span class="o">--</span><span class="n">init</span> <span class="n">arg</span>            <span class="n">Execute</span> <span class="n">us4oem</span> <span class="n">initialization</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="high-voltage-supplier-hv256-or-us4rpsc">
+<h2>High-Voltage supplier (HV256 or Us4RPSC)<a class="headerlink" href="#high-voltage-supplier-hv256-or-us4rpsc" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">HVControl</span>
+<span class="n">Allowed</span> <span class="n">options</span><span class="p">:</span>
+<span class="o">--</span><span class="n">help</span>                <span class="n">produce</span> <span class="n">help</span> <span class="n">message</span>
+<span class="o">--</span><span class="n">voltage</span> <span class="n">arg</span>         <span class="n">Set</span> <span class="n">HV</span> <span class="n">Voltage</span> <span class="p">[</span><span class="n">V</span><span class="p">]</span>
+<span class="o">--</span><span class="n">system</span> <span class="n">arg</span>          <span class="n">us4rlite</span> <span class="ow">or</span> <span class="n">us4r</span>
+<span class="o">--</span><span class="n">enable</span>              <span class="n">enable</span> <span class="n">HV</span>
+<span class="o">--</span><span class="n">disable</span>             <span class="n">disable</span> <span class="n">HV</span>
+<span class="o">--</span><span class="n">get</span>                 <span class="n">Get</span> <span class="nb">set</span> <span class="n">HV</span> <span class="n">voltage</span>
+<span class="o">--</span><span class="n">measure</span>             <span class="n">Get</span> <span class="n">measured</span> <span class="n">HV</span> <span class="n">voltages</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dbar-lite">
+<h2>DBAR-Lite<a class="headerlink" href="#dbar-lite" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">DBARLiteStatus</span>
+<span class="n">Allowed</span> <span class="n">options</span><span class="p">:</span>
+<span class="o">--</span><span class="n">help</span>                <span class="n">produce</span> <span class="n">help</span> <span class="n">message</span>
+<span class="o">--</span><span class="nb">id</span>                  <span class="n">Read</span> <span class="n">ID</span>
+<span class="o">--</span><span class="n">update</span><span class="o">-</span><span class="n">firmware</span> <span class="n">arg</span> <span class="n">Update</span> <span class="n">DBARLite</span> <span class="n">FPGA</span> <span class="n">firmware</span>
+</pre></div>
+</div>
+<div class="section" id="id1">
+<h3>Firmware update<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">DBARLiteStatus</span> <span class="o">--</span><span class="n">update</span><span class="o">-</span><span class="n">firmware</span> <span class="n">path</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">firmware</span><span class="o">.</span><span class="n">rpd</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>Device Status<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>For example, to read device id:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">DBARLiteStatus</span> <span class="o">--</span><span class="nb">id</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="dbar">
+<h2>DBAR<a class="headerlink" href="#dbar" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">DBARStatus</span>
+<span class="n">Allowed</span> <span class="n">options</span><span class="p">:</span>
+<span class="o">--</span><span class="n">help</span>                <span class="n">produce</span> <span class="n">help</span> <span class="n">message</span>
+<span class="o">--</span><span class="nb">id</span>                  <span class="n">Read</span> <span class="n">ID</span>
+<span class="o">--</span><span class="n">update</span><span class="o">-</span><span class="n">firmware</span> <span class="n">arg</span> <span class="n">Update</span> <span class="n">DBAR</span> <span class="n">FPGA</span> <span class="n">firmware</span>
+<span class="o">--</span><span class="n">dump</span><span class="o">-</span><span class="n">flash</span> <span class="n">arg</span>      <span class="n">Dump</span> <span class="n">flash</span> <span class="n">sector</span> <span class="n">to</span> <span class="n">a</span> <span class="n">file</span>
+<span class="o">--</span><span class="n">sector</span> <span class="n">arg</span>          <span class="n">Sector</span> <span class="n">number</span>
+<span class="o">--</span><span class="n">nUS4OEM</span> <span class="n">arg</span>         <span class="n">Number</span> <span class="n">of</span> <span class="n">US4OEM</span> <span class="n">devices</span>
+</pre></div>
+</div>
+<div class="section" id="id3">
+<h3>Firmware update<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">DBARStatus</span> <span class="o">--</span><span class="n">nUS4OEM</span> <span class="mi">8</span> <span class="o">--</span><span class="n">update</span><span class="o">-</span><span class="n">firmware</span> <span class="n">path</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">firmware</span><span class="o">.</span><span class="n">rpd</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>Device Status<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>For example, to read device id:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">DBARStatus</span> <span class="o">--</span><span class="nb">id</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 

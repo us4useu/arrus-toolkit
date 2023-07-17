@@ -1,7 +1,7 @@
-.. _examples-installation:
+.. _arrus-toolkit-examples:
 
 ========
 Examples
 ========
 
-TBD
+In preparation...
