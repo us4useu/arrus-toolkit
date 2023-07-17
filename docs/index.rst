@@ -1,4 +1,4 @@
-Welcome to ARRUS documentation!
+ARRUS Toolkit documentation
 ===================================
 
 .. toctree::

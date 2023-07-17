@@ -1,0 +1,8 @@
+Sphinx==3.3.1
+Jinja2==3.0.3
+sphinx_rtd_theme==0.5.0
+docutils
+six
+myst-parser
+piccolo-theme
+sphinx-book-theme
