@@ -21,7 +21,6 @@ def configure(session: arrus.Session):
     tgc_sampling_points = np.linspace(np.min(z_grid), np.max(z_grid), 10)
     tgc_values = np.linspace(14, 54, 10)
 
-
     sequence = PwiSequence(
         angles=np.linspace(-10, 10, 32) * np.pi / 180,
         pulse=Pulse(center_frequency=6e6, n_periods=2, inverse=False),
