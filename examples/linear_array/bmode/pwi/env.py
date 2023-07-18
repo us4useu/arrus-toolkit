@@ -21,10 +21,11 @@ def configure(session: arrus.Session):
     tgc_sampling_points = np.linspace(np.min(z_grid), np.max(z_grid), 10)
     tgc_values = np.linspace(54, 54, 10)
 
+
     sequence = PwiSequence(
         angles=np.linspace(-10, 10, 32) * np.pi / 180,
         pulse=Pulse(center_frequency=6e6, n_periods=2, inverse=False),
-        rx_sample_range=get_depth_range(z_grid),
+        rx_depth_range=get_depth_range(z_grid),
         speed_of_sound=medium.speed_of_sound,
         pri=200e-6,
     )
@@ -44,6 +45,6 @@ def configure(session: arrus.Session):
 
 
 ENV = UltrasoundEnv(
-    session_cfg="/home/us4us/us4r.prototxt",
+    session_cfg="/home/pjarosik/us4r.prototxt",
     configure=configure,
 )
