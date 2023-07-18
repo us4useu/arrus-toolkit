@@ -19,7 +19,7 @@ def configure(session: arrus.Session):
 
     # Initial TGC curve.
     tgc_sampling_points = np.linspace(np.min(z_grid), np.max(z_grid), 10)
-    tgc_values = np.linspace(54, 54, 10)
+    tgc_values = np.linspace(14, 54, 10)
 
     sequence = StaSequence(
         tx_aperture_center=np.linspace(-15, 15, 11)*1e-3,

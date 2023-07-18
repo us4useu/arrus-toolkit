@@ -21,15 +21,16 @@ def configure(session: arrus.Session):
     tgc_sampling_points = np.linspace(np.min(z_grid), np.max(z_grid), 10)
     tgc_values = np.linspace(14, 54, 10)
 
-    sequence = StaSequence(
+    sequence = LinSequence(
         tx_aperture_center_element=np.arange(32, probe_model.n_elements-32),
-        tx_aperture_size=1,
-        tx_focus=0,
+        tx_aperture_size=64,
+        tx_focus=20e-3,
         pulse=Pulse(center_frequency=6e6, n_periods=2, inverse=False),
+        rx_aperture_center_element=np.arange(32, probe_model.n_elements-32),
+        rx_aperture_size=64,
         rx_depth_range=get_depth_range(z_grid),
-        speed_of_sound=medium.speed_of_sound,
-        pri=200e-6
-    )
+        pri=200e-6,
+        speed_of_sound=medium.speed_of_sound)
 
     pipeline = get_bmode_imaging(
         sequence=sequence,
