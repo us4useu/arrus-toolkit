@@ -4,7 +4,9 @@ import cupy as cp
 import numpy as np
 import scipy.signal
 import cupyx.scipy.ndimage
-from arrus.utils.imaging import Operation
+from arrus.utils.imaging import Operation, ParameterDef, Box, Unit
+from typing import Dict, Sequence
+from numbers import Number
 
 
 class CreateDopplerFrame(Operation):
@@ -48,6 +50,61 @@ class CreateDopplerFrame(Operation):
         mask = cp.logical_and(mask_color, mask_power)
         self.output_buffer[mask] = None
         return self.output_buffer
+
+    def get_parameters(self) -> Dict[str, ParameterDef]:
+        params = [
+            ParameterDef(
+                name="power_dr_min",
+                space=Box(
+                    shape=(1,),
+                    dtype=np.float32,
+                    unit=Unit.dB,
+                    low=-np.inf,
+                    high=np.inf
+                ),
+            ),
+            ParameterDef(
+                name="power_dr_max",
+                space=Box(
+                    shape=(1,),
+                    dtype=np.float32,
+                    unit=Unit.dB,
+                    low=-np.inf,
+                    high=np.inf
+                ),
+            ),
+            ParameterDef(
+                name="color_dr_min",
+                space=Box(
+                    shape=(1,),
+                    dtype=np.float32,
+                    unit=Unit.dB,
+                    low=-np.inf,
+                    high=np.inf
+                ),
+            ),
+            ParameterDef(
+                name="color_dr_max",
+                space=Box(
+                    shape=(1,),
+                    dtype=np.float32,
+                    unit=Unit.dB,
+                    low=-np.inf,
+                    high=np.inf
+                ),
+            )
+        ]
+        return dict(((p.name, p) for p in params))
+
+    def set_parameter(self, key: str, value: Sequence[Number]):
+        if not hasattr(self, key):
+            raise ValueError(f"{type(self).__name__} has no {key} parameter.")
+        setattr(self, key, value)
+
+    def get_parameter(self, key: str) -> Sequence[Number]:
+        if not hasattr(self, key):
+            raise ValueError(f"{type(self).__name__} has no {key} parameter.")
+        return getattr(self, key)
 
 
 class ReconstructDoppler(Operation):
