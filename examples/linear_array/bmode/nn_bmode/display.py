@@ -18,7 +18,7 @@ displays = {
         title=f"NN-B-mode",
         layers=(
             Layer2D(
-                value_range=(100, 200),
+                value_range=(140, 250),
                 cmap="gray",
                 input=StreamDataId("default", 1),
             ),
