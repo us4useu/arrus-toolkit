@@ -39,7 +39,7 @@ def configure(session: arrus.Session):
     tgc_values = np.linspace(14, 54, 10)
 
     sequence = PwiSequence(
-        angles=np.linspace(-10, 10, 7) * np.pi / 180,
+        angles=np.linspace(-10, 10, 16) * np.pi / 180,
         pulse=Pulse(center_frequency=8e6, n_periods=2, inverse=False),
         rx_depth_range=get_depth_range(z_grid),
         speed_of_sound=medium.speed_of_sound,
