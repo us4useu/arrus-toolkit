@@ -17,7 +17,10 @@ class CreateDopplerFrame(Operation):
     def __init__(self,
                  color_dynamic_range=(-30e-3, 30e-3),
                  power_dynamic_range=(0, 80),
-                 frame_type="color"):
+                 frame_type="color",
+                 name: str = None
+                 ):
+        super().__init__(name=name)
         self.color_dr_min, self.color_dr_max = color_dynamic_range
         self.power_dr_min, self.power_dr_max = power_dynamic_range
         if frame_type == "color":
@@ -47,7 +50,7 @@ class CreateDopplerFrame(Operation):
             power_doppler > self.power_dr_min,
             power_doppler < self.power_dr_max
         )
-        mask = cp.logical_and(mask_color, mask_power)
+        mask = cp.logical_not(cp.logical_and(mask_color, mask_power))
         self.output_buffer[mask] = None
         return self.output_buffer
 

@@ -53,9 +53,21 @@ def configure(session: arrus.Session):
                     FilterWallClutter(w_n=0.3, n=64),
                     ReconstructDoppler(),
                     Transpose(axes=(0, 2, 1)),
+                    Pipeline(
+                        steps=(
+                            CreateDopplerFrame(
+                                color_dynamic_range=(-30, 30),
+                                power_dynamic_range=(0, 80),
+                                frame_type="power"
+                            ),
+                        ),
+                        placement="/GPU:0"
+                    ),
                     CreateDopplerFrame(
                         color_dynamic_range=(-30, 30),
-                        power_dynamic_range=(0, 80))
+                        power_dynamic_range=(0, 80),
+                        frame_type="color",
+                    )
                 ),
                 placement="/GPU:0"
             ),
