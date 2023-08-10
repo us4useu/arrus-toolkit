@@ -7,12 +7,12 @@ displays = {
         title=f"Color Doppler",
         layers=(
             Layer2D(
-                value_range=(20, 80),
+                value_range=(60, 120),
                 cmap="gray",
                 input=StreamDataId("default", 0),
             ),
             Layer2D(
-                value_range=(-300e-3, 300e-3),
+                value_range=(-3000e-3, 3000e-3),
                 cmap="bwr",
                 input=StreamDataId("default", 1),
             ),
@@ -22,12 +22,12 @@ displays = {
         title=f"Power Doppler",
         layers=(
             Layer2D(
-                value_range=(20, 80),
+                value_range=(60, 120),
                 cmap="gray",
                 input=StreamDataId("default", 0),
             ),
             Layer2D(
-                value_range=(20, 80),
+                value_range=(0, 200),
                 cmap="hot",
                 input=StreamDataId("default", 2),
             ),

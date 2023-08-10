@@ -29,7 +29,7 @@ def configure(session: arrus.Session):
     n_angles = 64
     doppler_sequence = PwiSequence(
         angles=np.array([doppler_angle * np.pi / 180]),
-        pulse=Pulse(center_frequency=center_frequency, n_periods=2,
+        pulse=Pulse(center_frequency=center_frequency, n_periods=16,
                     inverse=False),
         rx_sample_range=(0, 2*1024),
         speed_of_sound=medium.speed_of_sound,
@@ -47,25 +47,26 @@ def configure(session: arrus.Session):
             Decimation(decimation_factor=4, cic_order=2),
             ReconstructLri(x_grid=x_grid, z_grid=z_grid),
             Squeeze(),
+            Output(),
             Pipeline(
                 # -> Color Doppler.
                 steps=(
-                    FilterWallClutter(w_n=0.3, n=64),
+                    FilterWallClutter(w_n=0.2, n=8),
                     ReconstructDoppler(),
                     Transpose(axes=(0, 2, 1)),
                     Pipeline(
                         steps=(
                             CreateDopplerFrame(
-                                color_dynamic_range=(-30, 30),
-                                power_dynamic_range=(0, 80),
+                                color_dynamic_range=(-300, 300),
+                                power_dynamic_range=(150, 200),
                                 frame_type="power"
                             ),
                         ),
                         placement="/GPU:0"
                     ),
                     CreateDopplerFrame(
-                        color_dynamic_range=(-30, 30),
-                        power_dynamic_range=(0, 80),
+                        color_dynamic_range=(-3000, 3000),
+                        power_dynamic_range=(0, 200),
                         frame_type="color",
                     )
                 ),
@@ -93,6 +94,6 @@ def configure(session: arrus.Session):
 
 
 ENV = UltrasoundEnv(
-    session_cfg="/home/pjarosik/us4r.prototxt",
+    session_cfg="/home/zklim/us4r.prototxt",
     configure=configure,
 )

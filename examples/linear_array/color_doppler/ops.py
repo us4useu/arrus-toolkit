@@ -4,6 +4,7 @@ import cupy as cp
 import numpy as np
 import scipy.signal
 import cupyx.scipy.ndimage
+import cupyx.scipy.signal
 from arrus.utils.imaging import Operation, ParameterDef, Box, Unit
 from typing import Dict, Sequence
 from numbers import Number
@@ -158,12 +159,26 @@ class FilterWallClutter(Operation):
         self.n = n
 
     def prepare(self, metadata):
-        if self.n % 2 == 0:
-            self.actual_n = self.n+1
-        self.taps = scipy.signal.firwin(self.actual_n, self.w_n, pass_zero=False)
-        self.taps = cp.array(self.taps)
+        self.iir_ba = scipy.signal.iirfilter(
+            self.n,
+            self.w_n,
+            ftype='butter',
+            btype='highpass',
+            output='ba',
+        )
+        self.iir_ba = cp.array(self.iir_ba)
         return metadata
 
     def process(self, data):
-        output = cupyx.scipy.ndimage.convolve1d(data, self.taps, axis=0)
+        output = cupyx.scipy.signal.filtfilt(
+            self.iir_ba[0],
+            self.iir_ba[1],
+            data,
+            axis=0,
+        )
+        # n,_,_ = output.shape
+        # output = output(int(n/2):-1, :, :) 
+        # output = output[0:int(n/2), :, :]
+        # output = cp.concatenate((output, output))
+        output = output.astype('complex64')
         return output
