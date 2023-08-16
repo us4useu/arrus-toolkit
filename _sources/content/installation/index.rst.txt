@@ -185,7 +185,7 @@ Device Manager.
 
 
 us4OEM+/us4OEM firmware
---------
+-----------------------
 
 .. warning::
 
