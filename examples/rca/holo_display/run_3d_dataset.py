@@ -54,7 +54,9 @@ def main():
 
     print("Press CTRL+C to stop the example")
 
+    i = 0
     while True:
         output = pipeline.process(cp.asarray(rf[i % 3]))
         vol = output[0].get()
         visualizer.update(vol)
+        i += 1
