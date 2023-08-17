@@ -66,7 +66,7 @@ class VTKVisualizer:
 
         opacityTransferFunction = vtkPiecewiseFunction()
         opacityTransferFunction.AddPoint(0, 0.0)
-        opacityTransferFunction.AddPoint(40, 0.0)
+        opacityTransferFunction.AddPoint(20, 0.0)
         opacityTransferFunction.AddPoint(120, 1.0)
 
         # Create transfer mapping scalar value to color.

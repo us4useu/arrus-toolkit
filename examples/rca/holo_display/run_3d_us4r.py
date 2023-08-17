@@ -38,6 +38,7 @@ def main():
             pri=pri
         )
 
+
         # Image reconstruction.
         fir_taps = scipy.signal.firwin(
             numtaps=64, cutoff=np.array([0.5, 1.5]) * center_frequency,
@@ -75,7 +76,7 @@ def main():
             processing=pipeline_wrapper
         )
         buffer, output_metadata = sess.upload(scheme)
-        visualizer = VTKVisualizer(output_metadata[0].input_shape, use_lgf=False)
+        visualizer = VTKVisualizer(output_metadata.input_shape, use_lgf=False)
         print("Press CTRL+C multiple times to stop the example")
 
         us4r.set_tgc([50] * 26)
@@ -83,3 +84,7 @@ def main():
         while True:
             volume = buffer.get()[0]
             visualizer.update(volume)
+
+
+if __name__ == "__main__":
+    main()
