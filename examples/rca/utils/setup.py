@@ -11,6 +11,9 @@ setuptools.setup(
     url="https://us4us.eu",
     packages=setuptools.find_packages(exclude=[]),
     include_package_data=True,
+    package_data={
+        "arrus_rca_utils": ["*.cu"]
+    },
     classifiers=[
         "Development Status :: 1 - Planning",
 
