@@ -1,4 +1,4 @@
-from sequence import (
+from arrus_rca_utils.sequence import (
     _get_system_sequence_alternate_arrangement,
     _get_system_sequence_same_arrangement
 )
@@ -7,7 +7,7 @@ from arrus.utils.imaging import *
 import itertools
 import cupy as cp
 from arrus.ops.us4r import TxRxSequence
-import probe_params
+import arrus_rca_utils.probe_params as probe_params
 
 
 def get_frame_ranges(*seqs):

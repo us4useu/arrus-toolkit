@@ -12,7 +12,7 @@ from arrus.devices.probe import ProbeModel, ProbeModelId
 from arrus.kernels.tx_rx_sequence import (
     convert_to_us4r_sequence
 )
-import probe_params
+import arrus_rca_utils.probe_params as probe_params
 
 
 @dataclass(frozen=True)

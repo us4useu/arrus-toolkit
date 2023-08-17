@@ -41,22 +41,28 @@ def main():
     pipeline = get_pwi_reconstruction(
         array_x=probe_params.APERTURE_X,
         array_y=probe_params.APERTURE_Y,
-        y_grid=np.arange(-6e-3, 6e-3, 0.2e-3),
-        x_grid=np.arange(-6e-3, 6e-3, 0.2e-3),
-        z_grid=np.arange(15e-3, 45e-3, 0.2e-3),
+        y_grid=np.arange(-6e-3, 6e-3, 0.4e-3),
+        x_grid=np.arange(-6e-3, 6e-3, 0.4e-3),
+        z_grid=np.arange(25e-3, 43e-3, 0.4e-3),
         fir_taps=fir_taps,
         sequence_xy=sequence_xy,
         sequence_yx=sequence_yx,
-        dr_min=30, dr_max=80,
+        dr_min=-5, dr_max=120,
     )
     output_metadata = pipeline.prepare(metadata)
-    visualizer = VTKVisualizer(output_metadata[0].input_shape)
+    visualizer = VTKVisualizer(output_metadata[0].input_shape, use_lgf=False)
 
-    print("Press CTRL+C to stop the example")
+    print("Press CTRL+C multiple times to stop the example")
+
+    n_frames = len(rf)
 
     i = 0
     while True:
-        output = pipeline.process(cp.asarray(rf[i % 3]))
+        output = pipeline.process(cp.asarray(rf[i % n_frames]))
         vol = output[0].get()
         visualizer.update(vol)
         i += 1
+
+
+if __name__ == "__main__":
+    main()

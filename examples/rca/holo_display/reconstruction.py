@@ -1,4 +1,17 @@
-from arrus_rca_utils.reconstruction import *
+from arrus_rca_utils.reconstruction import (
+    ReconstructHriRca,
+    GetFramesForRange,
+    Concatenate,
+    get_frame_ranges,
+    get_rx_aperture_size,
+    PipelineSequence,
+    SelectBatch
+)
+from arrus.ops.us4r import (
+    TxRxSequence
+)
+from arrus.utils.imaging import *
+import probe_params
 
 
 def reorder_rf(frames, aperture_size):
@@ -31,7 +44,7 @@ def to_hri(
     )
 
 
-def to_bmode():
+def to_bmode(dr_min, dr_max):
     return (
         # Concatenate along TX axis
         Concatenate(axis=0),
@@ -39,6 +52,7 @@ def to_bmode():
         Squeeze(),
         EnvelopeDetection(),
         LogCompression(),
+        DynamicRangeAdjustment(min=dr_min, max=dr_max),
         Squeeze(),
     )
 
@@ -94,7 +108,10 @@ def get_pwi_reconstruction(
         name="bmode",
         steps=(
             SelectBatch([0, 1]),
-            *to_bmode(),
+            *to_bmode(
+                dr_min=dr_min,
+                dr_max=dr_max
+            ),
 
         ),
         placement="/GPU:0"

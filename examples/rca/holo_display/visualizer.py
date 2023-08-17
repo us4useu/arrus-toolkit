@@ -35,32 +35,28 @@ import vtk
 from vtkmodules.vtkRenderingVolumeOpenGL2 import vtkOpenGLRayCastImageDisplayHelper
 from vtk import vtkRenderingLookingGlass
 
+
 class VTKVisualizer:
 
-    def __init__(self, dimensions):
+    def __init__(self, dimensions, use_lgf=True):
         colors = vtkNamedColors()
         # Create a looking glass render window
-        self.renWin = vtkRenderingLookingGlass.vtkLookingGlassInterface.CreateLookingGlassRenderWindow()
-
-        if self.renWin.GetDeviceType() == "standard":
-            # This looks better on large settings
-            self.renWin.SetDeviceType("large")
-
-        num_tiles = np.prod(self.renWin.GetInterface().GetQuiltTiles())
-
         ren1 = vtk.vtkRenderer()
-        # self.renWin = vtkRenderWindow()
-        self.renWin.AddRenderer(ren1)
-
         iren = vtkRenderWindowInteractor()
-        iren.SetRenderWindow(self.renWin)
 
-        #  The desired update rate is for a single render of the renderer.
-        # For the looking glass, however, there will be one render for each
-        # tile. Thus, we should modify the desired update rate to be the
-        # previous update rate * the number of tiles, in order to improve
-        # render rate during interaction.
-        iren.SetDesiredUpdateRate(iren.GetDesiredUpdateRate()*num_tiles)
+        if use_lgf:
+            self.renWin = vtkRenderingLookingGlass.vtkLookingGlassInterface.CreateLookingGlassRenderWindow()
+            if self.renWin.GetDeviceType() == "standard":
+                # This looks better on large settings
+                self.renWin.SetDeviceType("large")
+            num_tiles = np.prod(self.renWin.GetInterface().GetQuiltTiles())
+            iren.SetRenderWindow(self.renWin)
+            iren.SetDesiredUpdateRate(iren.GetDesiredUpdateRate()*num_tiles)
+        else:
+            self.renWin = vtkRenderWindow()
+            iren.SetRenderWindow(self.renWin)
+
+        self.renWin.AddRenderer(ren1)
 
         self.data = vtkImageData()
         dimensions = tuple(reversed(dimensions))
@@ -85,7 +81,9 @@ class VTKVisualizer:
         volumeProperty.SetInterpolationTypeToLinear()
 
         # The mapper / ray cast function know how to render the data.
-        volumeMapper = vtk.vtkGPUVolumeRayCastMapper()  # vtk.vtkOpenGLGPUVolumeRayCastMapper() # vtkFixedPointVolumeRayCastMapper()
+        volumeMapper = vtk.vtkGPUVolumeRayCastMapper()
+        # or vtk.vtkOpenGLGPUVolumeRayCastMapper()
+        # or vtkFixedPointVolumeRayCastMapper()
         volumeMapper.SetInputData(self.data)
 
         # The volume holds the mapper and the property and
