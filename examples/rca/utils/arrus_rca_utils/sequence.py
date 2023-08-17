@@ -26,20 +26,36 @@ class RcaSequence:
     arrangement: str = "alternate"
 
 
-def convert_to_system_sequence(sequences: Iterable[RcaSequence], metadata):
+def convert_to_system_sequence_for_metadata(
+    sequences: Iterable[RcaSequence],
+    metadata
+):
+    return convert_to_system_sequence(
+        sequences=sequences,
+        probe_model=metadata.context.device.probe.model,
+        device_sampling_frequency=metadata.context.device.sampling_frequency
+    )
+
+
+def convert_to_system_sequence(
+        sequences: Iterable[RcaSequence],
+        probe_model: ProbeModel,
+        device_sampling_frequency,
+):
     seqs = []
     for s in sequences:
         if s.arrangement in {"same_x", "same_y"}:
             raw_sequence, _ = _get_system_sequence_same_arrangement(
                 sequence=s.sequence, array=s.tx,
                 arrangement=s.arrangement,
-                metadata=metadata
+                device_sampling_frequency=device_sampling_frequency,
+                probe_model=probe_model
             )
         elif s.arrangement == "alternate":
             raw_sequence, _ = _get_system_sequence_alternate_arrangement(
                 sequence=s.sequence,
                 array_tx=s.tx, array_rx=s.rx,
-                metadata=metadata
+                device_sampling_frequency=device_sampling_frequency
             )
         else:
             raise ValueError(f"Unknown orientation: {s.arrangement}")
@@ -52,13 +68,15 @@ def _get_system_sequence_same_arrangement(
         sequence: TxRxSequence,
         array: probe_params.ProbeArray,
         arrangement: str,
-        metadata
+        probe_model: ProbeModel,
+        device_sampling_frequency: float,
 ):
+    total_n_elements = probe_model.n_elements
     arrus_pm = array.to_arrus_probe()
     raw_sequence, tx_delay = convert_to_us4r_sequence(
         sequence=sequence,
         probe_model=arrus_pm,
-        fs=metadata.context.device.sampling_frequency
+        fs=device_sampling_frequency
     )
     if arrangement == "same_x":
         should_append_left = True
@@ -68,7 +86,7 @@ def _get_system_sequence_same_arrangement(
         raise ValueError(f"Unknown arrangement: {arrangement}")
     raw_sequence = __extend_aperture(
         sequence=raw_sequence,
-        n_missing_elements=arrus_pm.n_elements - array.n_elements,
+        n_missing_elements=total_n_elements - array.n_elements,
         is_append_left=should_append_left
     )
     return raw_sequence, tx_delay
@@ -78,7 +96,7 @@ def _get_system_sequence_alternate_arrangement(
         sequence,
         array_tx: probe_params.ProbeArray,
         array_rx: probe_params.ProbeArray,
-        metadata
+        device_sampling_frequency: float
 ):
     seq_array_tx, seq_array_rx = __split_sequence_between_arrays(
         sequence=sequence, array_tx=array_tx, array_rx=array_rx
@@ -88,12 +106,12 @@ def _get_system_sequence_alternate_arrangement(
     raw_seq_tx, init_delay = convert_to_us4r_sequence(
         sequence=seq_array_tx,
         probe_model=arrus_array_tx,
-        fs=metadata.context.device.sampling_frequency
+        fs=device_sampling_frequency
     )
     raw_seq_rx, _ = convert_to_us4r_sequence(
         sequence=seq_array_rx,
         probe_model=arrus_array_rx,
-        fs=metadata.context.device.sampling_frequency
+        fs=device_sampling_frequency
     )
     if array_rx.start < array_tx.start:
         seqs = (raw_seq_rx, raw_seq_tx)

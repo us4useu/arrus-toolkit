@@ -1,10 +1,8 @@
 import numpy as np
 import arrus.medium
 from arrus.ops.us4r import TxRxSequence, TxRx, Tx, Rx, Aperture, Pulse
-from arrus.devices.probe import ProbeModel
 from typing import Tuple
 
-from arrus_rca_utils.sequence import convert_to_system_sequence, RcaSequence
 import probe_params
 
 
@@ -95,24 +93,3 @@ def create_sequence(
         tgc_curve=[]  # Will be set later.
     )
     return sequence_xy, sequence_yx
-
-
-def get_system_sequence(
-        sequence_xy: TxRxSequence, sequence_yx: TxRxSequence,
-        probe_model: ProbeModel,
-        device_sampling_frequency: float
-):
-    return convert_to_system_sequence(
-        sequences=[
-            RcaSequence(
-                sequence=sequence_xy,
-                tx=probe_params.APERTURE_X, rx=probe_params.APERTURE_Y,
-            ),
-            RcaSequence(
-                sequence=sequence_yx,
-                tx=probe_params.APERTURE_Y, rx=probe_params.APERTURE_X,
-            ),
-        ],
-        probe_model=probe_model,
-        device_sampling_frequency=device_sampling_frequency
-    )

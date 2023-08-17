@@ -14,7 +14,6 @@ from visualizer import VTKVisualizer
 
 def main():
     rf, metadata = load_rca_cyst_dataset()
-
     MEDIUM = arrus.medium.Medium(name="tissue", speed_of_sound=1540)
     angles = np.linspace(-10, 10, 64) * np.pi / 180  # [rad]
     center_frequency = 6e6  # [Hz]

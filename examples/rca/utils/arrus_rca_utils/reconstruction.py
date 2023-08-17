@@ -219,7 +219,7 @@ class ReconstructHriRca(Operation):
             raw_seq, tx_cent_delay = _get_system_sequence_alternate_arrangement(
                 sequence=self.sequence,
                 array_tx=self.array_tx, array_rx=self.array_rx,
-                metadata=const_metadata
+                device_sampling_frequency=const_metadata.context.device.sampling_frequency
             )
         elif self.arrangement in {"same_x", "same_y"}:
             raw_seq, tx_cent_delay = _get_system_sequence_same_arrangement(
