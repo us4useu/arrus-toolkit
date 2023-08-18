@@ -148,7 +148,7 @@ class ReconstructDoppler(Operation):
         self.doppler(self.grid, self.block, params)
         result = self.output
         result[0] = result[0]*self.scale    # [m/s]
-        result[1] = 20*cp.log10(result[1])  # [dB]
+        result[1] = 10*cp.log10(result[1])  # [dB]
         return result
 
 

@@ -10,7 +10,40 @@ from gui4us.model.envs.arrus import (
 )
 from ops import ReconstructDoppler, FilterWallClutter, CreateDopplerFrame
 import cupy as cp
+from display import BMODE_DRANGE, COLOR_DRANGE, POWER_DRANGE
 
+
+def gen_txrxlst(
+        angles,
+        n_periods,
+        n_elements,
+        center_frequency,
+        speed_of_sound,
+        sample_range,
+        pri,
+):
+
+    txrxs = []
+    rx = Rx(
+        aperture=[True]*n_elements,
+        sample_range=sample_range,
+        downsampling_factor=1,
+    )
+    for angle in angles:
+        tx = Tx(
+            aperture=[True]*n_elements,
+            excitation=Pulse(
+                center_frequency=center_frequency,
+                n_periods=n_periods,
+                inverse=False
+            ),
+            focus=np.inf,
+            angle=angle,
+            speed_of_sound=speed_of_sound,
+        )
+        txrx = TxRx(tx, rx, pri)
+        txrxs.append(txrx)
+    return txrxs
 
 def configure(session: arrus.Session):
     medium = arrus.medium.Medium(name="human_carotid", speed_of_sound=1540)
@@ -22,27 +55,57 @@ def configure(session: arrus.Session):
     # Initial TGC curve.
     tgc_sampling_points = np.linspace(np.min(z_grid), np.max(z_grid), 10)
     tgc_values = np.linspace(54, 54, 10)
+    # tgc = Curve(points=tgc_sampling_points, values=tgc_values),
 
     # Doppler sequence.
     center_frequency = 6e6
     doppler_angle = 10  # [deg]
-    n_angles = 64
+    n_doppler_tx = 64
+    pri = 100e-6
+    sample_range = (0, 2*1024)
     doppler_sequence = PwiSequence(
         angles=np.array([doppler_angle * np.pi / 180]),
-        pulse=Pulse(center_frequency=center_frequency, n_periods=16,
-                    inverse=False),
+        pulse=Pulse(
+            center_frequency=center_frequency,
+            n_periods=16,
+            inverse=False
+        ),
         rx_sample_range=(0, 2*1024),
         speed_of_sound=medium.speed_of_sound,
         pri=100e-6,
-        n_repeats=n_angles
+        n_repeats=n_doppler_tx,
     )
+
+    # TODO: sekwencja z TxRxSequence zamiast PwiSequence
+    # doppler_txrx = gen_txrxlst(
+        # angles=np.tile(doppler_angle*np.pi/180, n_doppler_tx),
+        # n_periods=16,
+        # n_elements=probe_model.n_elements,
+        # center_frequency=center_frequency,
+        # speed_of_sound=medium.speed_of_sound,
+        # sample_range=sample_range,
+        # pri=pri,
+    # )
+    # doppler_sequence = TxRxSequence(doppler_txrx, tgc_values)
+
+
+    # bmode_txrx = gen_txrxlst(
+        # angles=np.linspace(-10, 10, 7)*np.pi/180,
+        # n_periods=2,
+        # n_elements=probe_model.n_elements,
+        # center_frequency=center_frequency,
+        # speed_of_sound=medium.speed_of_sound,
+        # sample_range=sample_range,
+        # pri=pri,
+    # )
+    # full_sequence = TxRxSequence(bmode_txrx + doppler_txrx, tgc_values)
 
     # Pipeline.
     pipeline = Pipeline(
         steps=(
             RemapToLogicalOrder(),
             Transpose(axes=(0, 1, 3, 2)),
-            BandpassFilter(),
+            # BandpassFilter(),
             QuadratureDemodulation(),
             Decimation(decimation_factor=4, cic_order=2),
             ReconstructLri(x_grid=x_grid, z_grid=z_grid),
@@ -51,22 +114,22 @@ def configure(session: arrus.Session):
             Pipeline(
                 # -> Color Doppler.
                 steps=(
-                    FilterWallClutter(w_n=0.2, n=8),
+                    FilterWallClutter(w_n=0.3, n=8),
                     ReconstructDoppler(),
                     Transpose(axes=(0, 2, 1)),
                     Pipeline(
                         steps=(
                             CreateDopplerFrame(
-                                color_dynamic_range=(-300, 300),
-                                power_dynamic_range=(150, 200),
+                                color_dynamic_range=COLOR_DRANGE,
+                                power_dynamic_range=POWER_DRANGE,
                                 frame_type="power"
                             ),
                         ),
                         placement="/GPU:0"
                     ),
                     CreateDopplerFrame(
-                        color_dynamic_range=(-3000, 3000),
-                        power_dynamic_range=(0, 200),
+                        color_dynamic_range=COLOR_DRANGE,
+                        power_dynamic_range=POWER_DRANGE,
                         frame_type="color",
                     )
                 ),
@@ -74,7 +137,7 @@ def configure(session: arrus.Session):
             ),
             # -> B-mode. Take the last PW frame to create the background B-mode
             # image.
-            SelectFrames([n_angles-1]),
+            SelectFrames([n_doppler_tx-1]),
             Squeeze(),
             EnvelopeDetection(),
             Transpose(),
