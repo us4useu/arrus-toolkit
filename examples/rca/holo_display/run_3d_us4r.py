@@ -50,7 +50,7 @@ def main():
             array_y=probe_params.APERTURE_Y,
             y_grid=np.arange(-6e-3, 6e-3, 0.2e-3),
             x_grid=np.arange(-6e-3, 6e-3, 0.2e-3),
-            z_grid=np.arange(25e-3, 43e-3, 0.2e-3),
+            z_grid=np.arange(0e-3, 43e-3, 0.2e-3),
             fir_taps=fir_taps,
             sequence_xy=sequence_xy,
             sequence_yx=sequence_yx,

@@ -58,7 +58,6 @@ def create_sequence(
             )
             for angle in angles
         ],
-        tgc_curve=[]  # Will be set later.
     )
 
     # Transmit with OY elements, receive with OX elements.
@@ -92,7 +91,6 @@ def create_sequence(
             )
             for angle in angles
         ],
-        tgc_curve=[]  # Will be set later.
     )
     return sequence_xy, sequence_yx
 

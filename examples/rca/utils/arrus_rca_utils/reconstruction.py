@@ -8,6 +8,8 @@ import itertools
 import cupy as cp
 from arrus.ops.us4r import TxRxSequence
 import arrus_rca_utils.probe_params as probe_params
+import dataclasses
+import arrus.metadata
 
 
 def get_frame_ranges(*seqs):
@@ -94,10 +96,49 @@ class SelectBatch(Operation):
         return result
 
 
-class PipelineSequence(Operation):
+class Slice(Operation):
+
+    def __init__(self, axis, position=None):
+        super().__init__()
+        self.axis = axis
+        self.position = position
+
+    def prepare(self, const_metadata):
+        input_shape = list(const_metadata.input_shape)
+
+        if self.position is None:
+            self.position = input_shape[self.axis]//2
+
+        self.slicing = [None] * len(input_shape)
+        self.slicing[self.axis] = self.position
+        self.slicing = tuple(self.slicing)
+
+        # Updating metadata.
+        input_shape.pop(self.axis)
+        output_shape = tuple(input_shape)
+        output_description = const_metadata.data_description
+        if output_description.spacing is not None:
+            output_spacing = list(output_description.spacing.coordinates)
+            output_spacing.pop(self.axis)
+            output_spacing = list(output_spacing)
+            output_description = dataclasses.replace(
+                const_metadata.data_description,
+                spacing=output_spacing
+            )
+
+        return const_metadata.copy(
+            input_shape=output_shape,
+            data_desc=output_description
+        )
+
+    def process(self, data):
+        return data[self.slicing]
+
+
+class PipelineSequence(Pipeline):
 
     def __init__(self, pipelines):
-        super().__init__()
+        # Intentionally not calling super constructor.
         self.pipelines = pipelines
         self._set_names()
         self._determine_params()
@@ -113,6 +154,9 @@ class PipelineSequence(Operation):
         for p in self.pipelines:
             d = p.process(d)
         return d
+
+    def __call__(self, data):
+        return self.process(data)
 
     def set_parameter(self, key: str, value: Sequence[Number]):
         pipeline, pipeline_param_name = self._pipeline_params[key]
@@ -323,7 +367,17 @@ class ReconstructHriRca(Operation):
         self.initial_delay = -start_sample/const_metadata.context.device.sampling_frequency
         self.initial_delay = burst_factor + tx_cent_delay
         self.initial_delay = self.num_pkg.float32(self.initial_delay)
-        return const_metadata.copy(input_shape=output_shape)
+        # Output metadata
+        new_signal_description = dataclasses.replace(
+            const_metadata.data_description,
+            spacing=arrus.metadata.Grid(
+                coordinates=(self.y_grid, self.x_grid, self.z_grid)
+            )
+        )
+        return const_metadata.copy(
+            input_shape=output_shape,
+            data_desc=new_signal_description
+        )
 
     def process(self, data):
         data = self.num_pkg.ascontiguousarray(data)
