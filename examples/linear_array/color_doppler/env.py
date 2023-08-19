@@ -17,7 +17,6 @@ from display import BMODE_DRANGE, COLOR_DRANGE, POWER_DRANGE
 def create_sequence(
         angles: np.ndarray,
         n_periods: float,
-        n_elements: int,
         center_frequency: float,
         speed_of_sound: float,
         sample_range: Tuple[int, int],
@@ -88,7 +87,6 @@ def configure(session: arrus.Session):
     doppler_sequence = create_sequence(
         angles=np.tile(doppler_angle*np.pi/180, n_tx_doppler),
         n_periods=16,
-        n_elements=probe_model.n_elements,
         center_frequency=center_frequency,
         speed_of_sound=medium.speed_of_sound,
         sample_range=sample_range,
@@ -97,7 +95,6 @@ def configure(session: arrus.Session):
     bmode_sequence = create_sequence(
         angles=np.linspace(-10, 10, n_tx_bmode)*np.pi/180,
         n_periods=2,
-        n_elements=probe_model.n_elements,
         center_frequency=center_frequency,
         speed_of_sound=medium.speed_of_sound,
         sample_range=sample_range,
@@ -119,6 +116,7 @@ def configure(session: arrus.Session):
                 steps=(
                     SelectFrames(frames=np.arange(0, n_tx_doppler)),
                     ReconstructLri(x_grid=x_grid, z_grid=z_grid),
+                    Squeeze(),
                     FilterWallClutter(w_n=0.3, n=8),
                     ReconstructDoppler(),
                     Transpose(axes=(0, 2, 1)),
@@ -143,7 +141,10 @@ def configure(session: arrus.Session):
             # -> B-modes
             SelectFrames(frames=np.arange(n_tx_doppler, n_tx_doppler+n_tx_bmode)),
             ReconstructLri(x_grid=x_grid, z_grid=z_grid),
+            Mean(axis=1),  # Average LRIs
             EnvelopeDetection(),
+            Mean(axis=0),  # Average batch
+            Squeeze(),
             Transpose(),
             LogCompression(),
         ),
