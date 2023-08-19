@@ -1,4 +1,5 @@
 import arrus.medium
+import numpy as np
 from arrus.utils.imaging import *
 from arrus.ops.imaging import *
 from arrus.ops.us4r import *
@@ -13,25 +14,24 @@ import cupy as cp
 from display import BMODE_DRANGE, COLOR_DRANGE, POWER_DRANGE
 
 
-def gen_txrxlst(
-        angles,
-        n_periods,
-        n_elements,
-        center_frequency,
-        speed_of_sound,
-        sample_range,
-        pri,
-):
-
-    txrxs = []
+def create_sequence(
+        angles: np.ndarray,
+        n_periods: float,
+        n_elements: int,
+        center_frequency: float,
+        speed_of_sound: float,
+        sample_range: Tuple[int, int],
+        pri: float,
+) -> TxRxSequence:
+    ops = []
     rx = Rx(
-        aperture=[True]*n_elements,
+        aperture=Aperture(center=0.0),
         sample_range=sample_range,
         downsampling_factor=1,
     )
     for angle in angles:
         tx = Tx(
-            aperture=[True]*n_elements,
+            aperture=Aperture(center=0.0),
             excitation=Pulse(
                 center_frequency=center_frequency,
                 n_periods=n_periods,
@@ -42,8 +42,16 @@ def gen_txrxlst(
             speed_of_sound=speed_of_sound,
         )
         txrx = TxRx(tx, rx, pri)
-        txrxs.append(txrx)
-    return txrxs
+        ops.append(txrx)
+    return TxRxSequence(ops)
+
+
+def concatenate_sequences(*seqs) -> TxRxSequence:
+    ops = []
+    for s in seqs:
+        ops.extend(s.ops)
+    return TxRxSequence(ops=ops)
+
 
 def configure(session: arrus.Session):
     medium = arrus.medium.Medium(name="human_carotid", speed_of_sound=1540)
@@ -60,7 +68,8 @@ def configure(session: arrus.Session):
     # Doppler sequence.
     center_frequency = 6e6
     doppler_angle = 10  # [deg]
-    n_doppler_tx = 64
+    n_tx_doppler = 64
+    n_tx_bmode = 7
     pri = 100e-6
     sample_range = (0, 2*1024)
     doppler_sequence = PwiSequence(
@@ -73,47 +82,43 @@ def configure(session: arrus.Session):
         rx_sample_range=(0, 2*1024),
         speed_of_sound=medium.speed_of_sound,
         pri=100e-6,
-        n_repeats=n_doppler_tx,
+        n_repeats=n_tx_doppler,
     )
 
-    # TODO: sekwencja z TxRxSequence zamiast PwiSequence
-    # doppler_txrx = gen_txrxlst(
-        # angles=np.tile(doppler_angle*np.pi/180, n_doppler_tx),
-        # n_periods=16,
-        # n_elements=probe_model.n_elements,
-        # center_frequency=center_frequency,
-        # speed_of_sound=medium.speed_of_sound,
-        # sample_range=sample_range,
-        # pri=pri,
-    # )
-    # doppler_sequence = TxRxSequence(doppler_txrx, tgc_values)
-
-
-    # bmode_txrx = gen_txrxlst(
-        # angles=np.linspace(-10, 10, 7)*np.pi/180,
-        # n_periods=2,
-        # n_elements=probe_model.n_elements,
-        # center_frequency=center_frequency,
-        # speed_of_sound=medium.speed_of_sound,
-        # sample_range=sample_range,
-        # pri=pri,
-    # )
-    # full_sequence = TxRxSequence(bmode_txrx + doppler_txrx, tgc_values)
+    doppler_sequence = create_sequence(
+        angles=np.tile(doppler_angle*np.pi/180, n_tx_doppler),
+        n_periods=16,
+        n_elements=probe_model.n_elements,
+        center_frequency=center_frequency,
+        speed_of_sound=medium.speed_of_sound,
+        sample_range=sample_range,
+        pri=pri,
+    )
+    bmode_sequence = create_sequence(
+        angles=np.linspace(-10, 10, n_tx_bmode)*np.pi/180,
+        n_periods=2,
+        n_elements=probe_model.n_elements,
+        center_frequency=center_frequency,
+        speed_of_sound=medium.speed_of_sound,
+        sample_range=sample_range,
+        pri=pri,
+    )
+    # NOTE: the order of sequences matters in the pipeline definition
+    # (check SelectFrames values)
+    sequence = concatenate_sequences(doppler_sequence, bmode_sequence)
 
     # Pipeline.
     pipeline = Pipeline(
         steps=(
             RemapToLogicalOrder(),
             Transpose(axes=(0, 1, 3, 2)),
-            # BandpassFilter(),
             QuadratureDemodulation(),
             Decimation(decimation_factor=4, cic_order=2),
-            ReconstructLri(x_grid=x_grid, z_grid=z_grid),
-            Squeeze(),
-            Output(),
             Pipeline(
                 # -> Color Doppler.
                 steps=(
+                    SelectFrames(frames=np.arange(0, n_tx_doppler)),
+                    ReconstructLri(x_grid=x_grid, z_grid=z_grid),
                     FilterWallClutter(w_n=0.3, n=8),
                     ReconstructDoppler(),
                     Transpose(axes=(0, 2, 1)),
@@ -135,10 +140,9 @@ def configure(session: arrus.Session):
                 ),
                 placement="/GPU:0"
             ),
-            # -> B-mode. Take the last PW frame to create the background B-mode
-            # image.
-            SelectFrames([n_doppler_tx-1]),
-            Squeeze(),
+            # -> B-modes
+            SelectFrames(frames=np.arange(n_tx_doppler, n_tx_doppler+n_tx_bmode)),
+            ReconstructLri(x_grid=x_grid, z_grid=z_grid),
             EnvelopeDetection(),
             Transpose(),
             LogCompression(),
@@ -148,7 +152,7 @@ def configure(session: arrus.Session):
     return ArrusEnvConfiguration(
         medium=medium,
         scheme=arrus.ops.us4r.Scheme(
-            tx_rx_sequence=doppler_sequence,
+            tx_rx_sequence=sequence,
             processing=pipeline
         ),
         tgc=Curve(points=tgc_sampling_points, values=tgc_values),
@@ -157,6 +161,6 @@ def configure(session: arrus.Session):
 
 
 ENV = UltrasoundEnv(
-    session_cfg="/home/zklim/us4r.prototxt",
+    session_cfg="/home/pjarosik/us4r.prototxt",
     configure=configure,
 )
