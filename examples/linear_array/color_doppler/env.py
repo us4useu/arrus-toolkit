@@ -119,7 +119,6 @@ def configure(session: arrus.Session):
                     Squeeze(),
                     FilterWallClutter(w_n=0.3, n=8),
                     ReconstructDoppler(),
-                    Transpose(axes=(0, 2, 1)),
                     Pipeline(
                         steps=(
                             CreateDopplerFrame(
@@ -127,6 +126,7 @@ def configure(session: arrus.Session):
                                 power_dynamic_range=POWER_DRANGE,
                                 frame_type="power"
                             ),
+                            Transpose(),
                         ),
                         placement="/GPU:0"
                     ),
@@ -134,7 +134,8 @@ def configure(session: arrus.Session):
                         color_dynamic_range=COLOR_DRANGE,
                         power_dynamic_range=POWER_DRANGE,
                         frame_type="color",
-                    )
+                    ),
+                    Transpose(),
                 ),
                 placement="/GPU:0"
             ),

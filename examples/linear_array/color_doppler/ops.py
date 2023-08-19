@@ -126,15 +126,12 @@ class ReconstructDoppler(Operation):
         self.output = cp.zeros(self.output_shape, dtype=self.output_dtype)
         self.block = (32, 32)
         self.grid = math.ceil(self.nz/self.block[1]), math.ceil(self.nx/self.block[0])
-        self.angle = set(metadata.context.sequence.angles.tolist())
-        if len(self.angle) > 1:
-            raise ValueError("Color doppler mode is implemented only for a "
-                             "sequence with a single finite-value transmit "
-                             "angle.")
-        self.angle = next(iter(self.angle))
-        self.pri = metadata.context.sequence.pri
-        self.tx_frequency = metadata.context.sequence.pulse.center_frequency
-        self.c = metadata.context.sequence.speed_of_sound
+
+        op = metadata.context.sequence.ops[0]  # Reference TX
+        self.angle = op.tx.angle
+        self.pri = op.pri
+        self.tx_frequency = op.tx.excitation.center_frequency 
+        self.c = op.tx.speed_of_sound
         self.scale = self.c/(2*np.pi*self.pri*self.tx_frequency*2*math.cos(self.angle))
         return metadata.copy(input_shape=self.output_shape, dtype=cp.float32, is_iq_data=False)
 
