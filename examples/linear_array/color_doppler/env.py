@@ -57,36 +57,23 @@ def configure(session: arrus.Session):
     probe_model = session.get_device("/Us4R:0").get_probe_model()
     # Imaging grid.
     x_grid = np.arange(probe_model.x_min, probe_model.x_max, 0.1e-3)
-    z_grid = np.arange(0e-3, 20e-3, 0.1e-3)
+    z_grid = np.arange(0e-3, 25e-3, 0.1e-3)
 
     # Initial TGC curve.
     tgc_sampling_points = np.linspace(np.min(z_grid), np.max(z_grid), 10)
-    tgc_values = np.linspace(54, 54, 10)
-    # tgc = Curve(points=tgc_sampling_points, values=tgc_values),
+    tgc_values = np.linspace(34, 54, 10)
 
-    # Doppler sequence.
+    # Sequence
     center_frequency = 6e6
     doppler_angle = 10  # [deg]
     n_tx_doppler = 64
     n_tx_bmode = 7
     pri = 100e-6
-    sample_range = (0, 2*1024)
-    doppler_sequence = PwiSequence(
-        angles=np.array([doppler_angle * np.pi / 180]),
-        pulse=Pulse(
-            center_frequency=center_frequency,
-            n_periods=16,
-            inverse=False
-        ),
-        rx_sample_range=(0, 2*1024),
-        speed_of_sound=medium.speed_of_sound,
-        pri=100e-6,
-        n_repeats=n_tx_doppler,
-    )
+    sample_range = (0, 4*512)
 
     doppler_sequence = create_sequence(
         angles=np.tile(doppler_angle*np.pi/180, n_tx_doppler),
-        n_periods=16,
+        n_periods=8,
         center_frequency=center_frequency,
         speed_of_sound=medium.speed_of_sound,
         sample_range=sample_range,
@@ -117,7 +104,7 @@ def configure(session: arrus.Session):
                     SelectFrames(frames=np.arange(0, n_tx_doppler)),
                     ReconstructLri(x_grid=x_grid, z_grid=z_grid),
                     Squeeze(),
-                    FilterWallClutter(w_n=0.3, n=8),
+                    FilterWallClutter(w_n=0.3, n=8, ftype='cheby2'),
                     ReconstructDoppler(),
                     Pipeline(
                         steps=(
@@ -163,6 +150,6 @@ def configure(session: arrus.Session):
 
 
 ENV = UltrasoundEnv(
-    session_cfg="/home/pjarosik/us4r.prototxt",
+    session_cfg="/home/zklim/us4r.prototxt",
     configure=configure,
 )
