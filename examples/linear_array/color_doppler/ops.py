@@ -151,31 +151,82 @@ class ReconstructDoppler(Operation):
 
 class FilterWallClutter(Operation):
 
-    def __init__(self, w_n, n):
+    def __init__(self, w_n, n, ftype='butter'):
         self.w_n = w_n
         self.n = n
+        self.ftype = ftype
 
     def prepare(self, metadata):
-        self.iir_ba = scipy.signal.iirfilter(
-            self.n,
-            self.w_n,
-            ftype='butter',
-            btype='highpass',
-            output='ba',
-        )
-        self.iir_ba = cp.array(self.iir_ba)
+        if self.ftype == 'butter':
+            self.ba = scipy.signal.iirfilter(
+                self.n,
+                self.w_n,
+                ftype=self.ftype,
+                btype='highpass',
+                output='ba',
+            )
+        elif self.ftype == 'cheby1':
+            self.ba = scipy.signal.iirfilter(
+                self.n,
+                self.w_n,
+                rp=10,
+                rs=100,
+                ftype=self.ftype,
+                btype='highpass',
+                output='ba',
+            )
+        elif self.ftype == 'cheby2':
+            self.ba = scipy.signal.iirfilter(
+                self.n,
+                self.w_n,
+                rp=10,
+                rs=100,
+                ftype=self.ftype,
+                btype='highpass',
+                output='ba',
+            )
+        elif self.ftype == 'ellip':
+            self.ba = scipy.signal.iirfilter(
+                self.n,
+                self.w_n,
+                rp=10,
+                rs=100,
+                ftype=self.ftype,
+                btype='highpass',
+                output='ba',
+            )
+        elif self.ftype == 'bessel':
+            self.ba = scipy.signal.iirfilter(
+                self.n,
+                self.w_n,
+                rp=10,
+                rs=100,
+                ftype=self.ftype,
+                btype='highpass',
+                output='ba',
+            )
+        elif self.ftype == 'fir':
+            if self.n % 2 == 0:
+                self.actual_n = self.n+1
+            b = scipy.signal.firwin(self.actual_n, self.w_n, pass_zero=False)
+            a = np.ones(b.shape)
+            self.ba = (b, a)
+        else:
+            raise ValueError(
+                "\n"
+                "   Bad ftype value.\n"
+                "   Should be one of the following: \n"
+                "       fir, butter, cheby1, cheby2, ellip, bessel."
+            )
+        self.ba = cp.array(self.ba)
         return metadata
 
     def process(self, data):
         output = cupyx.scipy.signal.filtfilt(
-            self.iir_ba[0],
-            self.iir_ba[1],
+            self.ba[0],
+            self.ba[1],
             data,
             axis=0,
         )
-        # n,_,_ = output.shape
-        # output = output(int(n/2):-1, :, :) 
-        # output = output[0:int(n/2), :, :]
-        # output = cp.concatenate((output, output))
         output = output.astype('complex64')
         return output
