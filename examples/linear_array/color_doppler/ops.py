@@ -208,8 +208,15 @@ class FilterWallClutter(Operation):
         elif self.ftype == 'fir':
             if self.n % 2 == 0:
                 self.actual_n = self.n+1
-            b = scipy.signal.firwin(self.actual_n, self.w_n, pass_zero=False)
-            a = np.ones(b.shape)
+            else:
+                self.actual_n = self.n
+            b = scipy.signal.firwin(
+                self.actual_n,
+                self.w_n,
+                pass_zero=False,
+            )
+            a = np.zeros(b.shape)
+            a[0] = 1
             self.ba = (b, a)
         else:
             raise ValueError(
