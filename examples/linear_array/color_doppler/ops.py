@@ -151,58 +151,60 @@ class ReconstructDoppler(Operation):
 
 class FilterWallClutter(Operation):
 
-    def __init__(self, w_n, n, ftype='butter'):
-        self.w_n = w_n
+    def __init__(self, wn, n, ftype='butter', btype='highpass'):
+        self.wn = wn
         self.n = n
         self.ftype = ftype
+        self.btype = btype
 
     def prepare(self, metadata):
+
         if self.ftype == 'butter':
             self.ba = scipy.signal.iirfilter(
                 self.n,
-                self.w_n,
+                self.wn,
                 ftype=self.ftype,
-                btype='highpass',
+                btype=self.btype,
                 output='ba',
             )
         elif self.ftype == 'cheby1':
             self.ba = scipy.signal.iirfilter(
                 self.n,
-                self.w_n,
+                self.wn,
                 rp=10,
                 rs=100,
                 ftype=self.ftype,
-                btype='highpass',
+                btype=self.btype,
                 output='ba',
             )
         elif self.ftype == 'cheby2':
             self.ba = scipy.signal.iirfilter(
                 self.n,
-                self.w_n,
+                self.wn,
                 rp=10,
                 rs=100,
                 ftype=self.ftype,
-                btype='highpass',
+                btype=self.btype,
                 output='ba',
             )
         elif self.ftype == 'ellip':
             self.ba = scipy.signal.iirfilter(
                 self.n,
-                self.w_n,
+                self.wn,
                 rp=10,
                 rs=100,
                 ftype=self.ftype,
-                btype='highpass',
+                btype=self.btype,
                 output='ba',
             )
         elif self.ftype == 'bessel':
             self.ba = scipy.signal.iirfilter(
                 self.n,
-                self.w_n,
+                self.wn,
                 rp=10,
                 rs=100,
                 ftype=self.ftype,
-                btype='highpass',
+                btype=self.btype,
                 output='ba',
             )
         elif self.ftype == 'fir':
@@ -212,7 +214,7 @@ class FilterWallClutter(Operation):
                 self.actual_n = self.n
             b = scipy.signal.firwin(
                 self.actual_n,
-                self.w_n,
+                self.wn,
                 pass_zero=False,
             )
             a = np.zeros(b.shape)

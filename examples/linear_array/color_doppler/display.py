@@ -2,8 +2,8 @@ from gui4us.model import *
 from gui4us.cfg.display import *
 
 BMODE_DRANGE = (60, 120)
-COLOR_DRANGE = (-3, 3)
-POWER_DRANGE = (60, 80)
+COLOR_DRANGE = (-1.57, 1.57)
+POWER_DRANGE = (50, 80)
 # Display configuration file.
 displays = {
     "ColorDoppler": Display2D(

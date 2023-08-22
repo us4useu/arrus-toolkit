@@ -63,7 +63,8 @@ def configure(session: arrus.Session):
     tgc_sampling_points = np.linspace(np.min(z_grid), np.max(z_grid), 10)
     tgc_values = np.linspace(34, 54, 10)
 
-    # Sequence
+    # Params
+    fs = session.get_device("/Us4R:0").current_sampling_frequency
     center_frequency = 6e6
     doppler_angle = 10  # [deg]
     n_tx_doppler = 64
@@ -71,9 +72,18 @@ def configure(session: arrus.Session):
     pri = 100e-6
     sample_range = (0, 4*512)
 
+    # Filter taps
+    fir_taps = scipy.signal.firwin(
+        numtaps=64,
+        cutoff=np.array([0.5, 1.5]) * center_frequency,
+        pass_zero="bandpass",
+        fs=fs,
+    )
+
+    # Sequence
     doppler_sequence = create_sequence(
         angles=np.tile(doppler_angle*np.pi/180, n_tx_doppler),
-        n_periods=8,
+        n_periods=16,
         center_frequency=center_frequency,
         speed_of_sound=medium.speed_of_sound,
         sample_range=sample_range,
@@ -96,6 +106,7 @@ def configure(session: arrus.Session):
         steps=(
             RemapToLogicalOrder(),
             Transpose(axes=(0, 1, 3, 2)),
+            FirFilter(taps=fir_taps),
             QuadratureDemodulation(),
             Decimation(decimation_factor=4, cic_order=2),
             Pipeline(
@@ -103,8 +114,9 @@ def configure(session: arrus.Session):
                 steps=(
                     SelectFrames(frames=np.arange(0, n_tx_doppler)),
                     ReconstructLri(x_grid=x_grid, z_grid=z_grid),
+                    Output(),
                     Squeeze(),
-                    FilterWallClutter(w_n=0.3, n=8, ftype='cheby2'),
+                    FilterWallClutter(wn=0.5, n=8, ftype='cheby2', btype='highpass'),
                     ReconstructDoppler(),
                     Pipeline(
                         steps=(
