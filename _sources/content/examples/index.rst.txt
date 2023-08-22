@@ -11,7 +11,7 @@ Linear array
 Raw B-mode image
 ----------------
 
-GUI4us examples for the raw B-mode image presentation are available in the
+GUi4us examples for the raw B-mode image presentation are available in the
 ``examples/linear_array/bmode``.
 
 Please refer to ARRUS Toolkit documentation for more information about
