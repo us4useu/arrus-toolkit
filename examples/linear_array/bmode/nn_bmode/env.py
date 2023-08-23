@@ -36,12 +36,13 @@ def configure(session: arrus.Session):
 
     # Initial TGC curve.
     tgc_sampling_points = np.linspace(np.min(z_grid), np.max(z_grid), 10)
-    tgc_values = np.linspace(14, 54, 10)
+    tgc_values = np.linspace(24, 44, 10)
 
     sequence = PwiSequence(
         angles=np.linspace(-10, 10, 7) * np.pi / 180,
         pulse=Pulse(center_frequency=8e6, n_periods=2, inverse=False),
-        rx_depth_range=get_depth_range(z_grid+5e-3),
+        # rx_depth_range=get_depth_range(z_grid+5e-3),
+        rx_sample_range=(0, 4096),
         speed_of_sound=medium.speed_of_sound,
         pri=150e-6,
     )
@@ -76,7 +77,7 @@ def configure(session: arrus.Session):
             processing=pipeline
         ),
         tgc=Curve(points=tgc_sampling_points, values=tgc_values),
-        voltage=5
+        voltage=40
     )
 
 
