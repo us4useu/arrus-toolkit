@@ -109,7 +109,7 @@ class Slice(Operation):
         if self.position is None:
             self.position = input_shape[self.axis]//2
 
-        self.slicing = [None] * len(input_shape)
+        self.slicing = [slice(None)] * len(input_shape)
         self.slicing[self.axis] = self.position
         self.slicing = tuple(self.slicing)
 
@@ -118,9 +118,10 @@ class Slice(Operation):
         output_shape = tuple(input_shape)
         output_description = const_metadata.data_description
         if output_description.spacing is not None:
-            output_spacing = list(output_description.spacing.coordinates)
-            output_spacing.pop(self.axis)
-            output_spacing = list(output_spacing)
+            new_coordinates = list(output_description.spacing.coordinates)
+            new_coordinates.pop(self.axis)
+            new_coordinates = tuple(new_coordinates)
+            output_spacing = dataclasses.replace(output_description.spacing, coordinates=new_coordinates)
             output_description = dataclasses.replace(
                 const_metadata.data_description,
                 spacing=output_spacing
