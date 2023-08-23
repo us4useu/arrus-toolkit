@@ -20,9 +20,9 @@ from visualizer import VTKVisualizer
 def main():
     with arrus.Session("us4r.prototxt") as sess:
         us4r = sess.get_device("/Us4R:0")
-        us4r.set_hv_voltage(10)
+        us4r.set_hv_voltage(30)
         MEDIUM = arrus.medium.Medium(name="tissue", speed_of_sound=1540)
-        angles = np.linspace(-10, 10, 64) * np.pi / 180  # [rad]
+        angles = np.linspace(-10, 10, 32) * np.pi / 180  # [rad]
         center_frequency = 6e6  # [Hz]
         n_periods = 2
         sample_range = (0, 5 * 1024)
@@ -48,13 +48,13 @@ def main():
         pipeline = get_pwi_reconstruction(
             array_x=probe_params.APERTURE_X,
             array_y=probe_params.APERTURE_Y,
-            y_grid=np.arange(-6e-3, 6e-3, 0.2e-3),
-            x_grid=np.arange(-6e-3, 6e-3, 0.2e-3),
-            z_grid=np.arange(0e-3, 43e-3, 0.2e-3),
+            y_grid=np.arange(-6e-3, 6e-3, 0.3e-3),
+            x_grid=np.arange(-6e-3, 6e-3, 0.3e-3),
+            z_grid=np.arange(20e-3, 43e-3, 0.3e-3),
             fir_taps=fir_taps,
             sequence_xy=sequence_xy,
             sequence_yx=sequence_yx,
-            dr_min=-5, dr_max=120,
+            dr_min=5, dr_max=120,
         )
         # TODO(pjarosik) avoid using the below wrapper
         pipeline_wrapper = Pipeline(
