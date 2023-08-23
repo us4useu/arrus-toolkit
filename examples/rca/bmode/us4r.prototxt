@@ -13,7 +13,7 @@ us4r: {
         },
         voltage_range {
             begin: 0,
-            end: 20
+            end: 50
         }
     }
 

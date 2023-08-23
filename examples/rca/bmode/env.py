@@ -263,16 +263,16 @@ def get_pwi_reconstruction(
 
 def configure(session: arrus.Session):
     us4r = session.get_device("/Us4R:0")
-    medium = arrus.medium.Medium(name="tissue", speed_of_sound=1540)
-    angles = np.linspace(-10, 10, 64) * np.pi / 180  # [rad]
+    medium = arrus.medium.Medium(name="tissue", speed_of_sound=1450)
+    angles = np.linspace(-10, 10, 32) * np.pi / 180  # [rad]
     center_frequency = 6e6  # [Hz]
     n_periods = 2
-    sample_range = (0, 5 * 1024)
+    sample_range = (0, 4*1024)
     pri = 400e-6
     # Imaging grid.
-    y_grid = np.arange(-6e-3, 6e-3, 0.2e-3)
-    x_grid = np.arange(-6e-3, 6e-3, 0.2e-3)
-    z_grid = np.arange(0e-3, 43e-3, 0.2e-3)
+    y_grid = np.arange(-8e-3, 8e-3, 0.2e-3)
+    x_grid = np.arange(-8e-3, 8e-3, 0.2e-3)
+    z_grid = np.arange(0e-3, 40e-3, 0.2e-3)
 
     # Initial TGC curve.
     tgc_sampling_points = np.linspace(np.min(z_grid), np.max(z_grid), 10)
@@ -317,7 +317,7 @@ def configure(session: arrus.Session):
         medium=medium,
         scheme=scheme,
         tgc=Curve(points=tgc_sampling_points, values=tgc_values),
-        voltage=5
+        voltage=30
     )
 
 
