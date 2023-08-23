@@ -40,7 +40,7 @@ class ApplyNNBmode(Operation):
             model_input_shape, model_weights=self.model_weights)
         # Returns output
         return const_metadata.copy(
-            input_shape=(self.nz, self.nx),
+            input_shape=(self.nx, self.nz),
             is_iq_data=False,
             dtype=np.float32
         )
@@ -67,6 +67,6 @@ class ApplyNNBmode(Operation):
         pred = self.model.predict(model_input)
         pred = cp.asarray(pred)
         pred = cp.squeeze(pred)
-        pred = 20*cp.log10(pred).T
+        pred = 20*cp.log10(pred)
         return pred
 
