@@ -44,12 +44,12 @@ ARRAY_Y = probe_params.ProbeArray(
     arrangement="oy"
 )
 
-unordered_in_queue = deque(maxlen=3)
-oxoy_in_queue = deque(maxlen=3)
-oyox_in_queue = deque(maxlen=3)
+unordered_in_queue = deque(maxlen=5)
+oxoy_in_queue = deque(maxlen=5)
+oyox_in_queue = deque(maxlen=5)
 
 
-def store_data(data, queue, output_filename, size=3):
+def store_data(data, queue, output_filename, size=5):
     if len(unordered_in_queue) >= size:
         if not os.path.exists(output_filename):
             np.save(output_filename, np.stack(queue))
@@ -278,17 +278,17 @@ def get_pwi_reconstruction(
 
 def configure(session: arrus.Session):
     us4r = session.get_device("/Us4R:0")
-    medium = arrus.medium.Medium(name="tissue", speed_of_sound=1540)
+    medium = arrus.medium.Medium(name="tissue", speed_of_sound=1450)
     angles = np.linspace(-10, 10, 32) * np.pi / 180  # [rad]
     center_frequency = 6e6  # [Hz]
-    us4r.set_hpf_corner_frequency(2_420_000)
+    us4r.set_hpf_corner_frequency(4_520_000)
     n_periods = 2
     sample_range = (0, 1 * 1024 + 512)
     pri = 400e-6
     # Imaging grid.
-    y_grid = np.arange(-6e-3, 6e-3, 0.1e-3)
-    x_grid = np.arange(-6e-3, 6e-3, 0.1e-3)
-    z_grid = np.arange(5e-3, 40e-3, 0.1e-3)
+    y_grid = np.arange(-8e-3, 8e-3, 0.2e-3)
+    x_grid = np.arange(-8e-3, 8e-3, 0.2e-3)
+    z_grid = np.arange(0e-3, 45e-3, 0.2e-3)
 
     # Initial TGC curve.
     tgc_sampling_points = np.linspace(np.min(z_grid), np.max(z_grid), 10)
