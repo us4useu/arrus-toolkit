@@ -1,3 +1,6 @@
+import os.path
+
+import scipy.signal
 import numpy as np
 import arrus.medium
 import arrus_rca_utils.probe_params as probe_params
@@ -25,6 +28,7 @@ from gui4us.model.envs.arrus import (
     ArrusEnvConfiguration,
     Curve
 )
+from collections import deque
 
 # DEMO parameters: Vermon 128+128 elements
 ARRAY_X = probe_params.ProbeArray(
@@ -39,6 +43,20 @@ ARRAY_Y = probe_params.ProbeArray(
     start=128,
     arrangement="oy"
 )
+
+unordered_in_queue = deque(maxlen=3)
+oxoy_in_queue = deque(maxlen=3)
+oyox_in_queue = deque(maxlen=3)
+
+
+def store_data(data, queue, output_filename, size=3):
+    if len(unordered_in_queue) >= size:
+        if not os.path.exists(output_filename):
+            np.save(output_filename, np.stack(queue))
+            print(f"saved {output_filename}")
+    else:
+        queue.append(data.get())
+    return data
 
 
 # ------------------------------------------ SEQUENCE
@@ -143,10 +161,11 @@ def get_system_sequence(
 
 
 # ------------------------------------------ RECONSTRUCTION
-def reorder_rf(frames, aperture_size):
+def reorder_rf(frames, aperture_size, name, queue):
     return (
         GetFramesForRange(frames=frames, aperture_size=aperture_size),
-        RemapToLogicalOrder()
+        RemapToLogicalOrderV2(),
+        Lambda(lambda data: store_data(data, queue=queue, output_filename=f"{name}_rf.npy")),
     )
 
 
@@ -154,13 +173,11 @@ def to_hri(
         y_grid, x_grid, z_grid,
         array_tx, array_rx,
         sequence,
-        fir_taps, name=None,
+        name=None,
         aperture_arrangement="alternate"
 ):
     return (
-        Transpose(axes=(0, 1, 3, 2)),
-        FirFilter(taps=fir_taps),
-        DigitalDownConversion(decimation_factor=4, fir_order=64),
+        ToRealOrComplex(),
         ReconstructHriRca(
             y_grid=y_grid, x_grid=x_grid, z_grid=z_grid,
             probe_tx=array_tx,
@@ -181,7 +198,7 @@ def to_bmode(dr_min, dr_max):
         Squeeze(),
         EnvelopeDetection(),
         LogCompression(),
-        DynamicRangeAdjustment(min=dr_min, max=dr_max),
+        # DynamicRangeAdjustment(min=dr_min, max=dr_max),
         Squeeze(),
     )
 
@@ -195,7 +212,6 @@ def get_pwi_reconstruction(
         array_x: probe_params.ProbeArray, array_y: probe_params.ProbeArray,
         sequence_xy: TxRxSequence,
         sequence_yx: TxRxSequence,
-        fir_taps,
         dr_min=20, dr_max=80,
 ):
     seqs = sequence_xy, sequence_yx
@@ -204,13 +220,13 @@ def get_pwi_reconstruction(
 
     reconstruction = Pipeline(
         steps=(
+            Lambda(lambda data: store_data(data, queue=unordered_in_queue, output_filename="unordered_rf.npy")),
             branch(
                 name="b",
                 steps=(
                     # TX=OY, RX=OX
-                    *reorder_rf(frames=range_yx, aperture_size=ap_size_yx),
+                    *reorder_rf(frames=range_yx, aperture_size=ap_size_yx, name="oyox", queue=oyox_in_queue),
                     *to_hri(
-                        fir_taps=fir_taps,
                         y_grid=y_grid,
                         x_grid=x_grid,
                         z_grid=z_grid,
@@ -220,9 +236,8 @@ def get_pwi_reconstruction(
                     ),
                 )),
             # TX=OX, RX=OY
-            *reorder_rf(frames=range_xy, aperture_size=ap_size_xy),
+            *reorder_rf(frames=range_xy, aperture_size=ap_size_xy, name="oxoy", queue=oxoy_in_queue),
             *to_hri(
-                fir_taps=fir_taps,
                 y_grid=y_grid,
                 x_grid=x_grid,
                 z_grid=z_grid,
@@ -264,15 +279,16 @@ def get_pwi_reconstruction(
 def configure(session: arrus.Session):
     us4r = session.get_device("/Us4R:0")
     medium = arrus.medium.Medium(name="tissue", speed_of_sound=1540)
-    angles = np.linspace(-10, 10, 64) * np.pi / 180  # [rad]
+    angles = np.linspace(-10, 10, 32) * np.pi / 180  # [rad]
     center_frequency = 6e6  # [Hz]
+    us4r.set_hpf_corner_frequency(2_420_000)
     n_periods = 2
-    sample_range = (0, 5 * 1024)
+    sample_range = (0, 1 * 1024 + 512)
     pri = 400e-6
     # Imaging grid.
-    y_grid = np.arange(-6e-3, 6e-3, 0.2e-3)
-    x_grid = np.arange(-6e-3, 6e-3, 0.2e-3)
-    z_grid = np.arange(0e-3, 43e-3, 0.2e-3)
+    y_grid = np.arange(-6e-3, 6e-3, 0.1e-3)
+    x_grid = np.arange(-6e-3, 6e-3, 0.1e-3)
+    z_grid = np.arange(5e-3, 40e-3, 0.1e-3)
 
     # Initial TGC curve.
     tgc_sampling_points = np.linspace(np.min(z_grid), np.max(z_grid), 10)
@@ -288,36 +304,50 @@ def configure(session: arrus.Session):
         pri=pri
     )
 
+    # Demodulation
+    decimation_factor = 4
+    if np.modf(decimation_factor)[0] == 0.25 or np.modf(decimation_factor)[0] == 0.75 :
+        filter_order = np.uint32(decimation_factor*64)
+    elif np.modf(decimation_factor)[0] == 0.5 :
+        filter_order = np.uint32(decimation_factor*32)
+    else :
+        filter_order = np.uint32(decimation_factor*16)
+
+    cutoff = center_frequency
+    fs = us4r.sampling_frequency
+    coeffs = scipy.signal.firwin(filter_order, cutoff, fs=fs)
+    coeffs = coeffs[filter_order//2:]
+
     # Image reconstruction.
-    fir_taps = scipy.signal.firwin(
-        numtaps=64, cutoff=np.array([0.5, 1.5]) * center_frequency,
-        pass_zero="bandpass", fs=us4r.current_sampling_frequency
-    )
     pipeline = get_pwi_reconstruction(
         array_x=ARRAY_X,
         array_y=ARRAY_Y,
         y_grid=y_grid,
         x_grid=x_grid,
         z_grid=z_grid,
-        fir_taps=fir_taps,
         sequence_xy=sequence_xy,
         sequence_yx=sequence_yx,
-        dr_min=20, dr_max=80,
+        dr_min=20, dr_max=80,  #!!!!IGNORED!!!!!!!! Change display settings.
     )
+
     scheme = Scheme(
         tx_rx_sequence=get_system_sequence(
             sequence_xy=sequence_xy,
             sequence_yx=sequence_yx,
             probe_model=us4r.get_probe_model(),
-            device_sampling_frequency=us4r.current_sampling_frequency
+            device_sampling_frequency=us4r.sampling_frequency
         ),
-        processing=pipeline
+        processing=pipeline,
+        digital_down_conversion=arrus.ops.us4r.DigitalDownConversion(
+            demodulation_frequency=center_frequency,
+            decimation_factor=decimation_factor,
+            fir_coefficients=coeffs)
     )
     return ArrusEnvConfiguration(
         medium=medium,
         scheme=scheme,
         tgc=Curve(points=tgc_sampling_points, values=tgc_values),
-        voltage=5
+        voltage=20
     )
 
 

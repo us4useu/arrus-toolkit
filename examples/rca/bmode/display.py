@@ -6,7 +6,7 @@ displays = {
         title=f"OXZ B-mode",
         layers=(
             Layer2D(
-                value_range=(20, 80),
+                value_range=(40, 80),
                 cmap="gray",
                 input=StreamDataId("default", 0),
             ),
@@ -17,7 +17,7 @@ displays = {
         title=f"B-mode",
         layers=(
             Layer2D(
-                value_range=(20, 80),
+                value_range=(40, 80),
                 cmap="gray",
                 input=StreamDataId("default", 1),
             ),
