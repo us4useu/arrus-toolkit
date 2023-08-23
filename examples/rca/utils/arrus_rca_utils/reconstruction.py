@@ -109,7 +109,7 @@ class Slice(Operation):
         if self.position is None:
             self.position = input_shape[self.axis]//2
 
-        self.slicing = [None] * len(input_shape)
+        self.slicing = [slice(None)] * len(input_shape)
         self.slicing[self.axis] = self.position
         self.slicing = tuple(self.slicing)
 
