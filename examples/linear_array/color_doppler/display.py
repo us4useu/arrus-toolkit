@@ -1,8 +1,9 @@
 from gui4us.model import *
 from gui4us.cfg.display import *
+import numpy as np
 
 BMODE_DRANGE = (60, 120)
-COLOR_DRANGE = (-1.57, 1.57)
+COLOR_DRANGE = (0, np.pi/2)
 POWER_DRANGE = (50, 80)
 # Display configuration file.
 displays = {

@@ -116,7 +116,7 @@ def configure(session: arrus.Session):
                     ReconstructLri(x_grid=x_grid, z_grid=z_grid),
                     Output(),
                     Squeeze(),
-                    FilterWallClutter(wn=0.5, n=8, ftype='cheby2', btype='highpass'),
+                    FilterWallClutter(wn=0.5, n=8, ftype='fir', btype='highpass'),
                     ReconstructDoppler(),
                     Pipeline(
                         steps=(
