@@ -17,6 +17,17 @@ GUI4us examples for the raw B-mode image presentation are available in the
 Please refer to ARRUS Toolkit documentation for more information about
 how to configure TX/RX sequences and data processing.
 
+Simple color/power doppler
+--------------------------
+
+GUI4us examples for the color/power doppler presentation are available in the
+``examples/linear_array/color_doppler``.
+
+Please refer to ARRUS Toolkit documentation for more information about
+how to configure TX/RX sequences and data processing.
+Requirements:
+- The Python packages specified in the ``examples/linear_array/color_doppler/requirements.txt`` file.
+
 NN-B-mode
 ---------
 
@@ -32,6 +43,6 @@ In short, the
 
 Requirements:
 
-- The Python packages specified in th ``nn_bmode/requirements.txt`` directory, you can
+- The Python packages specified in the ``nn_bmode/requirements.txt`` file, 
   you can install it with the following command: ``pip install -r nn_bmode/requirements.txt``.
 - NVIDIA CUDA Toolkit 11.2 (required by ``tensorflow-gpu``).
