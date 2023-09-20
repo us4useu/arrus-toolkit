@@ -23,6 +23,16 @@ Simple color/power doppler
 GUI4us examples for the color/power doppler presentation are available in the
 ``examples/linear_array/color_doppler``.
 
+There are parameter controls on the left and 2 subfigures on the right visible in the GUI.
+Color and power doppler are displayed on the left and right subfigure respectively.
+The following parameters are available for modification in the GUI, for both subfigures separately:
+- color_dr_max: maximal value of color doppler displayed [radians], 
+- color_dr_min; minimal value of color doppler displayed [radians], 
+- power_dr_max: maximal value of power doppler displayed [dB], 
+- power_dr_min; minimal value of power doppler displayed [dB], 
+Additionally the transmit pulse amplitude can be set in 'voltage' control,
+and time gain compensation (TGC) can be modified manually.
+
 Please refer to ARRUS Toolkit documentation for more information about
 how to configure TX/RX sequences and data processing.
 Requirements:
