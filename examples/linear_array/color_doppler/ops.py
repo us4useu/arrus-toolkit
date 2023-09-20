@@ -45,14 +45,8 @@ class CreateDopplerFrame(Operation):
         self.output_buffer[:] = data[self.frame_type_nr]
         # Compute
         mask_color = cp.logical_and(
-            cp.logical_and(
-                color_doppler > self.color_dr_min,
-                color_doppler < self.color_dr_max
-            ),
-            cp.logical_and(
-                color_doppler > -self.color_dr_max,
-                color_doppler < -self.color_dr_min
-            ),
+            cp.abs(color_doppler) > self.color_dr_min,
+            cp.abs(color_doppler) < self.color_dr_max
         )
         mask_power = cp.logical_and(
             power_doppler > self.power_dr_min,
@@ -89,7 +83,7 @@ class CreateDopplerFrame(Operation):
                 space=Box(
                     shape=(1,),
                     dtype=np.float32,
-                    unit=Unit.dB,
+                    unit=Unit.rad,
                     low=-np.inf,
                     high=np.inf
                 ),
@@ -99,7 +93,7 @@ class CreateDopplerFrame(Operation):
                 space=Box(
                     shape=(1,),
                     dtype=np.float32,
-                    unit=Unit.dB,
+                    unit=Unit.rad,
                     low=-np.inf,
                     high=np.inf
                 ),
