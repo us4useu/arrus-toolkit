@@ -32,18 +32,19 @@ def configure(session: arrus.Session):
     probe_model = session.get_device("/Us4R:0").get_probe_model()
     # Imaging grid.
     x_grid = np.arange(probe_model.x_min, probe_model.x_max, 0.1e-3)
-    z_grid = np.arange(0e-3, 40e-3, 0.1e-3)
+    z_grid = np.arange(5e-3, 45e-3, 0.1e-3)
 
     # Initial TGC curve.
     tgc_sampling_points = np.linspace(np.min(z_grid), np.max(z_grid), 10)
-    tgc_values = np.linspace(14, 54, 10)
+    tgc_values = np.linspace(24, 44, 10)
 
     sequence = PwiSequence(
-        angles=np.linspace(-10, 10, 16) * np.pi / 180,
+        angles=np.linspace(-10, 10, 7) * np.pi / 180,
         pulse=Pulse(center_frequency=8e6, n_periods=2, inverse=False),
-        rx_depth_range=get_depth_range(z_grid),
+        # rx_depth_range=get_depth_range(z_grid+5e-3),
+        rx_sample_range=(0, 4096),
         speed_of_sound=medium.speed_of_sound,
-        pri=200e-6,
+        pri=150e-6,
     )
     pipeline = Pipeline(
         steps=(
@@ -57,6 +58,7 @@ def configure(session: arrus.Session):
             Pipeline(
                 steps=(
                     ApplyNNBmode(model_filepath),
+                    Transpose()
                 ),
                 placement="/GPU:0"
             ),
@@ -75,11 +77,11 @@ def configure(session: arrus.Session):
             processing=pipeline
         ),
         tgc=Curve(points=tgc_sampling_points, values=tgc_values),
-        voltage=5
+        voltage=40
     )
 
 
 ENV = UltrasoundEnv(
-    session_cfg="/home/pjarosik/us4r.prototxt",
+    session_cfg="/home/public/us4r.prototxt",
     configure=configure,
 )

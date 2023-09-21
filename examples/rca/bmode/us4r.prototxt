@@ -2,8 +2,8 @@ us4r: {
     probe:
     {
         id: {
-            manufacturer: "brainlab"
-            name: "MAT/6/256/RCA-2461"
+            manufacturer: "Vermon"
+            name: "RCA128"
         }
         n_elements: 256,
         pitch: 0.2e-3,
@@ -37,7 +37,6 @@ us4r: {
         pga_gain: 30
         lpf_cutoff: 15000000
         active_termination: 200
-	    # dtgc_attenuation: 0
     }
 
     hv: {

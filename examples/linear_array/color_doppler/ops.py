@@ -15,6 +15,7 @@ class CreateDopplerFrame(Operation):
     Creates the final ColorDoppler frame.
     """
 
+
     def __init__(
             self,
             color_dynamic_range=(0, np.pi/2),
@@ -22,6 +23,7 @@ class CreateDopplerFrame(Operation):
             frame_type="color",
             name: str = None
         ):
+
         super().__init__(name=name)
         self.color_dr_min, self.color_dr_max = color_dynamic_range
         self.power_dr_min, self.power_dr_max = power_dynamic_range
@@ -175,7 +177,7 @@ class FilterWallClutter(Operation):
                 btype=self.btype,
                 output='ba',
             )
-        elif self.ftype == 'fir':
+        elif self.ftype == 'fir': 
             if self.n % 2 == 0:
                 self.actual_n = self.n+1
             else:

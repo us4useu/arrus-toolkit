@@ -13,6 +13,7 @@ displays = {
                 input=StreamDataId("default", 0),
             ),
         ),
+        ax_labels=("OX (m)", "OZ (m)")
     ),
 }
 
