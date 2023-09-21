@@ -163,7 +163,6 @@ class FilterWallClutter(Operation):
     def prepare(self, metadata):
 
         if self.ftype in {"butter", "cheby1", "cheby2", "ellip", "bessel"}:
-
             self.ba = scipy.signal.iirfilter(
                 self.n,
                 self.wn,
