@@ -154,7 +154,7 @@ class ReconstructDoppler(Operation):
 
 class FilterWallClutter(Operation):
 
-    def __init__(self, wn, n, ftype='butter', btype='highpass'):
+    def __init__(self, wn, n, ftype="butter", btype="highpass"):
         self.wn = wn
         self.n = n
         self.ftype = ftype
@@ -162,11 +162,7 @@ class FilterWallClutter(Operation):
 
     def prepare(self, metadata):
 
-        if (   self.ftype == 'butter'
-            or self.ftype == 'cheby1'
-            or self.ftype == 'cheby2'
-            or self.ftype == 'ellip'
-            or self.ftype == 'bessel'):
+        if self.ftype in {"butter", "cheby1", "cheby2", "ellip", "bessel"}:
 
             self.ba = scipy.signal.iirfilter(
                 self.n,
@@ -175,9 +171,9 @@ class FilterWallClutter(Operation):
                 rs=100,
                 ftype=self.ftype,
                 btype=self.btype,
-                output='ba',
+                output="ba",
             )
-        elif self.ftype == 'fir': 
+        elif self.ftype == "fir":
             if self.n % 2 == 0:
                 self.actual_n = self.n+1
             else:
@@ -207,5 +203,5 @@ class FilterWallClutter(Operation):
             data,
             axis=0,
         )
-        output = output.astype('complex64')
+        output = output.astype("complex64")
         return output
