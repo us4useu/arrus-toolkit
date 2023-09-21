@@ -1,5 +1,3 @@
-from gui4us.model import *
-from gui4us.cfg.display import *
 
 # Display configuration file.
 
@@ -19,7 +17,7 @@ displays = {
         title=f"NN-B-mode",
         layers=(
             Layer2D(
-                value_range=(140, 250),
+                value_range=(100, 200),
                 cmap="gray",
                 input=StreamDataId("default", 1),
             ),

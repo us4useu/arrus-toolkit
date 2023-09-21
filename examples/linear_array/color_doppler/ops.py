@@ -15,12 +15,15 @@ class CreateDopplerFrame(Operation):
     Creates the final ColorDoppler frame.
     """
 
-    def __init__(self,
-                 color_dynamic_range=(-30e-3, 30e-3),
-                 power_dynamic_range=(0, 80),
-                 frame_type="color",
-                 name: str = None
-                 ):
+
+    def __init__(
+            self,
+            color_dynamic_range=(0, np.pi/2),
+            power_dynamic_range=(0, 80),
+            frame_type="color",
+            name: str = None
+        ):
+
         super().__init__(name=name)
         self.color_dr_min, self.color_dr_max = color_dynamic_range
         self.power_dr_min, self.power_dr_max = power_dynamic_range
@@ -44,8 +47,8 @@ class CreateDopplerFrame(Operation):
         self.output_buffer[:] = data[self.frame_type_nr]
         # Compute
         mask_color = cp.logical_and(
-            color_doppler > self.color_dr_min,
-            color_doppler < self.color_dr_max
+            cp.abs(color_doppler) > self.color_dr_min,
+            cp.abs(color_doppler) < self.color_dr_max
         )
         mask_power = cp.logical_and(
             power_doppler > self.power_dr_min,
@@ -82,7 +85,7 @@ class CreateDopplerFrame(Operation):
                 space=Box(
                     shape=(1,),
                     dtype=np.float32,
-                    unit=Unit.dB,
+                    unit=Unit.rad,
                     low=-np.inf,
                     high=np.inf
                 ),
@@ -92,7 +95,7 @@ class CreateDopplerFrame(Operation):
                 space=Box(
                     shape=(1,),
                     dtype=np.float32,
-                    unit=Unit.dB,
+                    unit=Unit.rad,
                     low=-np.inf,
                     high=np.inf
                 ),
@@ -130,7 +133,7 @@ class ReconstructDoppler(Operation):
         op = metadata.context.sequence.ops[0]  # Reference TX
         self.angle = op.tx.angle
         self.pri = op.pri
-        self.tx_frequency = op.tx.excitation.center_frequency 
+        self.tx_frequency = op.tx.excitation.center_frequency
         self.c = op.tx.speed_of_sound
         self.scale = self.c/(2*np.pi*self.pri*self.tx_frequency*2*math.cos(self.angle))
         return metadata.copy(input_shape=self.output_shape, dtype=cp.float32, is_iq_data=False)
@@ -151,7 +154,7 @@ class ReconstructDoppler(Operation):
 
 class FilterWallClutter(Operation):
 
-    def __init__(self, wn, n, ftype='butter', btype='highpass'):
+    def __init__(self, wn, n, ftype="butter", btype="highpass"):
         self.wn = wn
         self.n = n
         self.ftype = ftype
@@ -159,15 +162,7 @@ class FilterWallClutter(Operation):
 
     def prepare(self, metadata):
 
-        if self.ftype == 'butter':
-            self.ba = scipy.signal.iirfilter(
-                self.n,
-                self.wn,
-                ftype=self.ftype,
-                btype=self.btype,
-                output='ba',
-            )
-        elif self.ftype == 'cheby1':
+        if self.ftype in {"butter", "cheby1", "cheby2", "ellip", "bessel"}:
             self.ba = scipy.signal.iirfilter(
                 self.n,
                 self.wn,
@@ -175,39 +170,9 @@ class FilterWallClutter(Operation):
                 rs=100,
                 ftype=self.ftype,
                 btype=self.btype,
-                output='ba',
+                output="ba",
             )
-        elif self.ftype == 'cheby2':
-            self.ba = scipy.signal.iirfilter(
-                self.n,
-                self.wn,
-                rp=10,
-                rs=100,
-                ftype=self.ftype,
-                btype=self.btype,
-                output='ba',
-            )
-        elif self.ftype == 'ellip':
-            self.ba = scipy.signal.iirfilter(
-                self.n,
-                self.wn,
-                rp=10,
-                rs=100,
-                ftype=self.ftype,
-                btype=self.btype,
-                output='ba',
-            )
-        elif self.ftype == 'bessel':
-            self.ba = scipy.signal.iirfilter(
-                self.n,
-                self.wn,
-                rp=10,
-                rs=100,
-                ftype=self.ftype,
-                btype=self.btype,
-                output='ba',
-            )
-        elif self.ftype == 'fir':
+        elif self.ftype == "fir":
             if self.n % 2 == 0:
                 self.actual_n = self.n+1
             else:
@@ -237,5 +202,5 @@ class FilterWallClutter(Operation):
             data,
             axis=0,
         )
-        output = output.astype('complex64')
+        output = output.astype("complex64")
         return output
