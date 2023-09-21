@@ -1,5 +1,3 @@
-from gui4us.model import *
-from gui4us.cfg.display import *
 
 # Display configuration file.
 
