@@ -89,6 +89,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#linear-array">Linear array</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#raw-b-mode-image">Raw B-mode image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#simple-color-power-doppler">Simple color/power doppler</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#nn-b-mode">NN-B-mode</a></li>
 </ul>
 </li>
@@ -169,10 +170,28 @@
 <h2>Linear array<a class="headerlink" href="#linear-array" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="raw-b-mode-image">
 <h3>Raw B-mode image<a class="headerlink" href="#raw-b-mode-image" title="Permalink to this headline">¶</a></h3>
-<p>GUi4us examples for the raw B-mode image presentation are available in the
+<p>GUI4us examples for the raw B-mode image presentation are available in the
 <code class="docutils literal notranslate"><span class="pre">examples/linear_array/bmode</span></code>.</p>
 <p>Please refer to ARRUS Toolkit documentation for more information about
 how to configure TX/RX sequences and data processing.</p>
+</div>
+<div class="section" id="simple-color-power-doppler">
+<h3>Simple color/power doppler<a class="headerlink" href="#simple-color-power-doppler" title="Permalink to this headline">¶</a></h3>
+<p>GUI4us examples for the color/power doppler presentation are available in the
+<code class="docutils literal notranslate"><span class="pre">examples/linear_array/color_doppler</span></code>.</p>
+<p>There are parameter controls on the left and 2 subfigures on the right visible in the GUI.
+Color and power doppler are displayed on the left and right subfigure respectively.
+The following parameters are available for modification in the GUI, for both subfigures separately:
+- color_dr_max: maximal value of color doppler displayed [radians],
+- color_dr_min; minimal value of color doppler displayed [radians],
+- power_dr_max: maximal value of power doppler displayed [dB],
+- power_dr_min; minimal value of power doppler displayed [dB],
+Additionally the transmit pulse amplitude can be set in ‘voltage’ control,
+and time gain compensation (TGC) can be modified manually.</p>
+<p>Please refer to ARRUS Toolkit documentation for more information about
+how to configure TX/RX sequences and data processing.
+Requirements:
+- The Python packages specified in the <code class="docutils literal notranslate"><span class="pre">examples/linear_array/color_doppler/requirements.txt</span></code> file.</p>
 </div>
 <div class="section" id="nn-b-mode">
 <h3>NN-B-mode<a class="headerlink" href="#nn-b-mode" title="Permalink to this headline">¶</a></h3>
@@ -185,7 +204,7 @@ The source code, datasets and model weights are available in Dongwoon’s git
 <p>In short, the</p>
 <p>Requirements:</p>
 <ul class="simple">
-<li><p>The Python packages specified in th <code class="docutils literal notranslate"><span class="pre">nn_bmode/requirements.txt</span></code> directory, you can
+<li><p>The Python packages specified in the <code class="docutils literal notranslate"><span class="pre">nn_bmode/requirements.txt</span></code> file,
 you can install it with the following command: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">nn_bmode/requirements.txt</span></code>.</p></li>
 <li><p>NVIDIA CUDA Toolkit 11.2 (required by <code class="docutils literal notranslate"><span class="pre">tensorflow-gpu</span></code>).</p></li>
 </ul>
