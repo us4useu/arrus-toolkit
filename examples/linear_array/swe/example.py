@@ -34,7 +34,7 @@ from arrus.utils.gui import (
 )
 
 arrus.set_clog_level(arrus.logging.INFO)
-arrus.add_log_file("test.log", arrus.logging.INFO)
+arrus.add_log_file("swe_test.log", arrus.logging.TRACE)
 
 
 def main():
@@ -49,6 +49,7 @@ def main():
         tx_frequency = 6e6
         push_pulse_length = 1e-6  # [s]
         push_pulse_n_periods = push_pulse_length*tx_frequency
+        print(push_pulse_n_periods)
         # Make sure a single TX/RX for the push sequence will be applied.
         push_rx_aperture = [False]*n_elements
         push_sequence = [
@@ -65,16 +66,18 @@ def main():
                     sample_range=(0, n_samples),
                     downsampling_factor=1
                 ),
-                pri=200e-6
+                pri=1e-3
             )
         ]
-        imaging_pw_n_repeats = 1
+        imaging_pw_n_repeats = 2
         imaging_sequence = [
             TxRx(
                 Tx(
                     aperture=[True]*n_elements,
                     excitation=Pulse(center_frequency=tx_frequency, n_periods=2, inverse=False),
-                    delays=[0]*n_elements
+                    focus=np.inf,  # [m]
+                    angle=0,  # [rad]
+                    speed_of_sound=medium.speed_of_sound
                 ),
                 Rx(
                     aperture=[True]*n_elements,
@@ -95,7 +98,7 @@ def main():
                 steps=(
                     RemapToLogicalOrder(),
                     Squeeze(),
-                    SelectFrames([1]),
+                    # SelectFrames([0]),
                     Squeeze(),
                 ),
                 placement="/GPU:0"
