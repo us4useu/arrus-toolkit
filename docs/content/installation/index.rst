@@ -238,7 +238,7 @@ Where ``xyz`` is the version of the CUDA Toolkit installed on your host PC.
 
 To check if everything is OK, run one of the examples provided
 `here <https://github.com/us4useu/arrus/tree/master/api/python/examples>`__
-and described here. For example, to run ``plane_wave_imaging.py``:
+and described `here <https://us4useu.github.io/arrus-docs/releases/current/python/content/examples.html>`__. For example, to run ``plane_wave_imaging.py``:
 
 1. Update path in the ``with arrus.Session()...`` call to the ``.prototxt`` for your system.
 2. Adjust HV voltage.
