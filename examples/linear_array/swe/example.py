@@ -13,6 +13,7 @@ import queue
 import numpy as np
 import arrus.ops.tgc
 import arrus.medium
+from collections import deque
 
 from arrus.ops.us4r import (
     Scheme,
@@ -40,14 +41,15 @@ arrus.add_log_file("swe_test.log", arrus.logging.TRACE)
 def main():
     # Here starts communication with the device.
     medium = arrus.medium.Medium(name="water", speed_of_sound=1490)
-    with arrus.Session("C:/Users/Public/us4r.prototxt", medium=medium) as sess:
+    with arrus.Session("us4r.prototxt", medium=medium) as sess:
         us4r = sess.get_device("/Us4R:0")
-        us4r.set_hv_voltage(5)
+        us4r.set_hv_voltage(40)  # ew opakowac to w petle i inkrementować ze sleepami napiecie
 
         n_elements = us4r.get_probe_model().n_elements
-        n_samples = 4096
-        tx_frequency = 6e6
-        push_pulse_length = 1e-6  # [s]
+        n_samples = 3*1024  #4096
+        tx_pri = 500e-6
+        tx_frequency = 5e6
+        push_pulse_length = 100e-6  # [s]
         push_pulse_n_periods = push_pulse_length*tx_frequency
         print(push_pulse_n_periods)
         # Make sure a single TX/RX for the push sequence will be applied.
@@ -55,7 +57,7 @@ def main():
         push_sequence = [
             TxRx(
                 # NOTE: full transmit aperture.
-                Tx(aperture=[True]*n_elements,
+                Tx(aperture=[True]*n_elements,  # to jest maska binarna (długośc n_elemenmts)
                     excitation=Pulse(center_frequency=tx_frequency, n_periods=push_pulse_n_periods, inverse=False),
                     focus=20e-3,  # [m]
                     angle=0,  # [rad]
@@ -66,10 +68,25 @@ def main():
                     sample_range=(0, n_samples),
                     downsampling_factor=1
                 ),
-                pri=1e-3
-            )
+                pri=tx_pri
+            ),
+            # TxRx(
+            #     # NOTE: full transmit aperture.
+            #     Tx(aperture=[True] * n_elements,
+            #        excitation=Pulse(center_frequency=tx_frequency, n_periods=32, inverse=False),
+            #        focus=10e-3,  # [m]
+            #        angle=0,  # [rad]
+            #        speed_of_sound=medium.speed_of_sound
+            #        ),
+            #     Rx(
+            #         aperture=push_rx_aperture,
+            #         sample_range=(0, n_samples),
+            #         downsampling_factor=1
+            #     ),
+            #     pri=500e-6
+            # )
         ]
-        imaging_pw_n_repeats = 2
+        imaging_pw_n_repeats = 2    # ile faktycznie ramek 128 kanałowych złapać (liczba strzałów jest 2x wieksza)
         imaging_sequence = [
             TxRx(
                 Tx(
@@ -84,12 +101,13 @@ def main():
                     sample_range=(0, n_samples),
                     downsampling_factor=1
                 ),
-                pri=200e-6
+                pri=tx_pri
             )
             ]*imaging_pw_n_repeats
 
-        seq = TxRxSequence(ops=push_sequence+imaging_sequence)
+        seq = TxRxSequence(ops=push_sequence+imaging_sequence, sri=1)   # push + imaging
         # Declare the complete scheme to execute on the devices.
+        q = deque(maxlen=1)
         scheme = Scheme(
             # Run the provided sequence.
             tx_rx_sequence=seq,
@@ -97,8 +115,9 @@ def main():
             processing=Pipeline(
                 steps=(
                     RemapToLogicalOrder(),
+                    Lambda(lambda data: (q.append(data.get()), data)[1]),
                     Squeeze(),
-                    # SelectFrames([0]),
+                    SelectFrames([1]),
                     Squeeze(),
                 ),
                 placement="/GPU:0"
@@ -110,11 +129,12 @@ def main():
         # Created 2D image display.
         display = Display2D(metadata=metadata, value_range=(-100, 100))
         # Start the scheme.
-        # sess.start_scheme()  # TODO
+        sess.start_scheme()
         # Start the 2D display.
         # The 2D display will consume data put the the input queue.
         # The below function blocks current thread until the window is closed.
-        # display.start(buffer)  # TODO
+        display.start(buffer)
+        np.save("data.npy", np.stack(q))
         print("Display closed, stopping the script.")
 
     # When we exit the above scope, the session and scheme is properly closed.
