@@ -134,6 +134,7 @@ Linux
 Download the linux driver then in command line run:
 
 ::
+
   sudo chmod +x {us4r-driver.run}
   sudo ./{us4r-driver.run}
 
