@@ -13,6 +13,9 @@ from ops import ReconstructDoppler, FilterWallClutter, CreateDopplerFrame
 import cupy as cp
 from display import BMODE_DRANGE, COLOR_DRANGE, POWER_DRANGE
 
+import arrus.logging
+
+arrus.logging.set_clog_level(arrus.logging.TRACE)
 
 def create_sequence(
         angles: np.ndarray,
@@ -67,7 +70,7 @@ def configure(session: arrus.Session):
     fs = session.get_device("/Us4R:0").current_sampling_frequency
     center_frequency = 6e6
     doppler_angle = 10  # [deg]
-    n_tx_doppler = 64
+    n_tx_doppler = 32
     n_tx_bmode = 7
     pri = 100e-6
     sample_range = (0, 4*512)
@@ -162,6 +165,6 @@ def configure(session: arrus.Session):
 
 
 ENV = UltrasoundEnv(
-    session_cfg="/home/zklim/us4r.prototxt",
+    session_cfg="/home/public/us4r.prototxt",
     configure=configure,
 )
