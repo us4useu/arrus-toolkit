@@ -111,7 +111,9 @@ The below table shows which versions are compatible.
  ================================================================================= ========================================================================================================================================================== ================== =================== ==================== ===============
   ARRUS                                                                             Drivers                                                                                                                                                   Us4OEM+ Firmware   Us4OEM Firmware     DBAR-Lite Firmware   DBAR Firmware
  ================================================================================= ========================================================================================================================================================== ================== =================== ==================== ===============
-  `v0.9.0-dev <https://github.com/us4useu/arrus/releases/tag/v0.9.0-dev-first>`__   v0.10.0-dev, Windows: WD1450                                                                                                                              0.2.0              0.1.0, TX: a        0x243a5479           0x705c9732
+  `v0.9.2 <https://github.com/us4useu/arrus/releases/tag/v0.9.2>`__                 v0.10.1, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            0.1.1.0, TX: a      0x243a5479           0x705c9732
+  `v0.9.1 <https://github.com/us4useu/arrus/releases/tag/v0.9.1>`__                 v0.10.1, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            0.1.1.0, TX: a      0x243a5479           0x705c9732
+  `v0.9.0 <https://github.com/us4useu/arrus/releases/tag/v0.9.0>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            0.1.1.0, TX: a      0x243a5479           0x705c9732
   `v0.8.0 <https://github.com/us4useu/arrus/releases/tag/v0.8.0>`__                 v0.9.0, Linux: `0.2.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.9.0-dev-first/us4r-driver-v0.2.0-dev20221007.run>`__, Windows: WD1450 x                  0x0f255c84, TX: a   0x243a5479           0x705c9732
   `v0.7.8 <https://github.com/us4useu/arrus/releases/tag/v0.7.8>`__                 v0.8.7, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       x                  0xbd612458, TX: a   0x243a5479           0xffe07334
   `v0.7.7 <https://github.com/us4useu/arrus/releases/tag/v0.7.7>`__                 v0.8.7, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       x                  0xbd612458, TX: a   0x243a5479           0xffe07334
@@ -134,6 +136,7 @@ Download the linux driver then in command line run:
 
 ::
 
+  sudo chmod +x {us4r-driver.run}
   sudo ./{us4r-driver.run}
 
 where ``{us4r-driver.run}`` is the name of the downloaded file.
@@ -236,6 +239,14 @@ The below packages are required to run the example with B-mode imaging:
 
 Where ``xyz`` is the version of the CUDA Toolkit installed on your host PC.
 
+To check if everything is OK, run one of the examples provided
+`here <https://github.com/us4useu/arrus/tree/master/api/python/examples>`__
+and described `here <https://us4useu.github.io/arrus-docs/releases/current/python/content/examples.html>`__. For example, to run ``plane_wave_imaging.py``:
+
+1. Update path in the ``with arrus.Session()...`` call to the ``.prototxt`` for your system.
+2. Adjust HV voltage.
+3. Run it: ``python plane_wave_imaging.py``.
+
 MATLAB
 ~~~~~~
 
@@ -244,7 +255,7 @@ Requirements:
 - MATLAB 2022a,
 - CUDA 11.0 at least.
 
-To check if everything is ok, run one of the scripts available
+To check if everything is OK, run one of the scripts available
 `here <https://github.com/us4useu/arrus/tree/master/api/matlab/examples>`__.
 
 
