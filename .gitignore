@@ -130,6 +130,8 @@ dmypy.json
 .pyre/
 
 .idea/
-.npy
-.log
+*.npy
+*.log
 *.pickle
+*.pkl
+*.log.bak

@@ -41,11 +41,11 @@ def main():
     id               = 0
 
     loops = 20
-    fri   = 0.5   # in seconds
+    fri   = 3   # in seconds
     
     push_hv          = 70
     push_freq        = 130.0/26*1e6
-    push_length      = 800e-6
+    push_length      = 300e-6
     push_txelements  = 128
     push_focus       = 35e-3
     
@@ -81,6 +81,7 @@ def main():
           
         us4r.set_hv_voltage((hv_voltage_0, hv_voltage_0), (hv_voltage_1, hv_voltage_1))
         n_elements = us4r.get_probe_model().n_elements
+        us4r.set_maximum_pulse_length(800e-6)
  
         # Make sure a single TX/RX for the push sequence will be applied.
         push_tx_aperture = arrus.ops.us4r.Aperture(center=0, size=push_txelements)

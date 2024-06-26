@@ -45,13 +45,13 @@ def main():
     # Parameters
     id       = 0
 
-    loops = 20
-    fri   = 0.75   # in seconds    
+    loops = 10
+    fri   = 1   # in seconds    
     
-    push_hv          = 70
+    push_hv          = 60
     push_freq        = np.array([130.0/26*1e6, 130.0/26*1e6, 130.0/26*1e6])
-    push_length      = np.array([300e-6, 300e-6, 300e-6])
-    push_txelements  = np.array([32, 64, 128])
+    push_length      = np.array([200e-6, 200e-6, 200e-6])
+    push_txelements  = np.array([64, 96, 128])
     push_focus       = np.array([15e-3, 25e-3, 38e-3])
     
     pwi_hv        = push_hv + 20
@@ -71,13 +71,14 @@ def main():
 
     hv_voltage_0 = pwi_hv
     hv_voltage_1 = push_hv
-    push_pri = push_length + 50e-6
+    push_pri = push_length + 70e-6
     
     ##### Here starts communication with the device. ######
     medium = arrus.medium.Medium(name="cirs049a", speed_of_sound=1540)
     with arrus.Session("us4r.prototxt", medium=medium) as sess:
         us4r = sess.get_device("/Us4R:0")
         n_elements = us4r.get_probe_model().n_elements
+        us4r.set_maximum_pulse_length(800e-6)
 
         # Set the HVPS HV voltages        
         us4r.set_hv_voltage((hv_voltage_0, hv_voltage_0), (hv_voltage_1, hv_voltage_1))

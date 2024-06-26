@@ -44,6 +44,6 @@ def configure(session: arrus.Session):
 
 
 ENV = UltrasoundEnv(
-    session_cfg="/home/pjarosik/us4r.prototxt",
+    session_cfg="C:/Users/Public/us4r.prototxt",
     configure=configure,
 )

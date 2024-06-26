@@ -154,7 +154,7 @@ class ReconstructDoppler(Operation):
 
 class FilterWallClutter(Operation):
 
-    def __init__(self, wn, n, ftype="butter", btype="highpass"):
+    def __init__(self, wn, n  , ftype="fir", btype="highpass"):
         self.wn = wn
         self.n = n
         self.ftype = ftype
@@ -196,11 +196,6 @@ class FilterWallClutter(Operation):
         return metadata
 
     def process(self, data):
-        output = cupyx.scipy.signal.filtfilt(
-            self.ba[0],
-            self.ba[1],
-            data,
-            axis=0,
-        )
+        output = cupyx.scipy.ndimage.convolve1d(data, self.ba[0], axis=0)
         output = output.astype("complex64")
         return output

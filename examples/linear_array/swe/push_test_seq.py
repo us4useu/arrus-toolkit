@@ -40,19 +40,19 @@ def main():
     # Parameters
     id               = 0
     
-    push_hv          = 30
-    push_freq        = 130.0/26*1e6
-    push_length      = 100e-6
+    push_hv          = 70
+    push_freq        = 130.0/30*1e6
+    push_length      = 800e-6
     push_txelements  = 128
-    push_focus       = 35e-3
+    push_focus       = 50e-3
     
     
     pwi_hv        = push_hv + 20
-    pwi_freq      = 130.0/26*1e6
+    pwi_freq      = 130.0/30*1e6
     pwi_txncycles = 2
-    pwi_pri       = 100e-6
+    pwi_pri       = 120e-6
     pwi_angles    = [0.0]
-    n_samples     = 4*1024-256
+    n_samples     = 5*1024-256
     imaging_pw_n_repeats = 80  # ile faktycznie ramek 128 kanałowych złapać (liczba strzałów jest 2x wieksza)
 
     # Process parameters
@@ -63,7 +63,7 @@ def main():
 
     hv_voltage_0 = pwi_hv
     hv_voltage_1 = push_hv
-    push_pri = push_length + 50e-6
+    push_pri = push_length + 60e-6
     
     ##### Here starts communication with the device. ######
     medium = arrus.medium.Medium(name="cirs049a", speed_of_sound=1540)
@@ -71,22 +71,38 @@ def main():
     with arrus.Session("us4r.prototxt", medium=medium) as sess:
         us4r = sess.get_device("/Us4R:0")
 
+        us4r.set_maximum_pulse_length(850e-6)
         # Set the HVPS HV voltages
-        #s = [1, 2, 3, 4, 5]
-        #for v in s:
-            #us4r.set_hv_voltage((int(v*hv_voltage_0/5), int(v*hv_voltage_0/5)), (int(v*hv_voltage_1/5), int(v*hv_voltage_1/5)))
-          
         us4r.set_hv_voltage((hv_voltage_0, hv_voltage_0), (hv_voltage_1, hv_voltage_1))
+        
         n_elements = us4r.get_probe_model().n_elements
  
         # Make sure a single TX/RX for the push sequence will be applied.
-        push_tx_aperture = arrus.ops.us4r.Aperture(center=0, size=push_txelements)
+        #push_tx_aperture = arrus.ops.us4r.Aperture(center=0, size=push_txelements)
+        push_tx_aperture = np.zeros(n_elements).astype(bool)
+        push_tx_aperture[0:push_txelements] = True
+        #push_tx_aperture[24:32] = True  # pulser[0]
+        #push_tx_aperture[0:8] = True   # pulser[3]
+        #push_tx_aperture[8:16] = True  # pulser[2]
+        #push_tx_aperture[16:24] = True  # pulser[1]?
+        #push_tx_aperture[64:72] = True
+        #push_tx_aperture[72:80] = True
+        #push_tx_aperture[80:88] = True
+        #push_tx_aperture[88:96] = True
+        #push_tx_aperture[56:64] = 0
+
+        delays = np.arange(0, np.count_nonzero(push_tx_aperture), 1)
+        delays = delays * 8 * 1e-9
+
+
+        
         push_rx_aperture = arrus.ops.us4r.Aperture(center=0, size=0)
         push_sequence = [
             TxRx(
                 # NOTE: full transmit aperture.
                 Tx(aperture=push_tx_aperture,  # to jest maska binarna (długośc n_elemenmts)
                     excitation=Pulse(center_frequency=push_freq, n_periods=push_txncycles, inverse=False, amplitude_level=1),
+                    #delays = delays
                     focus=push_focus,  # [m]
                     angle=0,  # [rad]
                     speed_of_sound=medium.speed_of_sound
@@ -114,12 +130,16 @@ def main():
             #     pri=500e-6
             # )
         ]
-
+        pwi_delays = np.zeros(128)
+        pwi_tx_aperture = np.ones(128).astype(bool)
+        
         imaging_sequence = [
             TxRx(
                 Tx(
                     aperture=arrus.ops.us4r.Aperture(center=0),
+                    #aperture = pwi_tx_aperture,
                     excitation=Pulse(center_frequency=pwi_freq, n_periods=pwi_txncycles, inverse=False, amplitude_level=0),
+                    #delays = pwi_delays
                     focus=np.Inf,  # [m]
                     angle=angle/180*np.pi,  # [rad]
                     speed_of_sound=medium.speed_of_sound
@@ -133,8 +153,9 @@ def main():
             )
             for angle in pwi_angles
             ]*imaging_pw_n_repeats
-
-        seq = TxRxSequence(ops=push_sequence+imaging_sequence)   # push + imaging
+    
+        seq = TxRxSequence(ops=push_sequence+imaging_sequence)   # push + imaging 
+        #seq = TxRxSequence(ops=imaging_sequence + push_sequence)   # imaging + push
         
         # Declare the complete scheme to execute on the devices.
         scheme = Scheme(

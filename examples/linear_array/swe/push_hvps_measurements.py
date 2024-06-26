@@ -31,8 +31,8 @@ def main():
     # Parameters
     id            = 100
     tx_elements   = 128
-    hv_voltage_1  = 30
-    tx_length     = 100e-6
+    hv_voltage_1  = 70
+    tx_length     = 500e-6
     tx_freq       = 130.0/26*1e6
     
     

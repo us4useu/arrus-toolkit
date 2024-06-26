@@ -1,0 +1,416 @@
+[2024-02-08 16:18:06] INFO: Using configuration file: us4r_1oem.prototxt
+[2024-02-08 16:18:06] INFO: Using default dictionary.
+[2024-02-08 16:18:06] DEBUG: Read settings from 'us4r_1oem.prototxt': us4Rs: us4oemSettings:  probeAdapterSettings: modelId: ate, us4us nChannels: 128 channelMapping: (0,31)(0,30)(0,29)(0,28)(0,27)(0,26)(0,25)(0,24)(0,23)(0,22)(0,21)(0,20)(0,19)(0,18)(0,17)(0,16)(0,15)(0,14)(0,13)(0,12)(0,11)(0,10)(0,9)(0,8)(0,7)(0,6)(0,5)(0,4)(0,3)(0,2)(0,1)(0,0)(0,63)(0,62)(0,61)(0,60)(0,59)(0,58)(0,57)(0,56)(0,55)(0,54)(0,53)(0,52)(0,51)(0,50)(0,49)(0,48)(0,47)(0,46)(0,45)(0,44)(0,43)(0,42)(0,41)(0,40)(0,39)(0,38)(0,37)(0,36)(0,35)(0,34)(0,33)(0,32)(0,95)(0,94)(0,93)(0,92)(0,91)(0,90)(0,89)(0,88)(0,87)(0,86)(0,85)(0,84)(0,83)(0,82)(0,81)(0,80)(0,79)(0,78)(0,77)(0,76)(0,75)(0,74)(0,73)(0,72)(0,71)(0,70)(0,69)(0,68)(0,67)(0,66)(0,65)(0,64)(0,127)(0,126)(0,125)(0,124)(0,123)(0,122)(0,121)(0,120)(0,119)(0,118)(0,117)(0,116)(0,115)(0,114)(0,113)(0,112)(0,111)(0,110)(0,109)(0,108)(0,107)(0,106)(0,105)(0,104)(0,103)(0,102)(0,101)(0,100)(0,99)(0,98)(0,97)(0,96) probeSettings: model: modelId: l9-4/38, ultrasonix numberOfElements: Tuple(128) pitch: Tuple(0.000305) txFrequencyRange: Interval: start: 1000000.0, right: 40000000.0 channelMapping: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127 rxSettings: dtgcAttenuation: (no value) pgaGain: 30 lnaGain: 24 tgcSamples:  lpfCutoff: 35000000 activeTermination: (no value) channels mask:  us4oem channels mask: us4oem 0: 
+
+[2024-02-08 16:18:06] DEBUG: Configuring session: us4Rs: us4oemSettings:  probeAdapterSettings: modelId: ate, us4us nChannels: 128 channelMapping: (0,31)(0,30)(0,29)(0,28)(0,27)(0,26)(0,25)(0,24)(0,23)(0,22)(0,21)(0,20)(0,19)(0,18)(0,17)(0,16)(0,15)(0,14)(0,13)(0,12)(0,11)(0,10)(0,9)(0,8)(0,7)(0,6)(0,5)(0,4)(0,3)(0,2)(0,1)(0,0)(0,63)(0,62)(0,61)(0,60)(0,59)(0,58)(0,57)(0,56)(0,55)(0,54)(0,53)(0,52)(0,51)(0,50)(0,49)(0,48)(0,47)(0,46)(0,45)(0,44)(0,43)(0,42)(0,41)(0,40)(0,39)(0,38)(0,37)(0,36)(0,35)(0,34)(0,33)(0,32)(0,95)(0,94)(0,93)(0,92)(0,91)(0,90)(0,89)(0,88)(0,87)(0,86)(0,85)(0,84)(0,83)(0,82)(0,81)(0,80)(0,79)(0,78)(0,77)(0,76)(0,75)(0,74)(0,73)(0,72)(0,71)(0,70)(0,69)(0,68)(0,67)(0,66)(0,65)(0,64)(0,127)(0,126)(0,125)(0,124)(0,123)(0,122)(0,121)(0,120)(0,119)(0,118)(0,117)(0,116)(0,115)(0,114)(0,113)(0,112)(0,111)(0,110)(0,109)(0,108)(0,107)(0,106)(0,105)(0,104)(0,103)(0,102)(0,101)(0,100)(0,99)(0,98)(0,97)(0,96) probeSettings: model: modelId: l9-4/38, ultrasonix numberOfElements: Tuple(128) pitch: Tuple(0.000305) txFrequencyRange: Interval: start: 1000000.0, right: 40000000.0 channelMapping: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127 rxSettings: dtgcAttenuation: (no value) pgaGain: 30 lnaGain: 24 tgcSamples:  lpfCutoff: 35000000 activeTermination: (no value) channels mask:  us4oem channels mask: us4oem 0: 
+
+[2024-02-08 16:18:07][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: A handle to device properly initialized.
+[2024-02-08 16:18:07][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Calling destructor.
+[2024-02-08 16:18:07][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Properly closed the device.
+[2024-02-08 16:18:07][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Uninitialized WDC library.
+[2024-02-08 16:18:07][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: A handle to device properly initialized.
+[2024-02-08 16:18:07][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Using driver WinDriver v14.5.0 Jungo Connectivity (c) 1997 - 2020 Build Date: Oct 15 2020 x86_64 64bit SYS 12:13:18
+[2024-02-08 16:18:07][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Using driver WinDriver v14.5.0 Jungo Connectivity (c) 1997 - 2020 Build Date: Oct 15 2020 x86_64 64bit SYS 12:13:18
+[2024-02-08 16:18:07][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'ResetCallbacks'
+[2024-02-08 16:18:07][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'Initialize' with params: step = 1
+[2024-02-08 16:18:07][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'GetID'
+[2024-02-08 16:18:07][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'Powerup'
+[2024-02-08 16:18:07][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'InitializeClocks'
+[2024-02-08 16:18:09][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'Synchronize'
+[2024-02-08 16:18:09][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'Initialize' with params: step = 2
+[2024-02-08 16:18:09][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'InitializeSysref'
+[2024-02-08 16:18:09][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'Synchronize'
+[2024-02-08 16:18:09][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'Initialize' with params: step = 3
+[2024-02-08 16:18:09][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'InitializeDDR4'
+[2024-02-08 16:18:09][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'InitializeRX'
+[2024-02-08 16:18:10][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'Synchronize'
+[2024-02-08 16:18:10][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'Initialize' with params: step = 4
+[2024-02-08 16:18:10][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'InitializeTX'
+[2024-02-08 16:18:10][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: STHV status before init: [ 0, 0, 0, 0, 0, 0, 0, 0]
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: STHV status after init: [ 0, 0, 0, 0, 0, 0, 0, 0]
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] INFO: ID: us4us, Revision: 1, SN: ST0001234902, FW version: 2.0.4.2
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 31 dstChannel = 0
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 30 dstChannel = 1
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 29 dstChannel = 2
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 28 dstChannel = 3
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 27 dstChannel = 4
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 26 dstChannel = 5
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 25 dstChannel = 6
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 24 dstChannel = 7
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 23 dstChannel = 8
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 22 dstChannel = 9
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 21 dstChannel = 10
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 20 dstChannel = 11
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 19 dstChannel = 12
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 18 dstChannel = 13
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 17 dstChannel = 14
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 16 dstChannel = 15
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 15 dstChannel = 16
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 14 dstChannel = 17
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 13 dstChannel = 18
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 12 dstChannel = 19
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 11 dstChannel = 20
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 10 dstChannel = 21
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 9 dstChannel = 22
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 8 dstChannel = 23
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 7 dstChannel = 24
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 6 dstChannel = 25
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 5 dstChannel = 26
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 4 dstChannel = 27
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 3 dstChannel = 28
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 2 dstChannel = 29
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 1 dstChannel = 30
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 0 dstChannel = 31
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 63 dstChannel = 32
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 62 dstChannel = 33
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 61 dstChannel = 34
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 60 dstChannel = 35
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 59 dstChannel = 36
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 58 dstChannel = 37
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 57 dstChannel = 38
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 56 dstChannel = 39
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 55 dstChannel = 40
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 54 dstChannel = 41
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 53 dstChannel = 42
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 52 dstChannel = 43
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 51 dstChannel = 44
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 50 dstChannel = 45
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 49 dstChannel = 46
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 48 dstChannel = 47
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 47 dstChannel = 48
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 46 dstChannel = 49
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 45 dstChannel = 50
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 44 dstChannel = 51
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 43 dstChannel = 52
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 42 dstChannel = 53
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 41 dstChannel = 54
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 40 dstChannel = 55
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 39 dstChannel = 56
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 38 dstChannel = 57
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 37 dstChannel = 58
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 36 dstChannel = 59
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 35 dstChannel = 60
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 34 dstChannel = 61
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 33 dstChannel = 62
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 32 dstChannel = 63
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 95 dstChannel = 64
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 94 dstChannel = 65
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 93 dstChannel = 66
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 92 dstChannel = 67
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 91 dstChannel = 68
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 90 dstChannel = 69
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 89 dstChannel = 70
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 88 dstChannel = 71
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 87 dstChannel = 72
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 86 dstChannel = 73
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 85 dstChannel = 74
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 84 dstChannel = 75
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 83 dstChannel = 76
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 82 dstChannel = 77
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 81 dstChannel = 78
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 80 dstChannel = 79
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 79 dstChannel = 80
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 78 dstChannel = 81
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 77 dstChannel = 82
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 76 dstChannel = 83
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 75 dstChannel = 84
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 74 dstChannel = 85
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 73 dstChannel = 86
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 72 dstChannel = 87
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 71 dstChannel = 88
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 70 dstChannel = 89
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 69 dstChannel = 90
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 68 dstChannel = 91
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 67 dstChannel = 92
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 66 dstChannel = 93
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 65 dstChannel = 94
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 64 dstChannel = 95
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 127 dstChannel = 96
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 126 dstChannel = 97
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 125 dstChannel = 98
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 124 dstChannel = 99
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 123 dstChannel = 100
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 122 dstChannel = 101
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 121 dstChannel = 102
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 120 dstChannel = 103
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 119 dstChannel = 104
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 118 dstChannel = 105
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 117 dstChannel = 106
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 116 dstChannel = 107
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 115 dstChannel = 108
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 114 dstChannel = 109
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 113 dstChannel = 110
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 112 dstChannel = 111
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 111 dstChannel = 112
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 110 dstChannel = 113
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 109 dstChannel = 114
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 108 dstChannel = 115
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 107 dstChannel = 116
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 106 dstChannel = 117
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 105 dstChannel = 118
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 104 dstChannel = 119
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 103 dstChannel = 120
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 102 dstChannel = 121
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 101 dstChannel = 122
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 100 dstChannel = 123
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 99 dstChannel = 124
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 98 dstChannel = 125
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 97 dstChannel = 126
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxChannelMapping' with params: srcChannel = 96 dstChannel = 127
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetRxChannelMapping' with params: fmt::join(mapping, ", ") = 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 rxMapId = 0
+[2024-02-08 16:18:11][Us4OEM:0] INFO: No channel masking will be applied for Us4OEM:0
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'DisableTestPatterns'
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'AfeDemodDisable'
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetPGAGain' with params: gain = 1
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetLNAGain' with params: (int) gain = 1
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'TGCDisable'
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetDTGC' with params: (int) endis = 0 (int) att = 7
+[2024-02-08 16:18:11][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetLPFCutoff' with params: (int) cutoff = 5
+[2024-02-08 16:18:12][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetActiveTermination' with params: (int) endis = 0 (int) term = 0
+[2024-02-08 16:18:12][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'getHVPS'
+[2024-02-08 16:18:12][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Disabling HV
+[2024-02-08 16:18:12][PCIDevice: 0x1172, 0xe005, 0x0] INFO: Setting HVPS DCDC duty factor 65.
+[2024-02-08 16:18:12][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Enabling HV
+[2024-02-08 16:18:12][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Write HVPS reg 2218 = 78ff
+[2024-02-08 16:18:12][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Write HVPS reg 2218 = 7896
+[2024-02-08 16:18:12][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Write HVPS reg 2218 = 788c
+[2024-02-08 16:18:13][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Write HVPS reg 2218 = 7882
+[2024-02-08 16:18:13][Us4R:0] INFO: Setting voltage -30, +30, level: 0
+[2024-02-08 16:18:13][Us4R:0] INFO: Setting voltage -23, +23, level: 1
+[2024-02-08 16:18:13][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Enabling HV
+[2024-02-08 16:18:13][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Write HVPS reg 2218 = 78ff
+[2024-02-08 16:18:13][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Write HVPS reg 2218 = 7896
+[2024-02-08 16:18:13][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Write HVPS reg 2218 = 788c
+[2024-02-08 16:18:13][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Write HVPS reg 2218 = 7882
+[2024-02-08 16:18:13][PCIDevice: 0x1172, 0xe005, 0x0] INFO: Setting HVPS DCDC duty factor 50.
+[2024-02-08 16:18:13][PCIDevice: 0x1172, 0xe005, 0x0] INFO: Setting HVP0 voltage 30
+[2024-02-08 16:18:14][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Initial measured HVP0 voltage 32.4
+[2024-02-08 16:18:14][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Decremented HVP0 duty factor. Measured HVP0 voltage 31.8
+[2024-02-08 16:18:15][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Decremented HVP0 duty factor. Measured HVP0 voltage 30.2
+[2024-02-08 16:18:15][PCIDevice: 0x1172, 0xe005, 0x0] INFO: Measured HVP0 voltage 30.2 [V] and current 0.009 [A].
+[2024-02-08 16:18:15][PCIDevice: 0x1172, 0xe005, 0x0] INFO: Setting HVP1 voltage 23
+[2024-02-08 16:18:15][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Initial measured HVP1 voltage 24.5
+[2024-02-08 16:18:16][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Decremented HVP1 duty factor. Measured HVP1 voltage 23.7
+[2024-02-08 16:18:16][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Decremented HVP1 duty factor. Measured HVP1 voltage 22.2
+[2024-02-08 16:18:16][PCIDevice: 0x1172, 0xe005, 0x0] INFO: Measured HVP1 voltage 22.2 [V] and current 0.009 [A].
+[2024-02-08 16:18:16][PCIDevice: 0x1172, 0xe005, 0x0] INFO: Setting HVM0 voltage 30
+[2024-02-08 16:18:17][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Initial measured HVM0 voltage -29.0
+[2024-02-08 16:18:17][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Incremented HVM0 duty factor. Measured HVM0 voltage -33.4
+[2024-02-08 16:18:18][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Decremented HVM0 duty factor. Measured HVM0 voltage -33.2
+[2024-02-08 16:18:18][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Decremented HVM0 duty factor. Measured HVM0 voltage -31.7
+[2024-02-08 16:18:19][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Decremented HVM0 duty factor. Measured HVM0 voltage -30.2
+[2024-02-08 16:18:19][PCIDevice: 0x1172, 0xe005, 0x0] INFO: Measured HVM0 voltage -30.2 [V] and current -0.003 [A].
+[2024-02-08 16:18:19][PCIDevice: 0x1172, 0xe005, 0x0] INFO: Setting HVM1 voltage 23
+[2024-02-08 16:18:19][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Initial measured HVM1 voltage -22.5
+[2024-02-08 16:18:19][PCIDevice: 0x1172, 0xe005, 0x0] INFO: Measured HVM1 voltage -22.5 [V] and current -0.007 [A].
+[2024-02-08 16:18:20][Us4R:0] INFO: Skipping voltage verification (measured by HV: US4PSC does not provide the possibility to measure the voltage).
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetHVPSSyncMeasurement' with params: nSamples = 509 frequency = 1000000.0
+[2024-02-08 16:18:20][Probe:0] TRACE: Setting tx/rx Tx/Rx: TX: aperture: 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, delays: 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, center frequency: 5e+06, n. periods: 20, inverse: 0, tx voltage level: ; RX: aperture: 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0sample range: 0, 4096, fs divider: 1, padding: 0, 0, rx delay: 0
+
+[2024-02-08 16:18:20][ProbeAdapter:0] TRACE: Setting tx/rx Tx/Rx: TX: aperture: 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, delays: 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, center frequency: 5e+06, n. periods: 20, inverse: 0, tx voltage level: ; RX: aperture: 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0sample range: 0, 4096, fs divider: 1, padding: 0, 0, rx delay: 0
+
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'TGCDisable'
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetNumberOfFirings' with params: nFirings = 1
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'ClearScheduledReceive'
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'ResetCallbacks'
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetRxChannelMapping' with params: fmt::join(mapping, ", ") = 31, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 rxMapId = 0
+[2024-02-08 16:18:20][Us4OEM:0] TRACE: Setting tx/rx: 0
+[2024-02-08 16:18:20][Us4OEM:0] DEBUG: Setting tx/rx 0: Tx/Rx: TX: aperture: 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, delays: 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, center frequency: 5e+06, n. periods: 20, inverse: 0, tx voltage level: ; RX: aperture: 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0sample range: 0, 4096, fs divider: 1, padding: 0, 0, rx delay: 4e-06
+
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetActiveChannelGroup' with params: group.to_string() = 1111111111111111 firing = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxAperture' with params: aperture.to_string() = 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 firing = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetRxAperture' with params: aperture.to_string() = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001 firing = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 0 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 1 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 2 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 3 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 4 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 5 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 6 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 7 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 8 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 9 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 10 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 11 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 12 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 13 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 14 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 15 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 16 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 17 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 18 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 19 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 20 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 21 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 22 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 23 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 24 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 25 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 26 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 27 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 28 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 29 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 30 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 31 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 32 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 33 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 34 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 35 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 36 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 37 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 38 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 39 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 40 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 41 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 42 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 43 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 44 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 45 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 46 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 47 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 48 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 49 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 50 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 51 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 52 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 53 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 54 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 55 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 56 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 57 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 58 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 59 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 60 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 61 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 62 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 63 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 64 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 65 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 66 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 67 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 68 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 69 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 70 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 71 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 72 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 73 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 74 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 75 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 76 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 77 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 78 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 79 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 80 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 81 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 82 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 83 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 84 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 85 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 86 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 87 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 88 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 89 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 90 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 91 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 92 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 93 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 94 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 95 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 96 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 97 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 98 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 99 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 100 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 101 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 102 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 103 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 104 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 105 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 106 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 107 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 108 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 109 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 110 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 111 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 112 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 113 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 114 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 115 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 116 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 117 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 118 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 119 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 120 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 121 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 122 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 123 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 124 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 125 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 126 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: channel = 127 value = 0.0 firing = 0 profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxFreqency' with params: frequency = 5000000.0 firing = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Actual center frequency: '5000000.0'
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxHalfPeriods' with params: (int) nop = 40 firing = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxInvert' with params: (int) onoff = 0 firing = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxVoltageLevel' with params: level = 1 firing = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetRxTime' with params: time = 6.801539e-05 firing = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetRxDelay' with params: delay = 4e-06 firing = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTxDelays' with params: profile = 0
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetNTriggers' with params: n = 2
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'ScheduleReceive' with params: firing = 0 address = 0 length = 4096 start = 38 decimation = 0 rxMapId = 0 callback != nullptr = false
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'ScheduleReceive' with params: firing = 1 address = 262144 length = 4096 start = 38 decimation = 0 rxMapId = 0 callback != nullptr = false
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTrigger' with params: timeToNextTrigger = 100000 syncReq = true idx = 0 syncMode = false
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'SetTrigger' with params: timeToNextTrigger = 100000 syncReq = true idx = 1 syncMode = false
+[2024-02-08 16:18:20][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'AfeDemodDisable'
+[2024-02-08 16:18:21] DEBUG: Allocated 1048576 (262144, 4) bytes of memory, address: 1869390098432
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'PrepareHostBuffer' with params: (size_t) dstAddress = 1869390098432 length = 262144 srcAddress = 0 isGpu = false
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'PrepareHostBuffer' with params: (size_t) dstAddress = 1869390360576 length = 262144 srcAddress = 262144 isGpu = false
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'PrepareHostBuffer' with params: (size_t) dstAddress = 1869390622720 length = 262144 srcAddress = 0 isGpu = false
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'PrepareHostBuffer' with params: (size_t) dstAddress = 1869390884864 length = 262144 srcAddress = 262144 isGpu = false
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'PrepareTransferRXBufferToHost' with params: idx = 0 (size_t) dstAddress = 1869390098432 length = 262144 srcAddress = 0 isGpu = false
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'PrepareTransferRXBufferToHost' with params: idx = 1 (size_t) dstAddress = 1869390360576 length = 262144 srcAddress = 262144 isGpu = false
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'PrepareTransferRXBufferToHost' with params: idx = 2 (size_t) dstAddress = 1869390622720 length = 262144 srcAddress = 0 isGpu = false
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'PrepareTransferRXBufferToHost' with params: idx = 3 (size_t) dstAddress = 1869390884864 length = 262144 srcAddress = 262144 isGpu = false
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'ScheduleTransferRXBufferToHost' with params: firing = 0 idx = 0 callback != nullptr = true
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'ScheduleTransferRXBufferToHost' with params: firing = 1 idx = 1 callback != nullptr = true
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'RegisterReceiveOverflowCallback'
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'RegisterTransferOverflowCallback'
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'TGCDisable'
+[2024-02-08 16:18:21][Us4R:0] INFO: Starting us4r.
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'EnableInterrupts'
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'DisableWaitOnReceiveOverflow'
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'DisableWaitOnTransferOverflow'
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'EnableTransmit'
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'EnableSequencer'
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'MarkEntriesAsReadyForReceive' with params: startEntry = 0 stopEntry = 16383
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'MarkEntriesAsReadyForTransfer' with params: startEntry = 0 stopEntry = 16383
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'AllPulsersWriteRegister' with params: addr = 4105 reg = 8129
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'TriggerStart'
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Interrupt: 0
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'ScheduleTransferRXBufferToHost' with params: firing = 0 idx = 2 callback != nullptr = false
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'MarkEntriesAsReadyForReceive' with params: startEntry = 0 stopEntry = 0
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'MarkEntriesAsReadyForTransfer' with params: startEntry = 0 stopEntry = 0
+[2024-02-08 16:18:21][Us4R:0] DEBUG: Stopping system.
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'TriggerStop'
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'WaitForPendingTransfers'
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'WaitForPendingInterrupts'
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'DisableInterrupts'
+[2024-02-08 16:18:21][Us4R:0] DEBUG: Stopped.
+[2024-02-08 16:18:21] INFO: Scheme stopped.
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Calling: 'GetHVPSMeasurements'
+[2024-02-08 16:18:21][Us4R:0] INFO: Device Us4R is already stopped.
+[2024-02-08 16:18:21] INFO: Scheme stopped.
+[2024-02-08 16:18:21][Us4R:0] INFO: Device Us4R is already stopped.
+[2024-02-08 16:18:21] INFO: Scheme stopped.
+[2024-02-08 16:18:21] INFO: Closing session.
+[2024-02-08 16:18:21] DEBUG: Closing connection with Us4R.
+[2024-02-08 16:18:21][Us4R:0] INFO: Device Us4R is already stopped.
+[2024-02-08 16:18:21] INFO: Connection to Us4R closed.
+[2024-02-08 16:18:21][Us4OEM:0] DEBUG: Destroying handle
+[2024-02-08 16:18:21][Us4OEM:0] DEBUG: Us4OEM handle destroyed.
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] TRACE: Disabling HV
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Calling destructor.
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Properly closed the device.
+[2024-02-08 16:18:21][PCIDevice: 0x1172, 0xe005, 0x0] DEBUG: Uninitialized WDC library.
+[2024-02-08 16:18:21] INFO: Session already closed.
+[2024-02-08 16:18:21] DEBUG: Released the output buffer.

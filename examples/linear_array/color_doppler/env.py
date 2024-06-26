@@ -157,11 +157,11 @@ def configure(session: arrus.Session):
             processing=pipeline
         ),
         tgc=Curve(points=tgc_sampling_points, values=tgc_values),
-        voltage=5
+        voltage=20
     )
 
 
 ENV = UltrasoundEnv(
-    session_cfg="/home/zklim/us4r.prototxt",
+    session_cfg="C:/Users/Public/e2e-test_results/R-A-23-46-01_20240109_al2442_cysts/us4r.prototxt",
     configure=configure,
 )

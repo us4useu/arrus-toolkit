@@ -45,19 +45,19 @@ def main():
     # Parameters
     id       = 0
     
-    push_hv          = 50
-    push_freq        = np.array([130.0/26*1e6, 130.0/26*1e6, 130.0/26*1e6])
+    push_hv          = 70
+    push_freq        = np.array([130.0/26*1e6, 130.0/28*1e6, 130.0/30*1e6])
     push_length      = np.array([200e-6, 200e-6, 200e-6])
-    push_txelements  = np.array([32, 64, 128])
-    push_focus       = np.array([15e-3, 25e-3, 38e-3])
+    push_txelements  = np.array([64, 96, 128])
+    push_focus       = np.array([10e-3, 25e-3, 45e-3])
     
-    pwi_hv        = push_hv + 20
-    pwi_freq      = 130.0/26*1e6
+    pwi_hv        = push_hv + 10
+    pwi_freq      = 130.0/32*1e6
     pwi_txncycles = 2
-    pwi_pri       = 100e-6
+    pwi_pri       = 120e-6
     pwi_angles    = [0.0]
-    n_samples     = 4*1024-256
-    imaging_pw_n_repeats = 60  # ile faktycznie ramek 128 kanałowych złapać (liczba strzałów jest 2x wieksza)
+    n_samples     = 5*1024-256
+    imaging_pw_n_repeats = 80  # ile faktycznie ramek 128 kanałowych złapać (liczba strzałów jest 2x wieksza)
 
     # Process parameters
     datafile = "datasets/data_id_"  + str(id)
@@ -76,6 +76,8 @@ def main():
         us4r = sess.get_device("/Us4R:0")
         n_elements = us4r.get_probe_model().n_elements
 
+        us4r.set_maximum_pulse_length(800e-6)
+
         # Set the HVPS HV voltages        
         us4r.set_hv_voltage((hv_voltage_0, hv_voltage_0), (hv_voltage_1, hv_voltage_1))
         
@@ -90,7 +92,7 @@ def main():
             push_sequence[i] = TxRx(
                     # NOTE: full transmit aperture.
                     Tx(aperture=push_tx_aperture,  # to jest maska binarna (długośc n_elements)
-                        excitation=Pulse(center_frequency=push_freq[i], n_periods=int(push_txncycles[i]), inverse=False, amplitude_level=1),
+                        excitation=Pulse(center_frequency=push_freq[i], n_periods=int(push_txncycles[i]), inverse=False, amplitude_level=1, soft_start = True, rtz = 0),
                         focus=push_focus[i],  # [m]
                         angle=0,  # [rad]
                         speed_of_sound=medium.speed_of_sound
