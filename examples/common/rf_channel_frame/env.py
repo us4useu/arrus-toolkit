@@ -24,7 +24,7 @@ def configure(session: arrus.Session):
 
     sequence = PwiSequence(
         angles=np.array([0]),
-        pulse=Pulse(center_frequency=6e6, n_periods=2, inverse=False),
+        pulse=Pulse(center_frequency=18e6, n_periods=2, inverse=False),
         rx_sample_range=(0, n_samples),
         speed_of_sound=medium.speed_of_sound,
         pri=200e-6,
@@ -47,6 +47,6 @@ def configure(session: arrus.Session):
 
 
 ENV = UltrasoundEnv(
-    session_cfg="us4r.prototxt",
+    session_cfg="C:/Users/user/Documents/Github/arrus-toolkit/us4r.prototxt",
     configure=configure,
 )

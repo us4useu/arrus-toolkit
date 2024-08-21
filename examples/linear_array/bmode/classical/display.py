@@ -8,7 +8,7 @@ displays = {
         title=f"B-mode",
         layers=(
             Layer2D(
-                value_range=(20, 80),
+                value_range=(0, 255),
                 cmap="gray",
                 input=StreamDataId("default", 0),
             ),
