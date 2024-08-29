@@ -46,7 +46,7 @@ def main():
         fir_taps=fir_taps,
         sequence_xy=sequence_xy,
         sequence_yx=sequence_yx,
-        dr_min=-5, dr_max=120,
+        volume_dr_min=-5, volume_dr_max=120,
     )
     output_metadata = pipeline.prepare(metadata)
     visualizer = VTKVisualizer(output_metadata[0].input_shape, use_lgf=False)

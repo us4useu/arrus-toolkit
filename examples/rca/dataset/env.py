@@ -42,7 +42,9 @@ class OfflineProcessingStream(Stream):
 
     def _produce_data(self):
         while self._is_running:
+            print("Consumer")
             arrays = self.data_queue.get(timeout=20)
+            print("Consumer done")
             for c in self.callbacks:
                 c(arrays)
 
@@ -51,13 +53,16 @@ class OfflineDataEnv(Env):
     def __init__(self, input_data, input_metadata, processing):
         self.logger = get_logger(type(self))
         self.producer = threading.Thread(target=self._process_data)
-        self.nframes = cp.asarray(input_data)
-        self.data_size = len(self.input_data)
+        self.input_data = cp.asarray(input_data)
+        print(self.input_data.shape)
+        self.nframes = len(input_data)
         self.stream_metadata = self._initialize_processing(
             input_metadata,
             processing
         )
-        self.stream = None
+        self.processing = processing
+        self.queue = queue.Queue(maxsize=2)
+        self.stream = OfflineProcessingStream(self.queue)
         self._state_lock = threading.Lock()
         self.is_running = False
         self.i = None
@@ -69,22 +74,27 @@ class OfflineDataEnv(Env):
 
         stream_metadata_coll = {}
         for i, om in enumerate(output_metadata):
-            key = StreamDataId("default", 0)
+            key = StreamDataId("default", i)
             value = ImageMetadata(
                 shape=om.input_shape,
-                dtype=om.input_dtype,
+                dtype=om.dtype,
                 ids=("OZ", "OX"), # TODO
                 units=("m", "m"),  # TODO
                 # extents=((0, 10), (-5, 5)) TODO
             )
             stream_metadata_coll[key] = value
+        print(stream_metadata_coll)
         return MetadataCollection(stream_metadata_coll)
 
     def _process_data(self):
         while self.is_running:
+            print("Producer1")
             output = self.processing.process(self.input_data[self.i % self.nframes])
+            print("Producer2")
             arrs = [o.get() for o in output]
+            print("Producer3")
             self.queue.put(arrs)
+            print("producer4")
 
     def get_settings(self) -> Sequence[SettingDef]:
         return [
@@ -106,10 +116,10 @@ class OfflineDataEnv(Env):
                     dtype=np.float32,
                     low=14,
                     high=54,
-                    name=[f"{i} [mm]" for i in range(10)],
-                    unit=["dB"]*10
+                    name=[f"{i} [mm]" for i in np.linspace(0, 40, 5)],
+                    unit=["dB"]*5
                 ),
-                initial_value=[20]*10,
+                initial_value=np.linspace(14, 54, 5),
                 step=1
             ),
         ]
@@ -117,8 +127,7 @@ class OfflineDataEnv(Env):
     def start(self) -> None:
         with self._state_lock:
             self.i = 0
-            self.queue = queue.Queue(maxsize=2)
-            self.stream = OfflineProcessingStream(self.queue)
+
             self.is_running = True
             self.producer.start()
             self.stream.start()
@@ -128,6 +137,9 @@ class OfflineDataEnv(Env):
             self.stream.stop()
             self.is_running = False
             self.producer.join()
+            self.queue = queue.Queue(maxsize=2)
+            self.stream = OfflineProcessingStream(self.queue)
+
 
     def close(self) -> None:
         self.stop()
@@ -169,13 +181,13 @@ fir_taps = scipy.signal.firwin(
 pipeline = get_pwi_reconstruction(
     array_x=probe_params.APERTURE_X,
     array_y=probe_params.APERTURE_Y,
-    y_grid=np.arange(-6e-3, 6e-3, 0.4e-3),
-    x_grid=np.arange(-6e-3, 6e-3, 0.4e-3),
-    z_grid=np.arange(25e-3, 43e-3, 0.4e-3),
+    y_grid=np.arange(-10e-3, 10e-3, 0.2e-3),
+    x_grid=np.arange(-10e-3, 10e-3, 0.2e-3),
+    z_grid=np.arange(25e-3, 40e-3, 0.2e-3),
     fir_taps=fir_taps,
     sequence_xy=sequence_xy,
     sequence_yx=sequence_yx,
-    dr_min=-5, dr_max=120,
+    volume_dr_min=-5, volume_dr_max=120,
 )
 
 ENV = OfflineDataEnv(input_data=rf, input_metadata=metadata, processing=pipeline)

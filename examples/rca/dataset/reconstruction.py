@@ -5,13 +5,15 @@ from arrus_rca_utils.reconstruction import (
     get_frame_ranges,
     get_rx_aperture_size,
     PipelineSequence,
-    SelectBatch
+    SelectBatch,
+    Slice
 )
 from arrus.ops.us4r import (
     TxRxSequence
 )
 from arrus.utils.imaging import *
 import probe_params
+import cupyx.scipy.ndimage
 
 
 def reorder_rf(frames, aperture_size):
@@ -44,7 +46,7 @@ def to_hri(
     )
 
 
-def to_bmode(dr_min, dr_max):
+def to_bmode():
     return (
         # Concatenate along TX axis
         Concatenate(axis=0),
@@ -52,8 +54,6 @@ def to_bmode(dr_min, dr_max):
         Squeeze(),
         EnvelopeDetection(),
         LogCompression(),
-        DynamicRangeAdjustment(min=dr_min, max=dr_max),
-        Squeeze(),
     )
 
 
@@ -67,7 +67,7 @@ def get_pwi_reconstruction(
         sequence_xy: TxRxSequence,
         sequence_yx: TxRxSequence,
         fir_taps,
-        dr_min=20, dr_max=80,
+        volume_dr_min=20, volume_dr_max=80,
 ):
     seqs = sequence_xy, sequence_yx
     range_xy, range_yx = get_frame_ranges(*seqs)
@@ -108,11 +108,28 @@ def get_pwi_reconstruction(
         name="bmode",
         steps=(
             SelectBatch([0, 1]),
-            *to_bmode(
-                dr_min=dr_min,
-                dr_max=dr_max
+            *to_bmode(),
+            branch(
+                steps=(
+                    DynamicRangeAdjustment(min=volume_dr_min, max=volume_dr_max),
+                    Squeeze(),
+                )
             ),
-
+            # (y, x, z)
+            branch(
+                steps=(
+                    Slice(axis=0),
+                    Squeeze(),
+                    Transpose(),
+                    Lambda(lambda data: cupyx.scipy.ndimage.median_filter(data, size=2)),
+                )),
+            branch(
+                steps=(
+                    Slice(axis=1),
+                    Squeeze(),
+                    Transpose(),
+                    Lambda(lambda data: cupyx.scipy.ndimage.median_filter(data, size=2)),
+                ))
         ),
         placement="/GPU:0"
     )
