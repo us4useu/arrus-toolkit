@@ -121,15 +121,22 @@ def get_pwi_reconstruction(
                     Slice(axis=0),
                     Squeeze(),
                     Transpose(),
-                    Lambda(lambda data: cupyx.scipy.ndimage.median_filter(data, size=2)),
+                    Lambda(lambda data: cupyx.scipy.ndimage.median_filter(data, size=5)),
                 )),
             branch(
                 steps=(
                     Slice(axis=1),
                     Squeeze(),
                     Transpose(),
-                    Lambda(lambda data: cupyx.scipy.ndimage.median_filter(data, size=2)),
-                ))
+                    Lambda(lambda data: cupyx.scipy.ndimage.median_filter(data, size=5)),
+                )),
+            branch(
+                steps=(
+                    Slice(axis=2),
+                    Squeeze(),
+                    Transpose(),
+                    Lambda(lambda data: cupyx.scipy.ndimage.median_filter(data, size=5)),
+           ))
         ),
         placement="/GPU:0"
     )

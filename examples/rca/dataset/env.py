@@ -75,6 +75,7 @@ class OfflineDataEnv(Env):
         stream_metadata_coll = {}
         for i, om in enumerate(output_metadata):
             key = StreamDataId("default", i)
+            spacing = om.data_description.spacing
             value = ImageMetadata(
                 shape=om.input_shape,
                 dtype=om.dtype,
@@ -88,13 +89,9 @@ class OfflineDataEnv(Env):
 
     def _process_data(self):
         while self.is_running:
-            print("Producer1")
             output = self.processing.process(self.input_data[self.i % self.nframes])
-            print("Producer2")
             arrs = [o.get() for o in output]
-            print("Producer3")
             self.queue.put(arrs)
-            print("producer4")
 
     def get_settings(self) -> Sequence[SettingDef]:
         return [
@@ -181,9 +178,9 @@ fir_taps = scipy.signal.firwin(
 pipeline = get_pwi_reconstruction(
     array_x=probe_params.APERTURE_X,
     array_y=probe_params.APERTURE_Y,
-    y_grid=np.arange(-10e-3, 10e-3, 0.2e-3),
-    x_grid=np.arange(-10e-3, 10e-3, 0.2e-3),
-    z_grid=np.arange(25e-3, 40e-3, 0.2e-3),
+    y_grid=np.arange(-12e-3, 12e-3, 0.2e-3),
+    x_grid=np.arange(-12e-3, 12e-3, 0.2e-3),
+    z_grid=np.arange(20e-3, 40e-3, 0.2e-3),
     fir_taps=fir_taps,
     sequence_xy=sequence_xy,
     sequence_yx=sequence_yx,
