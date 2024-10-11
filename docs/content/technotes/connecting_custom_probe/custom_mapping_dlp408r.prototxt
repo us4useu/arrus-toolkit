@@ -8,7 +8,7 @@ us4r: {
         # TODO: please set the correct number of probe elements.
         n_elements: 256,
 
-        # TODO: please set the correct pitch.
+        # TODO: please set the correct pitch. [m]
         pitch: 0.1e-3,
 
         tx_frequency_range: {
