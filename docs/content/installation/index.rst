@@ -15,6 +15,11 @@ Operating system:
 Before proceeding please also make sure that your us4R/us4R-lite device is
 properly connected and enabled in the operating system settings.
 
+Please follow the instructions below, depending on the interface of the device you have.
+
+Thunderbolt-3 interface
+-----------------------
+
 For devices with **Thunderbolt-3** interface, please check if your us4R/us4R-lite
 is properly connected via Thunderbolt-3 cable and is enabled in your System
 Settings and/or Thunderbolt Software:
@@ -52,14 +57,19 @@ graphical interface).
 
 **Windows 10**
 
-Please check if the LT Link device is enabled in the Thunderbolt software
-installed on your computer.
+.. note::
+
+    The following instructions may only be necessary for Thunderbolt-3 expansion cards. If your system does not have software installed called "Thunderbolt Software" or similar, please skip this step and proceed to the next section to check if you can
+    see unknown ``PCI Device`` or ``us4oem`` in the Windows Device Manager.
 
 .. figure:: img/thunderbolt.png
     :scale: 80%
 
 The `Connection status` should read `Connected` (or something similar).
 
+
+PCIe ports and Thunderbolt-3 interface
+--------------------------------------
 
 For devices with **Thunderbolt-3** or the **direct PCI-e** connection,
 please check if your operating system properly detected us4R/us4R-lite
@@ -111,10 +121,14 @@ The below table shows which versions are compatible.
  ================================================================================= ========================================================================================================================================================== ================== =================== ==================== ===============
   ARRUS                                                                             Drivers                                                                                                                                                   Us4OEM+ Firmware   Us4OEM Firmware     DBAR-Lite Firmware   DBAR Firmware
  ================================================================================= ========================================================================================================================================================== ================== =================== ==================== ===============
-  `v0.10.0 <https://github.com/us4useu/arrus/releases/tag/v0.10.0>`__                 v0.11.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            1.0.1.0, TX: a      0x243a5479           0x705c9732
-  `v0.9.3 <https://github.com/us4useu/arrus/releases/tag/v0.9.3>`__                 v0.10.3, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            1.0.1.0, TX: a      0x243a5479           0x705c9732
-  `v0.9.2 <https://github.com/us4useu/arrus/releases/tag/v0.9.2>`__                 v0.10.2, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            1.0.1.0, TX: a      0x243a5479           0x705c9732
-  `v0.9.1 <https://github.com/us4useu/arrus/releases/tag/v0.9.1>`__                 v0.10.1, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            1.0.1.0, TX: a      0x243a5479           0x705c9732
+  `v0.10.4 <https://github.com/us4useu/arrus/releases/tag/v0.10.4>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.5.0            1.0.1.0, TX: a      0x243a5479           0x705c9732
+  `v0.10.3 <https://github.com/us4useu/arrus/releases/tag/v0.10.3>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.5.0            1.0.1.0, TX: a      0x243a5479           0x705c9732
+  `v0.10.2 <https://github.com/us4useu/arrus/releases/tag/v0.10.2>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            1.0.1.0, TX: a      0x243a5479           0x705c9732
+  `v0.10.1 <https://github.com/us4useu/arrus/releases/tag/v0.10.1>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            1.0.1.0, TX: a      0x243a5479           0x705c9732
+  `v0.10.0 <https://github.com/us4useu/arrus/releases/tag/v0.10.0>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            1.0.1.0, TX: a      0x243a5479           0x705c9732
+  `v0.9.3 <https://github.com/us4useu/arrus/releases/tag/v0.9.3>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            1.0.1.0, TX: a      0x243a5479           0x705c9732
+  `v0.9.2 <https://github.com/us4useu/arrus/releases/tag/v0.9.2>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            1.0.1.0, TX: a      0x243a5479           0x705c9732
+  `v0.9.1 <https://github.com/us4useu/arrus/releases/tag/v0.9.1>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            1.0.1.0, TX: a      0x243a5479           0x705c9732
   `v0.9.0 <https://github.com/us4useu/arrus/releases/tag/v0.9.0>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            1.0.1.0, TX: a      0x243a5479           0x705c9732
   `v0.8.0 <https://github.com/us4useu/arrus/releases/tag/v0.8.0>`__                 v0.9.0, Linux: `0.2.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.9.0-dev-first/us4r-driver-v0.2.0-dev20221007.run>`__, Windows: WD1450 x                  0x0f255c84, TX: a   0x243a5479           0x705c9732
   `v0.7.8 <https://github.com/us4useu/arrus/releases/tag/v0.7.8>`__                 v0.8.7, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       x                  0xbd612458, TX: a   0x243a5479           0xffe07334
@@ -154,26 +168,11 @@ folder, e.g.:
 .. warning::
     Currently it is necessary to re-run the above installer after every
     Linux Kernel upgrade
-    (which can be performed silently in the background by Ubuntu).
+    (which may be performed silently in the background by Ubuntu).
     This inconvenience will be fixed in the future.
 
 Windows
 ~~~~~~~
-
-Uninstall ARIUS drivers (if previously installed)
-#################################################
-
-If ARIUS drivers are installed on your computer, uninstall them first. ARIUS
-drivers are the legacy drivers that were required before the 0.4.3 version.
-
-1. Open the Windows Device Manager, uninstall all ``ARIUS`` or ``WinDriver1290`` or ``us4oem``
-   devices available in the "Jungo Connectivity" node. **Check
-   "Delete the driver software for this device"**.
-
-.. figure:: img/uninstall_arius_drv.png
-    :scale: 100%
-
-2. Restart computer.
 
 Install Us4OEM drivers
 ######################
@@ -189,14 +188,14 @@ Device Manager.
     :scale: 100%
 
 
-us4OEM+/us4OEM firmware
------------------------
+Firmware
+--------
 
-.. warning::
+.. note::
 
-    Currently the firmware update is supported on Windows only.
+    Usually, the hardware we provide already has the latest stable firmware version installed -- so it is likely that you can skip this step. Use the instructions below only if you would like to test a newer, _develop_ version of the firmware and software.
 
-Download the appropriate firmware version from this `page <https://github.com/us4useu/us4r-drivers/releases>`__,
+Download the appropriate firmware version (and the appropriate suffix: `-linux`: Linux, no suffix: Windows) from this `page <https://github.com/us4useu/us4r-drivers/releases>`__,
 extract and run ``update.bat``.
 
 .. figure:: img/firmware_update_result.png
@@ -205,10 +204,12 @@ extract and run ``update.bat``.
 **After the update, please remember to do a full power cycle of the us4R/us4R-lite and the connected PC.**
 
 
-ARRUS
------
-The list of the ARRUS package releases is available `here <https://github.com/us4useu/arrus/releases>`__.
+Application Programming Interface: ARRUS
+----------------------------------------
 
+We provide our application programming interface as a part of the **ARRUS** package.
+
+The list of the ARRUS package releases is available `here <https://github.com/us4useu/arrus/releases>`__.
 Download and extract the package for the programming language you want to use.
 Follow the necessary steps described below.
 
