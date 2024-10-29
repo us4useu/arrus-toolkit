@@ -13,6 +13,7 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
 
   
   
@@ -36,7 +37,7 @@
     
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Utils" href="../utils.html" />
+    <link rel="next" title="Technotes" href="../technotes/index.html" />
     <link rel="prev" title="Introduction" href="../introduction.html" /> 
 </head>
 
@@ -86,15 +87,19 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#thunderbolt-3-interface">Thunderbolt-3 interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pcie-ports-and-thunderbolt-3-interface">PCIe ports and Thunderbolt-3 interface</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#installing-software-components-separately">Installing software components separately</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#drivers">Drivers</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#linux">Linux</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#windows">Windows</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#us4oem-us4oem-firmware">us4OEM+/us4OEM firmware</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">ARRUS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#firmware">Firmware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#application-programming-interface-arrus">Application Programming Interface: ARRUS</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#python">Python</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#matlab">MATLAB</a></li>
 </ul>
@@ -103,6 +108,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../technotes/index.html">Technotes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../utils.html">Utils</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
 </ul>
@@ -183,6 +189,9 @@
 </ul>
 <p>Before proceeding please also make sure that your us4R/us4R-lite device is
 properly connected and enabled in the operating system settings.</p>
+<p>Please follow the instructions below, depending on the interface of the device you have.</p>
+<div class="section" id="thunderbolt-3-interface">
+<h3>Thunderbolt-3 interface<a class="headerlink" href="#thunderbolt-3-interface" title="Permalink to this headline">¶</a></h3>
 <p>For devices with <strong>Thunderbolt-3</strong> interface, please check if your us4R/us4R-lite
 is properly connected via Thunderbolt-3 cable and is enabled in your System
 Settings and/or Thunderbolt Software:</p>
@@ -215,12 +224,18 @@ o LT-LINK  NVME #4
 </pre></div>
 </div>
 <p><strong>Windows 10</strong></p>
-<p>Please check if the LT Link device is enabled in the Thunderbolt software
-installed on your computer.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following instructions may only be necessary for Thunderbolt-3 expansion cards. If your system does not have software installed called “Thunderbolt Software” or similar, please skip this step and proceed to the next section to check if you can
+see unknown <code class="docutils literal notranslate"><span class="pre">PCI</span> <span class="pre">Device</span></code> or <code class="docutils literal notranslate"><span class="pre">us4oem</span></code> in the Windows Device Manager.</p>
+</div>
 <div class="figure align-default">
 <a class="reference internal image-reference" href="../../_images/thunderbolt.png"><img alt="../../_images/thunderbolt.png" src="../../_images/thunderbolt.png" style="width: 392.0px; height: 468.8px;" /></a>
 </div>
 <p>The <cite>Connection status</cite> should read <cite>Connected</cite> (or something similar).</p>
+</div>
+<div class="section" id="pcie-ports-and-thunderbolt-3-interface">
+<h3>PCIe ports and Thunderbolt-3 interface<a class="headerlink" href="#pcie-ports-and-thunderbolt-3-interface" title="Permalink to this headline">¶</a></h3>
 <p>For devices with <strong>Thunderbolt-3</strong> or the <strong>direct PCI-e</strong> connection,
 please check if your operating system properly detected us4R/us4R-lite
 components:</p>
@@ -245,6 +260,7 @@ your are using the direct PCIe connect) and check the <code class="docutils lite
 <p>Please check in the device manager whether there are <code class="docutils literal notranslate"><span class="pre">PCI</span> <span class="pre">Device</span></code> or <code class="docutils literal notranslate"><span class="pre">us4oem</span></code>
 nodes there, in the number equal to the number of modules that your
 us4R/us4R-lite has.</p>
+</div>
 </div>
 <div class="section" id="installing-software-components-separately">
 <h2>Installing software components separately<a class="headerlink" href="#installing-software-components-separately" title="Permalink to this headline">¶</a></h2>
@@ -278,29 +294,57 @@ components are not compatible with each other.</p>
 </tr>
 </thead>
 <tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.10.4">v0.10.4</a></p></td>
+<td><p>v0.10.0, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run">0.10.0</a>, Windows: WD1450</p></td>
+<td><p>2.0.5.0</p></td>
+<td><p>1.0.1.0, TX: a</p></td>
+<td><p>0x243a5479</p></td>
+<td><p>0x705c9732</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.10.3">v0.10.3</a></p></td>
+<td><p>v0.10.0, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run">0.10.0</a>, Windows: WD1450</p></td>
+<td><p>2.0.5.0</p></td>
+<td><p>1.0.1.0, TX: a</p></td>
+<td><p>0x243a5479</p></td>
+<td><p>0x705c9732</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.10.2">v0.10.2</a></p></td>
+<td><p>v0.10.0, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run">0.10.0</a>, Windows: WD1450</p></td>
+<td><p>2.0.4.0</p></td>
+<td><p>1.0.1.0, TX: a</p></td>
+<td><p>0x243a5479</p></td>
+<td><p>0x705c9732</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.10.1">v0.10.1</a></p></td>
+<td><p>v0.10.0, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run">0.10.0</a>, Windows: WD1450</p></td>
+<td><p>2.0.4.0</p></td>
+<td><p>1.0.1.0, TX: a</p></td>
+<td><p>0x243a5479</p></td>
+<td><p>0x705c9732</p></td>
+</tr>
 <tr class="row-even"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.10.0">v0.10.0</a></p></td>
-<td><p>v0.11.0, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run">0.10.0</a>, Windows: WD1450</p></td>
+<td><p>v0.10.0, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run">0.10.0</a>, Windows: WD1450</p></td>
 <td><p>2.0.4.0</p></td>
 <td><p>1.0.1.0, TX: a</p></td>
 <td><p>0x243a5479</p></td>
 <td><p>0x705c9732</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.9.3">v0.9.3</a></p></td>
-<td><p>v0.10.3, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run">0.10.0</a>, Windows: WD1450</p></td>
+<td><p>v0.10.0, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run">0.10.0</a>, Windows: WD1450</p></td>
 <td><p>2.0.4.0</p></td>
 <td><p>1.0.1.0, TX: a</p></td>
 <td><p>0x243a5479</p></td>
 <td><p>0x705c9732</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.9.2">v0.9.2</a></p></td>
-<td><p>v0.10.2, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run">0.10.0</a>, Windows: WD1450</p></td>
+<td><p>v0.10.0, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run">0.10.0</a>, Windows: WD1450</p></td>
 <td><p>2.0.4.0</p></td>
 <td><p>1.0.1.0, TX: a</p></td>
 <td><p>0x243a5479</p></td>
 <td><p>0x705c9732</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference external" href="https://github.com/us4useu/arrus/releases/tag/v0.9.1">v0.9.1</a></p></td>
-<td><p>v0.10.1, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run">0.10.0</a>, Windows: WD1450</p></td>
+<td><p>v0.10.0, Linux: <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run">0.10.0</a>, Windows: WD1450</p></td>
 <td><p>2.0.4.0</p></td>
 <td><p>1.0.1.0, TX: a</p></td>
 <td><p>0x243a5479</p></td>
@@ -406,28 +450,12 @@ folder, e.g.:</p>
 <p class="admonition-title">Warning</p>
 <p>Currently it is necessary to re-run the above installer after every
 Linux Kernel upgrade
-(which can be performed silently in the background by Ubuntu).
+(which may be performed silently in the background by Ubuntu).
 This inconvenience will be fixed in the future.</p>
 </div>
 </div>
 <div class="section" id="windows">
 <h4>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h4>
-<div class="section" id="uninstall-arius-drivers-if-previously-installed">
-<h5>Uninstall ARIUS drivers (if previously installed)<a class="headerlink" href="#uninstall-arius-drivers-if-previously-installed" title="Permalink to this headline">¶</a></h5>
-<p>If ARIUS drivers are installed on your computer, uninstall them first. ARIUS
-drivers are the legacy drivers that were required before the 0.4.3 version.</p>
-<ol class="arabic simple">
-<li><p>Open the Windows Device Manager, uninstall all <code class="docutils literal notranslate"><span class="pre">ARIUS</span></code> or <code class="docutils literal notranslate"><span class="pre">WinDriver1290</span></code> or <code class="docutils literal notranslate"><span class="pre">us4oem</span></code>
-devices available in the “Jungo Connectivity” node. <strong>Check
-“Delete the driver software for this device”</strong>.</p></li>
-</ol>
-<div class="figure align-default">
-<a class="reference internal image-reference" href="../../_images/uninstall_arius_drv.png"><img alt="../../_images/uninstall_arius_drv.png" src="../../_images/uninstall_arius_drv.png" style="width: 344.0px; height: 234.0px;" /></a>
-</div>
-<ol class="arabic simple" start="2">
-<li><p>Restart computer.</p></li>
-</ol>
-</div>
 <div class="section" id="install-us4oem-drivers">
 <h5>Install Us4OEM drivers<a class="headerlink" href="#install-us4oem-drivers" title="Permalink to this headline">¶</a></h5>
 <ol class="arabic simple">
@@ -443,23 +471,24 @@ Device Manager.</p>
 </div>
 </div>
 </div>
-<div class="section" id="us4oem-us4oem-firmware">
-<h3>us4OEM+/us4OEM firmware<a class="headerlink" href="#us4oem-us4oem-firmware" title="Permalink to this headline">¶</a></h3>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Currently the firmware update is supported on Windows only.</p>
+<div class="section" id="firmware">
+<h3>Firmware<a class="headerlink" href="#firmware" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Usually, the hardware we provide already has the latest stable firmware version installed – so it is likely that you can skip this step. Use the instructions below only if you would like to test a newer, _develop_ version of the firmware and software.</p>
 </div>
-<p>Download the appropriate firmware version from this <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases">page</a>,
+<p>Download the appropriate firmware version (and the appropriate suffix: <cite>-linux</cite>: Linux, no suffix: Windows) from this <a class="reference external" href="https://github.com/us4useu/us4r-drivers/releases">page</a>,
 extract and run <code class="docutils literal notranslate"><span class="pre">update.bat</span></code>.</p>
 <div class="figure align-default">
 <a class="reference internal image-reference" href="../../_images/firmware_update_result.png"><img alt="../../_images/firmware_update_result.png" src="../../_images/firmware_update_result.png" style="width: 694.0px; height: 73.0px;" /></a>
 </div>
 <p><strong>After the update, please remember to do a full power cycle of the us4R/us4R-lite and the connected PC.</strong></p>
 </div>
-<div class="section" id="id1">
-<h3>ARRUS<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>The list of the ARRUS package releases is available <a class="reference external" href="https://github.com/us4useu/arrus/releases">here</a>.</p>
-<p>Download and extract the package for the programming language you want to use.
+<div class="section" id="application-programming-interface-arrus">
+<h3>Application Programming Interface: ARRUS<a class="headerlink" href="#application-programming-interface-arrus" title="Permalink to this headline">¶</a></h3>
+<p>We provide our application programming interface as a part of the <strong>ARRUS</strong> package.</p>
+<p>The list of the ARRUS package releases is available <a class="reference external" href="https://github.com/us4useu/arrus/releases">here</a>.
+Download and extract the package for the programming language you want to use.
 Follow the necessary steps described below.</p>
 <div class="section" id="python">
 <h4>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h4>
@@ -513,7 +542,7 @@ and described <a class="reference external" href="https://us4useu.github.io/arru
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../utils.html" class="btn btn-neutral float-right" title="Utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../technotes/index.html" class="btn btn-neutral float-right" title="Technotes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

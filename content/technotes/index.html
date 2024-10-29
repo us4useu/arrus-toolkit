@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Examples &mdash; ARRUS Toolkit  documentation</title>
+  <title>Technotes &mdash; ARRUS Toolkit  documentation</title>
   
 
   
@@ -36,7 +36,9 @@
 
     
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Connecting custom probe" href="connecting_custom_probe/index.html" />
+    <link rel="prev" title="Installation" href="../installation/index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -82,10 +84,13 @@
             
             
               <p class="caption"><span class="caption-text">User Documentation</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../technotes/index.html">Technotes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Technotes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="connecting_custom_probe/index.html">Connecting custom probe</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../utils.html">Utils</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
 </ul>
@@ -138,7 +143,7 @@
     
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Examples</li>
+      <li>Technotes</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -155,55 +160,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="examples">
-<span id="arrus-toolkit-examples"></span><h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="linear-array">
-<h2>Linear array<a class="headerlink" href="#linear-array" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="raw-b-mode-image">
-<h3>Raw B-mode image<a class="headerlink" href="#raw-b-mode-image" title="Permalink to this headline">¶</a></h3>
-<p>GUI4us examples for the raw B-mode image presentation are available in the
-<code class="docutils literal notranslate"><span class="pre">examples/linear_array/bmode</span></code>.</p>
-<p>Please refer to ARRUS Toolkit documentation for more information about
-how to configure TX/RX sequences and data processing.</p>
-</div>
-<div class="section" id="simple-color-power-doppler">
-<h3>Simple color/power doppler<a class="headerlink" href="#simple-color-power-doppler" title="Permalink to this headline">¶</a></h3>
-<p>GUI4us examples for the color/power doppler presentation are available in the
-<code class="docutils literal notranslate"><span class="pre">examples/linear_array/color_doppler</span></code>.</p>
-<p>There are parameter controls on the left and 2 subfigures on the right visible in the GUI.
-Color and power doppler are displayed on the left and right subfigure respectively.
-The following parameters are available for modification in the GUI, for both subfigures separately:</p>
-<ul class="simple">
-<li><p>color_dr_max: maximal value of color doppler displayed [radians],</p></li>
-<li><p>color_dr_min: minimal value of color doppler displayed [radians],</p></li>
-<li><p>power_dr_max: maximal value of power doppler displayed [dB],</p></li>
-<li><p>power_dr_min: minimal value of power doppler displayed [dB],</p></li>
+  <div class="section" id="technotes">
+<h1>Technotes<a class="headerlink" href="#technotes" title="Permalink to this headline">¶</a></h1>
+<p>This section provides usage instructions for typical use cases of the us4R/us4R-lite system with ARRUS software.</p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Use cases</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="connecting_custom_probe/index.html">Connecting custom probe</a></li>
 </ul>
-<p>Additionally the transmit pulse amplitude can be set in ‘voltage’ control,
-and time gain compensation (TGC) can be modified manually.</p>
-<p>Please refer to ARRUS Toolkit documentation for more information about
-how to configure TX/RX sequences and data processing.</p>
-<p>Requirements:</p>
-<ul class="simple">
-<li><p>The Python packages specified in the <code class="docutils literal notranslate"><span class="pre">examples/linear_array/color_doppler/requirements.txt</span></code> file.</p></li>
-</ul>
-</div>
-<div class="section" id="nn-b-mode">
-<h3>NN-B-mode<a class="headerlink" href="#nn-b-mode" title="Permalink to this headline">¶</a></h3>
-<p>GUI4us example for B-mode image reconstruction and neural network post-processing
-is available in the <code class="docutils literal notranslate"><span class="pre">examples/linear_array/nn_bmode</span></code> directory.</p>
-<p>The example uses the model presented in the paper
-<a class="reference external" href="https://doi.org/10.1109%2FTUFFC.2019.2903795">Beamforming and Speckle Reduction Using Neural Networks, Dongwoon Hyun et. al. 2019</a>.
-The source code, datasets and model weights are available in Dongwoon’s git
-<a class="reference external" href="https://gitlab.com/dongwoon.hyun/nn_bmode">repository</a>.</p>
-<p>In short, the</p>
-<p>Requirements:</p>
-<ul class="simple">
-<li><p>The Python packages specified in the <code class="docutils literal notranslate"><span class="pre">nn_bmode/requirements.txt</span></code> file,
-you can install it with the following command: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">nn_bmode/requirements.txt</span></code>.</p></li>
-<li><p>NVIDIA CUDA Toolkit 11.2 (required by <code class="docutils literal notranslate"><span class="pre">tensorflow-gpu</span></code>).</p></li>
-</ul>
-</div>
 </div>
 </div>
 
@@ -212,6 +176,15 @@ you can install it with the following command: <code class="docutils literal not
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="connecting_custom_probe/index.html" class="btn btn-neutral float-right" title="Connecting custom probe" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../installation/index.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

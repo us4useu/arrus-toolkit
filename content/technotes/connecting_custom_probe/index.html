@@ -7,12 +7,13 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Connecting new probe &mdash; ARRUS Toolkit  documentation</title>
+  <title>Connecting custom probe &mdash; ARRUS Toolkit  documentation</title>
   
 
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
   
   
@@ -35,7 +36,9 @@
 
     
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Utils" href="../../utils.html" />
+    <link rel="prev" title="Technotes" href="../index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -81,9 +84,16 @@
             
             
               <p class="caption"><span class="caption-text">User Documentation</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation/index.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Technotes</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Connecting custom probe</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#determine-pin-mapping">Determine pin-mapping</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../utils.html">Utils</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
 </ul>
@@ -136,7 +146,9 @@
     
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Connecting new probe</li>
+          <li><a href="../index.html">Technotes</a> &raquo;</li>
+        
+      <li>Connecting custom probe</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -153,20 +165,110 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="connecting-new-probe">
-<h1>Connecting new probe<a class="headerlink" href="#connecting-new-probe" title="Permalink to this headline">¶</a></h1>
-<p>In this section, we outline the steps that should be taken when you want to connect a new head to our system.</p>
-<p>If your head is not on the list of heads supported by us (see the list here), you will likely need to determine the probe parameters and pin-mapping between the probe and the ultrasound system. For that, please refer to Section 1, “Determining pin-mapping.”</p>
-<p>If your head model is officially supported by our software, you can use this prototxt file, just remember to set the appropriate name of the adapter and probe model.</p>
-<div class="section" id="determining-pin-mapping">
-<h2>Determining pin-mapping<a class="headerlink" href="#determining-pin-mapping" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple">
-<li><p>Download this <cite>custom_mapping_dlp408r.prototxt</cite> file, set the appropriate number of elements and pitch.</p></li>
-<li><p>Download the script that allows you to display RF data in real time: Python, Matlab, and set the appropriate .prototxt file in it (please check the <cite>arrus.Session</cite> (Python) or the <cite>Us4R</cite> (MATLAB) constructor).</p></li>
-<li><p>Run the script and check if you can see a correct echo from a point target (as shown below).</p></li>
-<li><p>If not, it will be necessary to adjust the pin mapping between the system channels and the head elements. To do this, try modifying <cite>probe_to_adapter_connection</cite> until you obtain the correct result. You can read more about the <cite>probe_to_adapter_connection</cite> field here.</p></li>
-<li><p>Finally, make sure you see a correct RF signal on all channels. If you do not receive a correct signal from a strong reflector at a particular probe element, please mask it by adding it to this list.</p></li>
-</ol>
+  <div class="section" id="connecting-custom-probe">
+<h1>Connecting custom probe<a class="headerlink" href="#connecting-custom-probe" title="Permalink to this headline">¶</a></h1>
+<p>In this section, we outline the steps that should be taken when you would like to connect a custom (not officially tested by us4us) probe to the USSS2/us4R-lite/USSS8/us4R system.
+If your probe is not on the list of probes supported by us (see the list <a class="reference external" href="https://us4useu.github.io/arrus-docs/releases/v0.10.4/python/content/user_guide.html#default-dictionary">here</a>),
+you will likely need to determine the probe parameters and pin-mapping between the probe and the ultrasound system. For that, please refer to the section “Determining pin-mapping.”</p>
+<p>If your probe model is officially supported by our software, you can simply use this prototxt file, just remember to set the appropriate name of
+the adapter and probe model.</p>
+<div class="section" id="determine-pin-mapping">
+<h2>Determine pin-mapping<a class="headerlink" href="#determine-pin-mapping" title="Permalink to this headline">¶</a></h2>
+<p>First, create a <code class="docutils literal notranslate"><span class="pre">us4r.prototxt</span></code> file and put the below content into it.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">us4r</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">probe</span><span class="p">:</span>
+    <span class="p">{</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="p">{</span>
+            <span class="n">manufacturer</span><span class="p">:</span> <span class="s2">&quot;manufacturer_name&quot;</span>
+            <span class="n">name</span><span class="p">:</span> <span class="s2">&quot;probe_model_name&quot;</span>
+        <span class="p">}</span>
+        <span class="c1"># TODO: please set the correct number of probe elements.</span>
+        <span class="n">n_elements</span><span class="p">:</span> <span class="mi">256</span><span class="p">,</span>
+
+        <span class="c1"># TODO: please set the correct pitch. [m]</span>
+        <span class="n">pitch</span><span class="p">:</span> <span class="mf">0.1e-3</span><span class="p">,</span>
+
+        <span class="n">tx_frequency_range</span><span class="p">:</span> <span class="p">{</span>
+            <span class="n">begin</span><span class="p">:</span> <span class="mf">1e6</span><span class="p">,</span>
+            <span class="n">end</span><span class="p">:</span> <span class="mf">15e6</span>
+        <span class="p">},</span>
+        <span class="c1"># NOTE: the voltage limit set below has been chosen to allow safe experimentation when the pin mapping between</span>
+        <span class="c1"># the head and the system is not yet well known. Once you are certain about the pin mapping and that no elements</span>
+        <span class="c1"># are shorted or open, you may increase the `end` value (max: 90 V).</span>
+        <span class="n">voltage_range</span> <span class="p">{</span>
+            <span class="n">begin</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="n">end</span><span class="p">:</span> <span class="mi">10</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">adapter_id</span><span class="p">:</span> <span class="p">{</span>
+        <span class="n">manufacturer</span><span class="p">:</span> <span class="s2">&quot;us4us&quot;</span>
+        <span class="n">name</span><span class="p">:</span> <span class="s2">&quot;dlp408r&quot;</span>
+    <span class="p">}</span>
+
+    <span class="n">probe_to_adapter_connection</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c1"># One to one mapping between system channels and probe elements.</span>
+        <span class="n">channel_mapping_ranges</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="n">begin</span><span class="p">:</span> <span class="mi">0</span>
+                <span class="n">end</span><span class="p">:</span> <span class="mi">255</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+
+        <span class="c1"># You can specify your own order using a construction like the one below.</span>
+        <span class="c1"># Note: the number of elements in the list below should be equal to the number of elements in the probe.</span>
+        <span class="c1"># channel_mapping: [</span>
+        <span class="c1">#     250, 254, 242, 246, 232, 236, 224, 228, 218, 222, 210, 214, 200, 204, 192, 196,</span>
+        <span class="c1">#     186, 190, 178, 182, 168, 172, 160, 164, 154, 158, 146, 150, 136, 140, 128, 132,</span>
+        <span class="c1">#     131, 135, 139, 143, 145, 149, 153, 157, 163, 167, 171, 175, 177, 181, 185, 189,</span>
+        <span class="c1">#     195, 199, 203, 207, 209, 213, 217, 221, 227, 231, 235, 239, 241, 245, 249, 253,</span>
+        <span class="c1">#     129, 133, 137, 141, 147, 151, 155, 159, 161, 165, 169, 173, 179, 183, 187, 191,</span>
+        <span class="c1">#     193, 197, 201, 205, 211, 215, 219, 223, 225, 229, 233, 237, 243, 247, 251, 255,</span>
+        <span class="c1">#     126, 122, 118, 114, 108, 104, 100, 96, 94, 90, 86, 82, 76, 72, 68, 64,</span>
+        <span class="c1">#     62, 58, 54, 50, 44, 40, 36, 32, 30, 26, 22, 18, 12, 8, 4, 0,</span>
+        <span class="c1">#     124, 120, 116, 112, 110, 106, 102, 98, 92, 88, 84, 80, 78, 74, 70, 66,</span>
+        <span class="c1">#     60, 56, 52, 48, 46, 42, 38, 34, 28, 24, 20, 16, 14, 10, 6, 2,</span>
+        <span class="c1">#     5, 1, 13, 9, 23, 19, 31, 27, 37, 33, 45, 41, 55, 51, 63, 59,</span>
+        <span class="c1">#     69, 65, 77, 73, 87, 83, 95, 91, 101, 97, 109, 105, 119, 115, 127, 123</span>
+        <span class="c1"># ]</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Default initial values.</span>
+    <span class="n">rx_settings</span><span class="p">:</span> <span class="p">{</span>
+        <span class="n">lna_gain</span><span class="p">:</span> <span class="mi">24</span>
+        <span class="n">pga_gain</span><span class="p">:</span> <span class="mi">30</span>
+        <span class="n">lpf_cutoff</span><span class="p">:</span> <span class="mi">15000000</span>
+        <span class="n">active_termination</span><span class="p">:</span> <span class="mi">200</span>
+    <span class="p">}</span>
+
+    <span class="n">hv</span><span class="p">:</span> <span class="p">{</span>
+        <span class="n">model_id</span> <span class="p">{</span>
+            <span class="n">manufacturer</span><span class="p">:</span> <span class="s2">&quot;us4us&quot;</span>
+            <span class="n">name</span><span class="p">:</span> <span class="s2">&quot;us4oemhvps&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">channels_mask</span><span class="p">:</span> <span class="p">{</span>
+        <span class="n">channels</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Then, please set the appropriate:</p>
+<ul class="simple">
+<li><p>adapter name: <code class="docutils literal notranslate"><span class="pre">us4r</span></code> → <code class="docutils literal notranslate"><span class="pre">adapter_id</span></code> → <code class="docutils literal notranslate"><span class="pre">name</span></code>,</p></li>
+<li><p>number of elements and pitch: <code class="docutils literal notranslate"><span class="pre">us4r</span> <span class="pre">→</span> <span class="pre">``probe</span></code> → <code class="docutils literal notranslate"><span class="pre">n_elements</span></code>, <code class="docutils literal notranslate"><span class="pre">us4r</span></code> → <code class="docutils literal notranslate"><span class="pre">probe</span></code> → <code class="docutils literal notranslate"><span class="pre">pitch</span></code>,</p></li>
+<li><p>number of channels in use: <code class="docutils literal notranslate"><span class="pre">us4r</span></code> → <code class="docutils literal notranslate"><span class="pre">probe_adapter_to_connection</span></code> → <code class="docutils literal notranslate"><span class="pre">channel_mapping_ranges</span></code> → <code class="docutils literal notranslate"><span class="pre">end</span></code>.</p></li>
+</ul>
+<p>Download the script that allows you to display RF data in real time: <a class="reference external" href="https://github.com/us4useu/arrus/blob/master/api/python/examples/custom_tx_rx_sequence.py">Python</a>, <a class="reference external" href="https://github.com/us4useu/arrus/blob/master/api/matlab/examples/Us4R_control_rawRfPwi.m">MATLAB</a>.
+Set the appropriate path to the  <code class="docutils literal notranslate"><span class="pre">us4r.prototxt</span></code> file in it (please check the <code class="docutils literal notranslate"><span class="pre">arrus.Session</span></code> (Python) or the <code class="docutils literal notranslate"><span class="pre">Us4R</span></code> (MATLAB) constructor).</p>
+<p>Run the script and check if you can see a correct echo from a point target. This actually will depend on the geometry of the probe, e.g. matrix or linear array. For the linear array probes, you should expect to see a hyperbola like the one below.</p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="../../../_images/hyperbola.png"><img alt="../../../_images/hyperbola.png" src="../../../_images/hyperbola.png" style="width: 1310.4px; height: 1046.4px;" /></a>
+</div>
+<p>If the RF frame doesn’t looks right, it will be necessary to adjust the pin mapping between the system channels and the head elements. To do this, try modifying <code class="docutils literal notranslate"><span class="pre">probe_to_adapter_connection</span></code> until you obtain the correct result.
+You can read more about the <code class="docutils literal notranslate"><span class="pre">probe_to_adapter_connection</span></code> field <a class="reference external" href="https://us4useu.github.io/arrus-docs/releases/v0.10.4/python/content/user_guide.html#probe-to-adapter-connection">here</a>.</p>
+<p>Finally, make sure you see a correct RF signal on all channels. If you do not receive a correct signal from a strong reflector at a particular probe element, please mask it by adding it to the list of <a class="reference external" href="https://us4useu.github.io/arrus-docs/releases/v0.10.4/python/content/user_guide.html#channel-masks">masked</a> elements.</p>
 </div>
 </div>
 
@@ -175,6 +277,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../utils.html" class="btn btn-neutral float-right" title="Utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral float-left" title="Technotes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
