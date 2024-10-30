@@ -193,7 +193,7 @@ the adapter and probe model.</p>
             <span class="n">end</span><span class="p">:</span> <span class="mf">15e6</span>
         <span class="p">},</span>
         <span class="c1"># NOTE: the voltage limit set below has been chosen to allow safe experimentation when the pin mapping between</span>
-        <span class="c1"># the head and the system is not yet well known. Once you are certain about the pin mapping and that no elements</span>
+        <span class="c1"># the probe and the system is not yet well known. Once you are certain about the pin mapping and that no elements</span>
         <span class="c1"># are shorted or open, you may increase the `end` value (max: 90 V).</span>
         <span class="n">voltage_range</span> <span class="p">{</span>
             <span class="n">begin</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -266,7 +266,7 @@ Set the appropriate path to the  <code class="docutils literal notranslate"><spa
 <div class="figure align-default">
 <a class="reference internal image-reference" href="../../../_images/hyperbola.png"><img alt="../../../_images/hyperbola.png" src="../../../_images/hyperbola.png" style="width: 1310.4px; height: 1046.4px;" /></a>
 </div>
-<p>If the RF frame doesn’t looks right, it will be necessary to adjust the pin mapping between the system channels and the head elements. To do this, try modifying <code class="docutils literal notranslate"><span class="pre">probe_to_adapter_connection</span></code> until you obtain the correct result.
+<p>If the RF frame doesn’t looks right, it will be necessary to adjust the pin mapping between the system channels and the probe elements. To do this, try modifying <code class="docutils literal notranslate"><span class="pre">probe_to_adapter_connection</span></code> until you obtain the correct result.
 You can read more about the <code class="docutils literal notranslate"><span class="pre">probe_to_adapter_connection</span></code> field <a class="reference external" href="https://us4useu.github.io/arrus-docs/releases/v0.10.4/python/content/user_guide.html#probe-to-adapter-connection">here</a>.</p>
 <p>Finally, make sure you see a correct RF signal on all channels. If you do not receive a correct signal from a strong reflector at a particular probe element, please mask it by adding it to the list of <a class="reference external" href="https://us4useu.github.io/arrus-docs/releases/v0.10.4/python/content/user_guide.html#channel-masks">masked</a> elements.</p>
 </div>
