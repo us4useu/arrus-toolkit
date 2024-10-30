@@ -35,7 +35,7 @@ First, create a ``us4r.prototxt`` file and put the below content into it.
                 end: 15e6
             },
             # NOTE: the voltage limit set below has been chosen to allow safe experimentation when the pin mapping between
-            # the head and the system is not yet well known. Once you are certain about the pin mapping and that no elements
+            # the probe and the system is not yet well known. Once you are certain about the pin mapping and that no elements
             # are shorted or open, you may increase the `end` value (max: 90 V).
             voltage_range {
                 begin: 0,
@@ -109,7 +109,7 @@ Run the script and check if you can see a correct echo from a point target. This
 .. figure:: img/hyperbola.png
     :scale: 80%
 
-If the RF frame doesn't looks right, it will be necessary to adjust the pin mapping between the system channels and the head elements. To do this, try modifying ``probe_to_adapter_connection`` until you obtain the correct result.
+If the RF frame doesn't looks right, it will be necessary to adjust the pin mapping between the system channels and the probe elements. To do this, try modifying ``probe_to_adapter_connection`` until you obtain the correct result.
 You can read more about the ``probe_to_adapter_connection`` field `here <https://us4useu.github.io/arrus-docs/releases/v0.10.4/python/content/user_guide.html#probe-to-adapter-connection>`__.
 
 Finally, make sure you see a correct RF signal on all channels. If you do not receive a correct signal from a strong reflector at a particular probe element, please mask it by adding it to the list of `masked <https://us4useu.github.io/arrus-docs/releases/v0.10.4/python/content/user_guide.html#channel-masks>`__ elements.
