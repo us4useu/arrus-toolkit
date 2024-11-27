@@ -183,13 +183,13 @@
 <ol class="arabic simple">
 <li><p>Follow instructions provided in the <a class="reference internal" href="#arrus-toolkit-installation-preliminary"><span class="std std-ref">Preliminary steps</span></a> section.</p></li>
 <li><p>Check if you have the correct version of the CUDA Toolkit installed.
-You can check what CUDA version is required by our software in the <a class="reference internal" href="#arrus-toolkit-installation-separately"><span class="std std-ref">Installing us4us software components separately</span></a> section.</p></li>
+You can check what CUDA version is required by our software in the <a class="reference internal" href="#arrus-toolkit-installation-separately"><span class="std std-ref">Installing us4us software components separately</span></a> section, download required CUDA Toolkit from the NVIDIA download page <a class="reference external" href="https://developer.nvidia.com/cuda-toolkit-archive">here</a>.</p></li>
 <li><p>Download the current stable version of the us4R/us4R-lite drivers according to the compatibility table presented in the <a class="reference internal" href="#arrus-toolkit-installation-separately"><span class="std std-ref">Installing us4us software components separately</span></a> section.
 For Linux drivers, just use the provided link. For Windows drivers, contact us4us support for the newest version.</p></li>
 <li><p>Install the the us4R/us4R-lite drivers. For Linux follow the <a class="reference internal" href="#arrus-toolkit-installation-separately-drivers-linux"><span class="std std-ref">Linux</span></a> instructions, for Windows follow the <a class="reference internal" href="#arrus-toolkit-installation-separately-drivers-windows"><span class="std std-ref">Windows</span></a> instructions.
 This step requires us4R/us4R-lite to be powered on and connected to the host PC.</p></li>
-<li><p>Download the current stable version of the ARRUS, according to the compatibility table in the <a class="reference internal" href="#arrus-toolkit-installation-separately"><span class="std std-ref">Installing us4us software components separately</span></a> section.</p></li>
-<li><p>Configure your development environment as described in <a class="reference internal" href="#arrus-toolkit-installation-separately-arrus"><span class="std std-ref">Application Programming Interface: ARRUS</span></a>.</p></li>
+<li><p>Download the current stable version of the ARRUS, according to the compatibility table in the <a class="reference internal" href="#arrus-toolkit-installation-separately"><span class="std std-ref">Installing us4us software components separately</span></a> section. How to choose the correct ARRUS package (for C++/Python/MATLAB) is described in the <a class="reference internal" href="#arrus-toolkit-installation-separately-arrus"><span class="std std-ref">Application Programming Interface: ARRUS</span></a> section.</p></li>
+<li><p>Install the downloaded package according to the instructions in the <a class="reference internal" href="#arrus-toolkit-installation-separately-arrus"><span class="std std-ref">Application Programming Interface: ARRUS</span></a> section.</p></li>
 </ol>
 <p>If, for any reason, a firmware update is required, please follow the instructions provided in the <a class="reference internal" href="#arrus-toolkit-installation-separately-firmware"><span class="std std-ref">Firmware</span></a> section.
 Always ensure that compatible software, firmware, and hardware components are used; otherwise, when running the examples, a version incompatibility message for the software and firmware will appear.</p>
@@ -200,22 +200,21 @@ Always ensure that compatible software, firmware, and hardware components are us
 <li><p>your computer meets the following requirements:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>operating system: Ubuntu 20.04 or newer is recommended, Windows 10 and Windows 11 are supported.</p></li>
-<li><p>the host PC should have an NVIDIA GPU installed, with compute capability &gt;= 5.2.</p></li>
+<li><p>operating system: Ubuntu 20.04 or newer is recommended, Windows 10 and Windows 11 are supported,</p></li>
+<li><p>the host PC should have an NVIDIA GPU installed, with <a class="reference external" href="https://developer.nvidia.com/cuda-gpus">Compute Capability</a> &gt;= 5.2,</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p>the ultrasound system is powered on and properly connected to the computer – please refer to the us4R/us4R-lite User Guide for details.</p></li>
+<li><p>the ultrasound system is powered on and properly connected to the computer – please refer to the us4R/us4R-lite User Manual for details. After connecting and powering on the ultrasound device, please reboot the host PC.</p></li>
 </ul>
 <p>Depending on the communication interface between the ultrasound system and the
 computer, additional steps may be required. In particular, it may be necessary
 to change some of the operating system settings and/or to verify if the operating system
-properly detects the connected system.</p>
+properly detects the connected system:</p>
 <ul class="simple">
-<li><p>For the Thunderbolt interface, please proceed to <a class="reference internal" href="#arrus-toolkit-installation-preliminary-tb"><span class="std std-ref">Thunderbolt-3 interface</span></a>, then to <a class="reference internal" href="#arrus-toolkit-installation-preliminary-tb-pcie"><span class="std std-ref">PCIe ports and Thunderbolt-3 interface</span></a>.</p></li>
-<li><p>For the PCIe interface, please skip directly to <a class="reference internal" href="#arrus-toolkit-installation-preliminary-tb-pcie"><span class="std std-ref">PCIe ports and Thunderbolt-3 interface</span></a>.</p></li>
+<li><p>for the Thunderbolt interface, please proceed to <a class="reference internal" href="#arrus-toolkit-installation-preliminary-tb"><span class="std std-ref">Thunderbolt-3 interface</span></a>, then to <a class="reference internal" href="#arrus-toolkit-installation-preliminary-tb-pcie"><span class="std std-ref">PCIe ports and Thunderbolt-3 interface</span></a>,</p></li>
+<li><p>for the PCIe interface, please skip directly to <a class="reference internal" href="#arrus-toolkit-installation-preliminary-tb-pcie"><span class="std std-ref">PCIe ports and Thunderbolt-3 interface</span></a>.</p></li>
 </ul>
-<p>Please follow the instructions below, depending on the communication interface of the device you have.</p>
 <div class="section" id="thunderbolt-3-interface">
 <span id="arrus-toolkit-installation-preliminary-tb"></span><h3>Thunderbolt-3 interface<a class="headerlink" href="#thunderbolt-3-interface" title="Permalink to this headline">¶</a></h3>
 <p>For devices with <strong>Thunderbolt-3</strong> interface, please check if your us4R/us4R-lite
