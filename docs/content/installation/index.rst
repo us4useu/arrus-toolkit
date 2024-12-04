@@ -6,13 +6,13 @@ Installation
 
 1. Follow instructions provided in the :ref:`arrus-toolkit-installation-preliminary` section.
 2. Check if you have the correct version of the CUDA Toolkit installed.
-   You can check what CUDA version is required by our software in the :ref:`arrus-toolkit-installation-separately` section.
+   You can check what CUDA version is required by our software in the :ref:`arrus-toolkit-installation-separately` section, download required CUDA Toolkit from the NVIDIA download page `here <https://developer.nvidia.com/cuda-toolkit-archive>`_.
 3. Download the current stable version of the Drivers according to the compatibility table presented in the :ref:`arrus-toolkit-installation-separately` section.
    For Linux drivers, just use the provided link. For Windows drivers, contact us4us support for the newest version.
 4. Install the the us4R/us4R-lite drivers. For Linux follow the :ref:`arrus-toolkit-installation-separately-drivers-linux` instructions, for Windows follow the :ref:`arrus-toolkit-installation-separately-drivers-windows` instructions.
    This step requires us4R/us4R-lite to be powered on and connected to the host PC.
-5. Download the current stable version of the ARRUS, according to the compatibility table in the :ref:`arrus-toolkit-installation-separately` section.
-6. Configure your development environment as described in :ref:`arrus-toolkit-installation-separately-arrus`.
+5. Download the current stable version of the ARRUS, according to the compatibility table in the :ref:`arrus-toolkit-installation-separately` section. How to choose the correct ARRUS package (for C++/Python/MATLAB) is described in the :ref:`arrus-toolkit-installation-separately-arrus` section.
+6. Install the downloaded package according to the instructions in the :ref:`arrus-toolkit-installation-separately-arrus` section.
 
 If, for any reason, a firmware update is required, please follow the instructions provided in the :ref:`arrus-toolkit-installation-separately-firmware` section.
 Always ensure that compatible software, firmware, and hardware components are used; otherwise, when running the examples, a version incompatibility message for the software and firmware will appear.
@@ -26,20 +26,18 @@ Before you start the installation, please ensure that:
 
 - your computer meets the following requirements:
 
-    - operating system: Ubuntu 20.04 or newer is recommended, Windows 10 and Windows 11 are supported.
-    - the host PC should have an NVIDIA GPU installed, with compute capability >= 5.2.
+    - operating system: Ubuntu 20.04 or newer is recommended, Windows 10 and Windows 11 are supported,
+    - the host PC should have an NVIDIA GPU installed, with `Compute Capability <https://developer.nvidia.com/cuda-gpus>`_ >= 5.2,
 
-- the ultrasound system is powered on and properly connected to the computer -- please refer to the us4R/us4R-lite User Guide for details.
+- the ultrasound system is powered on and properly connected to the computer -- please refer to the us4R/us4R-lite User Manual for details. After connecting and powering on the ultrasound device, please reboot the host PC.
 
 Depending on the communication interface between the ultrasound system and the
 computer, additional steps may be required. In particular, it may be necessary
 to change some of the operating system settings and/or to verify if the operating system
-properly detects the connected system.
+properly detects the connected system:
 
-- For the Thunderbolt interface, please proceed to :ref:`arrus-toolkit-installation-preliminary-tb`, then to :ref:`arrus-toolkit-installation-preliminary-tb-pcie`.
-- For the PCIe interface, please skip directly to :ref:`arrus-toolkit-installation-preliminary-tb-pcie`.
-
-Please follow the instructions below, depending on the communication interface of the device you have.
+- for the Thunderbolt interface, please proceed to :ref:`arrus-toolkit-installation-preliminary-tb`, then to :ref:`arrus-toolkit-installation-preliminary-tb-pcie`,
+- for the PCIe interface, please skip directly to :ref:`arrus-toolkit-installation-preliminary-tb-pcie`.
 
 .. _arrus-toolkit-installation-preliminary-tb:
 
