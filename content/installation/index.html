@@ -184,7 +184,7 @@
 <li><p>Follow instructions provided in the <a class="reference internal" href="#arrus-toolkit-installation-preliminary"><span class="std std-ref">Preliminary steps</span></a> section.</p></li>
 <li><p>Check if you have the correct version of the CUDA Toolkit installed.
 You can check what CUDA version is required by our software in the <a class="reference internal" href="#arrus-toolkit-installation-separately"><span class="std std-ref">Installing us4us software components separately</span></a> section, download required CUDA Toolkit from the NVIDIA download page <a class="reference external" href="https://developer.nvidia.com/cuda-toolkit-archive">here</a>.</p></li>
-<li><p>Download the current stable version of the us4R/us4R-lite drivers according to the compatibility table presented in the <a class="reference internal" href="#arrus-toolkit-installation-separately"><span class="std std-ref">Installing us4us software components separately</span></a> section.
+<li><p>Download the current stable version of the Drivers according to the compatibility table presented in the <a class="reference internal" href="#arrus-toolkit-installation-separately"><span class="std std-ref">Installing us4us software components separately</span></a> section.
 For Linux drivers, just use the provided link. For Windows drivers, contact us4us support for the newest version.</p></li>
 <li><p>Install the the us4R/us4R-lite drivers. For Linux follow the <a class="reference internal" href="#arrus-toolkit-installation-separately-drivers-linux"><span class="std std-ref">Linux</span></a> instructions, for Windows follow the <a class="reference internal" href="#arrus-toolkit-installation-separately-drivers-windows"><span class="std std-ref">Windows</span></a> instructions.
 This step requires us4R/us4R-lite to be powered on and connected to the host PC.</p></li>
@@ -283,7 +283,7 @@ your are using the direct PCIe connect) and check the <code class="docutils lite
 </div>
 <p><strong>Windows 10</strong></p>
 <p>Please check in the Windows Device Manager whether there are <code class="docutils literal notranslate"><span class="pre">PCI</span> <span class="pre">Device</span></code> or <code class="docutils literal notranslate"><span class="pre">us4oem</span></code>
-nodes there, in the number equal to the number of modules that your
+nodes there, in the number equal to the number of us4OEM modules that your
 us4R/us4R-lite has.</p>
 </div>
 </div>
@@ -302,9 +302,9 @@ components are not compatible with each other.</p>
 Below, we present the number and types of OEMs and digital backplane that are part of the systems manufactured by us4us.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 46%" />
+<col style="width: 55%" />
 <col style="width: 21%" />
-<col style="width: 33%" />
+<col style="width: 24%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>System</p></th>
@@ -313,21 +313,21 @@ Below, we present the number and types of OEMs and digital backplane that are pa
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>us4R-Lite-PCIe</p></td>
-<td><p>2 x us4OEM+</p></td>
-<td><p>DBAR-Lite-PCIe</p></td>
-</tr>
-<tr class="row-odd"><td><p>us4R+</p></td>
-<td><p>8 x us4OEM+</p></td>
+<tr class="row-even"><td><p>us4R, model R-2021 (legacy)</p></td>
+<td><p>4x - 8x us4OEM</p></td>
 <td><p>DBAR</p></td>
 </tr>
-<tr class="row-even"><td><p>the legacy us4R-Lite-TB3</p></td>
-<td><p>2 x us4OEM+</p></td>
-<td><p>DBAR-Lite</p></td>
-</tr>
-<tr class="row-odd"><td><p>the legacy us4R</p></td>
-<td><p>8 x us4OEM+</p></td>
+<tr class="row-odd"><td><p>us4R, model R-2023</p></td>
+<td><p>4x - 8x us4OEM+</p></td>
 <td><p>DBAR</p></td>
+</tr>
+<tr class="row-even"><td><p>us4R-lite, model RL-2020 (legacy - TB3)</p></td>
+<td><p>2x us4OEM</p></td>
+<td><p>DBARLite</p></td>
+</tr>
+<tr class="row-odd"><td><p>us4R-lite, model RL-2024-PCIe</p></td>
+<td><p>2x us4OEM+</p></td>
+<td><p>DBAR-LitePCIe</p></td>
 </tr>
 </tbody>
 </table>
