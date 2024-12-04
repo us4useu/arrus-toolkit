@@ -7,7 +7,7 @@ Installation
 1. Follow instructions provided in the :ref:`arrus-toolkit-installation-preliminary` section.
 2. Check if you have the correct version of the CUDA Toolkit installed.
    You can check what CUDA version is required by our software in the :ref:`arrus-toolkit-installation-separately` section.
-3. Download the current stable version of the us4R/us4R-lite drivers according to the compatibility table presented in the :ref:`arrus-toolkit-installation-separately` section.
+3. Download the current stable version of the Drivers according to the compatibility table presented in the :ref:`arrus-toolkit-installation-separately` section.
    For Linux drivers, just use the provided link. For Windows drivers, contact us4us support for the newest version.
 4. Install the the us4R/us4R-lite drivers. For Linux follow the :ref:`arrus-toolkit-installation-separately-drivers-linux` instructions, for Windows follow the :ref:`arrus-toolkit-installation-separately-drivers-windows` instructions.
    This step requires us4R/us4R-lite to be powered on and connected to the host PC.
@@ -127,7 +127,7 @@ us4R/us4R-lite.
 **Windows 10**
 
 Please check in the Windows Device Manager whether there are ``PCI Device`` or ``us4oem``
-nodes there, in the number equal to the number of modules that your
+nodes there, in the number equal to the number of us4OEM modules that your
 us4R/us4R-lite has.
 
 
@@ -149,14 +149,14 @@ components are not compatible with each other.
 The choice of firmware to install depends on the components your us4us system has.
 Below, we present the number and types of OEMs and digital backplane that are part of the systems manufactured by us4us.
 
-======================== =========== =================
-System                   OEMs        Digital backplane
-======================== =========== =================
-us4R-Lite-PCIe           2 x us4OEM+ DBAR-Lite-PCIe
-us4R+                    8 x us4OEM+ DBAR
-the legacy us4R-Lite-TB3 2 x us4OEM+ DBAR-Lite
-the legacy us4R          8 x us4OEM+ DBAR
-======================== =========== =================
+======================================= =============== =================
+System                                  OEMs            Digital backplane
+======================================= =============== =================
+us4R, model R-2021 (legacy)             4x - 8x us4OEM  DBAR
+us4R, model R-2023                      4x - 8x us4OEM+ DBAR
+us4R-lite, model RL-2020 (legacy - TB3) 2x us4OEM       DBARLite
+us4R-lite, model RL-2024-PCIe           2x us4OEM+      DBAR-LitePCIe
+======================================= =============== =================
 
 Firmware-software compatibility table. **The current release of the software is the one listed at the top of the table.**
 
