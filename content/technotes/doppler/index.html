@@ -1,0 +1,312 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Color and Power Doppler &mdash; ARRUS Toolkit  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Utils" href="../../utils.html" />
+    <link rel="prev" title="Connecting custom probe" href="../connecting_custom_probe/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> ARRUS Toolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/index.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Technotes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../connecting_custom_probe/index.html">Connecting custom probe</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Color and Power Doppler</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#intended-use">Intended use</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dedicated-hardware">Dedicated hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-run">How to run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../misc/acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ARRUS Toolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Technotes</a> &raquo;</li>
+        
+      <li>Color and Power Doppler</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="color-and-power-doppler">
+<h1>Color and Power Doppler<a class="headerlink" href="#color-and-power-doppler" title="Permalink to this headline">¶</a></h1>
+<p>In this document, we present how to run Color and Power Doppler imaging example.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The example discussed here is a very simple implementation of Color Doppler,
+not intended for medical diagnostics. This implementation consists solely of
+basic flow estimation using the correlation method, without any post-processing,
+image and performance enhancements in particular.</p>
+<p>A medical-grade quality implementation of Color Doppler will soon be made
+available as part of the <code class="docutils literal notranslate"><span class="pre">arrus-med</span></code> package.</p>
+</div>
+<div class="section" id="intended-use">
+<h2>Intended use<a class="headerlink" href="#intended-use" title="Permalink to this headline">¶</a></h2>
+<p>Color/Power Doppler imaging of the <strong>carotid artery</strong>.</p>
+<p>Max depth: 20 mm.</p>
+</div>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>us4R or the legacy us4R-lite or us4R-lite+</p></li>
+<li><p>a linear array probe with the center frequency ~ 6-8 MHz</p></li>
+<li><p>ARRUS Python &gt;= 0.10.0</p></li>
+<li><p>cupy &gt;= 12.0.0</p></li>
+<li><p>gui4us &gt;= 0.3.0-dev20241008</p></li>
+</ul>
+</div>
+<div class="section" id="dedicated-hardware">
+<h2>Dedicated hardware<a class="headerlink" href="#dedicated-hardware" title="Permalink to this headline">¶</a></h2>
+<p>The example was developed and tested on the following setup:</p>
+<ul class="simple">
+<li><p>ultrasound system: us4R-lite+ system with the PCI-e interface,</p></li>
+<li><p>probe adapter: EPA rev3 (<code class="docutils literal notranslate"><span class="pre">esaote3</span></code>),</p></li>
+<li><p>probe: Esaote SL1543 (linear array probe, ~ 8 MHz center frequency).</p></li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Download the <a class="reference external" href="https://github.com/us4useu/arrus-toolkit/tree/master/examples/linear_array/color_doppler">color doppler</a> example (the whole directory).</p></li>
+<li><p>Update the path to the <code class="docutils literal notranslate"><span class="pre">us4r.prototxt</span></code> in the <code class="docutils literal notranslate"><span class="pre">env.py</span></code> file: the <code class="docutils literal notranslate"><span class="pre">session_cfg</span></code> parameter of the <code class="docutils literal notranslate"><span class="pre">UltrasoundEnv</span></code> object constructor.</p></li>
+</ol>
+</div>
+<div class="section" id="how-to-run">
+<h2>How to run<a class="headerlink" href="#how-to-run" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Start the gui4us configuration:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gui4us</span> <span class="o">--</span><span class="n">cfg</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">color_dopper</span>
+</pre></div>
+</div>
+<p>After successfully launching the application, a window like the one below should appear.</p>
+<div class="figure align-default">
+<img alt="../../../_images/doppler.png" src="../../../_images/doppler.png" />
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Press Start button.</p></li>
+<li><p>Put the ultrasound gel on the probe, place the probe on the neck area over the carotid artery.</p></li>
+</ol>
+</div>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<p>The following imaging parameters are available to the user (UI):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">color_dr_min</span></code>, <code class="docutils literal notranslate"><span class="pre">color_dr_max</span></code>: minimum/maximum Color Doppler data threshold values (<em>dynamic range</em>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">power_dr_min</span></code>, <code class="docutils literal notranslate"><span class="pre">power_dr_max</span></code>: minimum/maximum Power Doppler data threshold values (<em>dynamic range</em>).</p></li>
+</ul>
+<p>The first four parameters (with the <code class="docutils literal notranslate"><span class="pre">/Pipeline:0/Pipeline:0</span></code> prefix),
+<code class="docutils literal notranslate"><span class="pre">color/power_dr_min/max</span></code> are intended for the “Color Doppler” display.
+The next four parameters (with the <code class="docutils literal notranslate"><span class="pre">/Pipeline:0/Pipeline:0/Pipeline:0</span></code> prefix)
+are intended for the “Power Doppler” display.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Power Doppler data is used both in the process of generating Color Doppler and Power Doppler images –
+in particular, we are limiting Color Doppler image to to the area where
+Power Doppler data is within the <code class="docutils literal notranslate"><span class="pre">power_dr_min/max</span></code> range.
+Hence, there are two separate sets of parameters, as both Color and Power
+Doppler data can be used to produce Color/Power image streams.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../utils.html" class="btn btn-neutral float-right" title="Utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../connecting_custom_probe/index.html" class="btn btn-neutral float-left" title="Connecting custom probe" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2024, us4us Ltd
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -9,3 +9,4 @@ This section provides usage instructions for typical use cases of the us4R/us4R-
     :caption: Use cases
 
     connecting_custom_probe/index
+    doppler/index
