@@ -12,6 +12,7 @@ from gui4us.model.envs.arrus import (
 from ops import ReconstructDoppler, FilterWallClutter, CreateDopplerFrame
 import cupy as cp
 from display import BMODE_DRANGE, COLOR_DRANGE, POWER_DRANGE
+import arrus.logging
 
 
 def create_sequence(
@@ -157,11 +158,11 @@ def configure(session: arrus.Session):
             processing=pipeline
         ),
         tgc=Curve(points=tgc_sampling_points, values=tgc_values),
-        voltage=20
+        voltage=10
     )
 
 
 ENV = UltrasoundEnv(
-    session_cfg="C:/Users/Public/e2e-test_results/R-A-23-46-01_20240109_al2442_cysts/us4r.prototxt",
+    session_cfg="us4r.prototxt",
     configure=configure,
 )

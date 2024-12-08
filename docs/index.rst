@@ -7,6 +7,7 @@ ARRUS Toolkit documentation
 
     content/introduction
     content/installation/index
+    content/technotes/index
     content/utils
     content/api
 
