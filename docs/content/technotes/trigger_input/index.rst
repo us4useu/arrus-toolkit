@@ -32,8 +32,16 @@ Software:
 Installation
 ------------
 
+Hardware:
+
+- Connect the signal generator output to the ultrasound system "TRIG IN" port.
+- Connect the ultrasound system "CLK OUT" port to the signal generator clock input.
+
+Software:
+
 1. Download the `trigger_input <https://github.com/us4useu/arrus-toolkit/tree/master/examples/common/trigger_input>`_ example (the whole directory).
 2. Update the ``us4r.prototxt``: set the proper probe adapter name, probe name, HV model name.
+
 
 Parameters
 ----------
@@ -124,7 +132,9 @@ For more information, please refer to the documentation for your version of `ARR
 
 How to run
 ----------
-1. To start the example, please execute the following command in the terminal:
+
+1. Turn on the appropriate output of the signal generator.
+2. Start the example, please execute the following command in the terminal:
 
 ::
 
@@ -132,14 +142,23 @@ How to run
 
 After successfully launching the application, a window like the one below should appear.
 
-.. figure:: img/trigger_input.png
+.. figure:: img/trigger_off.png
 
-2. Press Start button.
+3. Press Start button.
 
-After running the example, the presented RF data should update according to the frequency set on the generator.
+After running the example, the presented RF data should be updated with the frame
+according to the frequency set on the generator.
+
+.. figure:: img/trigger_on.png
 
 You can acquire data by pressing ``Capture`` button, then by pressing ``Save``.
 The data will be saved in the current working directory (i.e. the currently
 visited folder in the terminal).
 
 To stop the TX/RX sequence, please close the GUI4us window.
+
+Utils
+-----
+
+The ``analyse.ipynb`` notebook shows how to read the data acquired using
+the gui4us capture buffer.
