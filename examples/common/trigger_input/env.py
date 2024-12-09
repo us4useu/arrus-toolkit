@@ -16,6 +16,7 @@ import arrus.logging
 
 arrus.logging.set_clog_level(arrus.logging.TRACE)
 
+
 def configure(session: arrus.Session):
     medium = arrus.medium.Medium(name="ats549", speed_of_sound=1450)
     us4r = session.get_device("/Us4R:0")
@@ -23,10 +24,11 @@ def configure(session: arrus.Session):
     n_elements = us4r.get_probe_model().n_elements
     sampling_frequency = us4r.sampling_frequency
 
-    # Parameters
+    # ------------ PARAMETERS
     n_samples = 2048
-    n_frames = 65
-    tx_aperture = [True] * n_elements
+    n_frames = 100
+    tx_aperture = [True]*n_elements
+    # -------------
 
     # Initial TGC curve.
     tgc_sampling_points = np.linspace(0, n_samples/sampling_frequency, 10)
@@ -60,7 +62,8 @@ def configure(session: arrus.Session):
     pipeline = Pipeline(
         steps=(
             RemapToLogicalOrder(),
-            SelectFrames([0]),
+            Output(),  # Output RF data (to be acquired via capture buffer)
+            SelectFrames([0]),  # Displayed RF frame
             Squeeze(),
             Lambda(print_frame_rate)
         ),
