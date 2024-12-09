@@ -99,6 +99,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#how-to-run">How to run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils">Utils</a></li>
 </ul>
 </li>
 </ul>
@@ -201,6 +202,12 @@ signal, such as: photo-acoustic imaging, externally controlled transmissions, et
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Hardware:</p>
+<ul class="simple">
+<li><p>Connect the signal generator output to the ultrasound system “TRIG IN” port.</p></li>
+<li><p>Connect the ultrasound system “CLK OUT” port to the signal generator clock input.</p></li>
+</ul>
+<p>Software:</p>
 <ol class="arabic simple">
 <li><p>Download the <a class="reference external" href="https://github.com/us4useu/arrus-toolkit/tree/master/examples/common/trigger_input">trigger_input</a> example (the whole directory).</p></li>
 <li><p>Update the <code class="docutils literal notranslate"><span class="pre">us4r.prototxt</span></code>: set the proper probe adapter name, probe name, HV model name.</p></li>
@@ -307,23 +314,33 @@ For more information, please refer to the documentation for your version of <a c
 <div class="section" id="how-to-run">
 <h2>How to run<a class="headerlink" href="#how-to-run" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li><p>To start the example, please execute the following command in the terminal:</p></li>
+<li><p>Turn on the appropriate output of the signal generator.</p></li>
+<li><p>Start the example, please execute the following command in the terminal:</p></li>
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gui4us</span> <span class="o">--</span><span class="n">cfg</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">common</span><span class="o">/</span><span class="n">trigger_input</span>
 </pre></div>
 </div>
 <p>After successfully launching the application, a window like the one below should appear.</p>
 <div class="figure align-default">
-<img alt="../../../_images/trigger_input.png" src="../../../_images/trigger_input.png" />
+<img alt="../../../_images/trigger_off.png" src="../../../_images/trigger_off.png" />
 </div>
-<ol class="arabic simple" start="2">
+<ol class="arabic simple" start="3">
 <li><p>Press Start button.</p></li>
 </ol>
-<p>After running the example, the presented RF data should update according to the frequency set on the generator.</p>
+<p>After running the example, the presented RF data should be updated with the frame
+according to the frequency set on the generator.</p>
+<div class="figure align-default">
+<img alt="../../../_images/trigger_on.png" src="../../../_images/trigger_on.png" />
+</div>
 <p>You can acquire data by pressing <code class="docutils literal notranslate"><span class="pre">Capture</span></code> button, then by pressing <code class="docutils literal notranslate"><span class="pre">Save</span></code>.
 The data will be saved in the current working directory (i.e. the currently
 visited folder in the terminal).</p>
 <p>To stop the TX/RX sequence, please close the GUI4us window.</p>
+</div>
+<div class="section" id="utils">
+<h2>Utils<a class="headerlink" href="#utils" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">analyse.ipynb</span></code> notebook shows how to read the data acquired using
+the gui4us capture buffer.</p>
 </div>
 </div>
 
