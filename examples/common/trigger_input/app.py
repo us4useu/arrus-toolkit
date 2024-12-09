@@ -1,2 +1,2 @@
 # General application settings.
-CAPTURE_BUFFER_SIZE = 50
+CAPTURE_BUFFER_SIZE = 10
