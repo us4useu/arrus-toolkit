@@ -44,4 +44,14 @@ displays = {
     ),
 }
 
-VIEW_CFG = ViewCfg(displays)
+grid_spec = GridSpec(
+    n_rows=2,
+    n_columns=1,
+    locations=[
+        DisplayLocation(rows=0, columns=0),  # Color Doppler
+        DisplayLocation(rows=1, columns=0),  # Power Doppler
+    ]
+)
+
+VIEW_CFG = ViewCfg(displays, grid_spec=grid_spec)
+
