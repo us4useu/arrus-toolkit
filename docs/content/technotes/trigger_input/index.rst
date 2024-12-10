@@ -112,7 +112,7 @@ script file, in the section e.g.:
 |             |                                                                                   |
 |             | and stopping the transfer via the interface between the system and the host PC.   |
 +-------------+-----------------------------------------------------------------------------------+
-| tx_aperture | TX aperture defintion.                                                            |
+| tx_aperture | TX aperture definition.                                                           |
 |             |                                                                                   |
 |             | The TX aperture should be defined as boolean array (mask) for selected probe      |
 |             |                                                                                   |
