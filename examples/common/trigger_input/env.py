@@ -14,8 +14,6 @@ from gui4us.model.envs.arrus import (
 import numpy as np
 import arrus.logging
 
-arrus.logging.set_clog_level(arrus.logging.TRACE)
-
 
 def configure(session: arrus.Session):
     medium = arrus.medium.Medium(name="ats549", speed_of_sound=1450)
@@ -26,8 +24,9 @@ def configure(session: arrus.Session):
 
     # ------------ PARAMETERS
     n_samples = 2048
-    n_frames = 100
+    n_frames = 50
     tx_aperture = [True]*n_elements
+    delays = [0] * np.sum(tx_aperture)
     # -------------
 
     # Initial TGC curve.
@@ -42,7 +41,7 @@ def configure(session: arrus.Session):
                        center_frequency=6e6, n_periods=2,
                        inverse=False
                    ),
-                   delays=[0] * n_elements),
+                   delays=delays),
                 Rx(aperture=[True] * n_elements,
                    sample_range=(0, n_samples),
                    downsampling_factor=1),
@@ -85,3 +84,4 @@ ENV = UltrasoundEnv(
     session_cfg="external_trigger.prototxt",
     configure=configure,
 )
+
