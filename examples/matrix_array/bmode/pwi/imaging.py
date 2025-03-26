@@ -1,4 +1,10 @@
 import numpy as np
+from arrus.ops.us4r import *
+from arrus.utils.imaging import *
+import matplotlib.pyplot as plt
+from vispy import app, scene
+import math
+
 
 
 def get_delays(tx_focus, tx_ang_zx, tx_ang_zy, probe_model, speed_of_sound):
@@ -27,6 +33,12 @@ def get_delays_raw(tx_focus, tx_ang_zx, tx_ang_zy, pitch, n_elements,
     delays = []
     center_delays = []
 
+    center_x = x[0, 15]
+    center_y = y[16, 0]
+    center_z = z[15, 15]
+
+    print(f"Center x and y: {center_x}, {center_y}")
+
     for f, ang_zx, ang_zy in zip(tx_focus, tx_ang_zx, tx_ang_zy):
         # Convert plane inclinations to the spherical angles
         ang_zenith = np.hypot(np.tan(ang_zx), np.tan(ang_zy))
@@ -38,19 +50,22 @@ def get_delays_raw(tx_focus, tx_ang_zx, tx_ang_zy, pitch, n_elements,
             tx_dist = z*np.cos(ang_zenith) \
                       + (x*np.cos(ang_azimuth)+y*np.sin(ang_azimuth)) \
                         * np.sin(ang_zenith)
-            tx_center_distance = 0  # Note: this will not work with the moving
-                                    # aperture.
+            tx_center_distance = center_z*np.cos(ang_zenith) \
+                      + (center_x*np.cos(ang_azimuth)+center_y*np.sin(ang_azimuth)) \
+                        * np.sin(ang_zenith)
         else:
             # Note: assuming the center of aperture in (0, 0, 0)
             z_foc = f*np.cos(ang_zenith)
             x_foc = f*np.sin(ang_zenith)*np.cos(ang_azimuth)  # + tx ap center x
             y_foc = f*np.sin(ang_zenith)*np.sin(ang_azimuth)  # + tx ap center y
             tx_dist = np.sqrt((x_foc-x)**2 + (y_foc-y)**2 + (z_foc-z)**2)
-            tx_center_distance = 0
+            tx_center_distance = np.sqrt((x_foc-center_x)**2 + (y_foc-center_y)**2 + (z_foc-center_z)**2)
         delay = tx_dist/speed_of_sound
-        if f > 0:
-            delay = delay*(-1)
         center_delay = tx_center_distance/speed_of_sound
+        if f > 0:
+            # TODO do weryfikacji
+            delay = delay * (-1)
+            center_delay = center_delay * (-1)
         delays.append(delay)
         center_delays.append(center_delay)
     delays = np.stack(delays)
@@ -63,8 +78,7 @@ def get_delays_raw(tx_focus, tx_ang_zx, tx_ang_zy, pitch, n_elements,
     tx_center_delay = np.max(center_delays)
     for i in range(delays.shape[0]):
         delays[i] = delays[i] - center_delays[i] + tx_center_delay
-    delays = np.delete(delays, (n_x // 4, n_x // 2 + 1, 3 * n_x // 4 + 2),
-        axis=1)
+    delays = np.delete(delays, (n_x // 4, n_x // 2 + 1, 3 * n_x // 4 + 2), axis=1)
     return delays.reshape(-1, n_elements)
 
 
@@ -127,6 +141,7 @@ class Slice(Operation):
         input_shape.pop(self.axis)
         output_shape = tuple(input_shape)
         output_description = const_metadata.data_description
+        print(output_description.spacing)
         if output_description.spacing is not None:
             new_coordinates = list(output_description.spacing.coordinates)
             new_coordinates.pop(self.axis)
@@ -155,12 +170,21 @@ def __append_to_metadata(metadata, tx_focus, tx_ang_zx, tx_ang_zy):
     return metadata
 
 
+
+def __set_spacing(x_grid, y_grid, z_grid):
+    
+
+
 def get_imaging(
         sequence,
+        speed_of_sound,
         tx_focus, tx_ang_zx, tx_ang_zy,
         x_grid, y_grid, z_grid,
+        sample_range,
         decimation_factor=30, decimation_fir_order=64,
 ):
+    n_samples = sample_range[1]-sample_range[0]
+
     pipeline = Pipeline(
         steps=(
             # NOTE: Currently, the tx_focus, tx_ang_zx and tx_ang_zy
@@ -195,13 +219,14 @@ def get_imaging(
             LogCompression(),
             Pipeline(
                 steps=(
-                    Slice(axis=0),
+                    Slice(axis=1),
                     Transpose(),
-                    # axis 0 -> OY -> y = 0 plane -> OXZ
+                    # axis 1 is OX -> x = 0 -> OYZ
                 ),
                 placement="/GPU:0"
             ),
-            Slice(axis=1),  # axis 1 -> OX -> x = 0 -> plane OYZ
+            Slice(axis=0),
+            # axis 0 is OY -> y = 0 -> OXZ
             Transpose(),
         ),
         placement="/GPU:0"
@@ -209,22 +234,35 @@ def get_imaging(
     return pipeline
 
 
-def get_rf_imaging():
+def get_rf_imaging(sample_range):
+    n_samples = sample_range[1]-sample_range[0]
+    pipeline = Pipeline(
+        steps=(
+            RemapToLogicalOrder(),
+            SelectFrames([8]),
+            Squeeze(),
+            Reshape(n_samples, 32, 32),
+            Pipeline(
+                steps=(
+                    Slice(axis=2),
+                    # axis = 2 is OX; x = 0 is the OYZ plane
+                ),
+                placement="/GPU:0"
+            ),
+            Slice(axis=1), 
+            # axis = 1 is OY; y = 0 is the OXZ plane
+        ),
+        placement="/GPU:0"
+    )
+    return pipeline
+
+
+def get_rf_imaging_flat():
     pipeline = Pipeline(
         steps=(
             RemapToLogicalOrder(),
             SelectFrames([0]),
             Squeeze(),
-            Reshape(32, 32, n_samples),
-            Pipeline(
-                steps=(
-                    Slice(axis=0),
-                    # axis 0 -> OY -> y = 0 plane -> OXZ
-                ),
-                placement="/GPU:0"
-            ),
-            Slice(axis=1),
-            # axis 1 -> OX -> x = 0 -> plane OYZ
         ),
         placement="/GPU:0"
     )
