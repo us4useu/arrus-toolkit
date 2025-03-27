@@ -4,6 +4,8 @@ from arrus.utils.imaging import *
 import matplotlib.pyplot as plt
 from vispy import app, scene
 import math
+import dataclasses
+import arrus.metadata
 
 
 
@@ -141,7 +143,6 @@ class Slice(Operation):
         input_shape.pop(self.axis)
         output_shape = tuple(input_shape)
         output_description = const_metadata.data_description
-        print(output_description.spacing)
         if output_description.spacing is not None:
             new_coordinates = list(output_description.spacing.coordinates)
             new_coordinates.pop(self.axis)
@@ -170,9 +171,13 @@ def __append_to_metadata(metadata, tx_focus, tx_ang_zx, tx_ang_zy):
     return metadata
 
 
-
-def __set_spacing(x_grid, y_grid, z_grid):
-    
+def __set_spacing(metadata, x_grid, y_grid, z_grid):
+    metadata = metadata.copy()
+    output_description = dataclasses.replace(
+        metadata.data_description,
+        spacing=arrus.metadata.Grid(coordinates=(y_grid, x_grid, z_grid))
+    )
+    return metadata.copy(data_desc=output_description)
 
 
 def get_imaging(
@@ -214,6 +219,9 @@ def get_imaging(
                 tx_foc=tx_focus,
                 tx_ang_zx=tx_ang_zx, tx_ang_zy=tx_ang_zy,
                 speed_of_sound=speed_of_sound),
+            Lambda(lambda data: data, lambda metadata: __set_spacing(
+                metadata, x_grid=x_grid, y_grid=y_grid, z_grid=z_grid
+            )),
             Squeeze(),
             EnvelopeDetection(),
             LogCompression(),
