@@ -64,8 +64,7 @@ def get_delays_raw(tx_focus, tx_ang_zx, tx_ang_zy, pitch, n_elements,
             tx_center_distance = np.sqrt((x_foc-center_x)**2 + (y_foc-center_y)**2 + (z_foc-center_z)**2)
         delay = tx_dist/speed_of_sound
         center_delay = tx_center_distance/speed_of_sound
-        if f > 0:
-            # TODO do weryfikacji
+        if f > 0 and not np.isinf(f):
             delay = delay * (-1)
             center_delay = center_delay * (-1)
         delays.append(delay)
