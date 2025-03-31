@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Color and Power Doppler &mdash; ARRUS Toolkit  documentation</title>
+  <title>Matrix Array: 3D B-mode imaging &mdash; ARRUS Toolkit  documentation</title>
   
 
   
@@ -37,8 +37,8 @@
     
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Matrix Array: 3D B-mode imaging" href="../matrix_array/index.html" />
-    <link rel="prev" title="Technotes" href="../index.html" /> 
+    <link rel="next" title="Connecting custom probe" href="../connecting_custom_probe/index.html" />
+    <link rel="prev" title="Color and Power Doppler" href="../doppler/index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -88,16 +88,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation/index.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Technotes</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Color and Power Doppler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../doppler/index.html">Color and Power Doppler</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Matrix Array: 3D B-mode imaging</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#intended-use">Intended use</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dedicated-hardware">Dedicated hardware</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#how-to-run">How to run</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#offline-image-reconstruction">Offline image reconstruction</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../matrix_array/index.html">Matrix Array: 3D B-mode imaging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../connecting_custom_probe/index.html">Connecting custom probe</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../trigger_input/index.html">Connecting external Trigger Input</a></li>
 </ul>
@@ -156,7 +156,7 @@
         
           <li><a href="../index.html">Technotes</a> &raquo;</li>
         
-      <li>Color and Power Doppler</li>
+      <li>Matrix Array: 3D B-mode imaging</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -173,85 +173,69 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="color-and-power-doppler">
-<h1>Color and Power Doppler<a class="headerlink" href="#color-and-power-doppler" title="Permalink to this headline">¶</a></h1>
-<p>In this document, we present how to run Color and Power Doppler imaging example.</p>
+  <div class="section" id="matrix-array-3d-b-mode-imaging">
+<h1>Matrix Array: 3D B-mode imaging<a class="headerlink" href="#matrix-array-3d-b-mode-imaging" title="Permalink to this headline">¶</a></h1>
+<p>In this document, we present how to run Matrix array 3D B-mode imaging example.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
-<p>The example discussed here is a very simple implementation of Color Doppler,
-not intended for medical diagnostics. This implementation consists solely of
-basic flow estimation using the correlation method, without any post-processing,
-image and performance enhancements in particular.</p>
-<p>A medical-grade quality implementation of Color Doppler will soon be made
-available as part of the <code class="docutils literal notranslate"><span class="pre">arrus-med</span></code> package.</p>
+<p>This example is adapted for the Vermon 3D 32x32 probe (4 x 32 elements).
+It can also be easily adjusted for other 3D probes; however, it is best to contact us
+for guidance on how to do this (adjusting the probe’s pin mapping, geometry, etc.).</p>
+<p>The example discussed here is a very simple implementation of 3D B-mode imaging,
+not intended for medical diagnostics.
+A medical-grade quality implementation of 3D volume reconstruct will soon be made
+available as part of the <code class="docutils literal notranslate"><span class="pre">arrusx</span></code> package.</p>
 </div>
 <div class="section" id="intended-use">
 <h2>Intended use<a class="headerlink" href="#intended-use" title="Permalink to this headline">¶</a></h2>
-<p>Color/Power Doppler imaging of the <strong>carotid artery</strong>.</p>
-<p>Max depth: 20 mm.</p>
+<p>General-purpose 3D imaging using matrix array.</p>
 </div>
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>us4R or the legacy us4R-lite or us4R-lite+</p></li>
-<li><p>a linear array probe with the center frequency ~ 6-8 MHz</p></li>
+<li><p>us4R</p></li>
+<li><p>a matrix array probe (tested on Vermon 3 MHz 32x32 matrix array)</p></li>
 <li><p>ARRUS Python &gt;= 0.10.0</p></li>
 <li><p>cupy &gt;= 12.0.0</p></li>
-<li><p>gui4us &gt;= 0.3.0-dev20241008</p></li>
+<li><p>gui4us &gt;= 0.3.0-dev20250318</p></li>
 </ul>
 </div>
 <div class="section" id="dedicated-hardware">
 <h2>Dedicated hardware<a class="headerlink" href="#dedicated-hardware" title="Permalink to this headline">¶</a></h2>
 <p>The example was developed and tested on the following setup:</p>
 <ul class="simple">
-<li><p>ultrasound system: us4R-lite+ system with the PCI-e interface,</p></li>
-<li><p>probe adapter: EPA rev3 (<code class="docutils literal notranslate"><span class="pre">esaote3</span></code>),</p></li>
-<li><p>probe: Esaote SL1543 (linear array probe, ~ 8 MHz center frequency).</p></li>
+<li><p>ultrasound system: us4R system with the PCI-e interface,</p></li>
+<li><p>probe adapter: us4us 3D adapter,</p></li>
+<li><p>probe: Vermon 32x32 array, 3MHz.</p></li>
 </ul>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Download the <a class="reference external" href="https://github.com/us4useu/arrus-toolkit/tree/master/examples/linear_array/color_doppler">color doppler</a> example (the whole directory).</p></li>
-<li><p>Update the path to the <code class="docutils literal notranslate"><span class="pre">us4r.prototxt</span></code> in the <code class="docutils literal notranslate"><span class="pre">env.py</span></code> file: the <code class="docutils literal notranslate"><span class="pre">session_cfg</span></code> parameter of the <code class="docutils literal notranslate"><span class="pre">UltrasoundEnv</span></code> object constructor.</p></li>
+<li><p>Download the <a class="reference external" href="https://github.com/us4useu/arrus-toolkit/tree/master/examples/matrix_array/bmode">color doppler</a> example (the whole directory).</p></li>
+<li><p>Update the <code class="docutils literal notranslate"><span class="pre">us4r.prototxt</span></code> in the <code class="docutils literal notranslate"><span class="pre">env.py</span></code> file: the <code class="docutils literal notranslate"><span class="pre">session_cfg</span></code> parameter of the <code class="docutils literal notranslate"><span class="pre">UltrasoundEnv</span></code> object constructor.</p></li>
 </ol>
 </div>
 <div class="section" id="how-to-run">
 <h2>How to run<a class="headerlink" href="#how-to-run" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
+<li><p>Adjust the following parameters: <code class="docutils literal notranslate"><span class="pre">medium.speed_of_sound</span></code>, <code class="docutils literal notranslate"><span class="pre">center_frequency</span></code>.</p></li>
 <li><p>Start the gui4us configuration:</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gui4us</span> <span class="o">--</span><span class="n">cfg</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">color_dopper</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gui4us</span> <span class="o">--</span><span class="n">cfg</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">matrix_array</span><span class="o">/</span><span class="n">bmode</span>
 </pre></div>
 </div>
 <p>After successfully launching the application, a window like the one below should appear.</p>
 <div class="figure align-default">
-<img alt="../../../_images/doppler.png" src="../../../_images/doppler.png" />
+<img alt="../../../_images/matrix_array.png" src="../../../_images/matrix_array.png" />
 </div>
-<ol class="arabic simple" start="2">
+<ol class="arabic simple" start="3">
 <li><p>Press Start button.</p></li>
-<li><p>Put the ultrasound gel on the probe, place the probe on the neck area over the carotid artery.</p></li>
+<li><p>Put the ultrasound gel on the probe, place the probe on the calibartion phantom.</p></li>
 </ol>
 </div>
-<div class="section" id="parameters">
-<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
-<p>The following imaging parameters are available to the user (UI):</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">color_dr_min</span></code>, <code class="docutils literal notranslate"><span class="pre">color_dr_max</span></code>: minimum/maximum Color Doppler data threshold values (<em>dynamic range</em>),</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">power_dr_min</span></code>, <code class="docutils literal notranslate"><span class="pre">power_dr_max</span></code>: minimum/maximum Power Doppler data threshold values (<em>dynamic range</em>).</p></li>
-</ul>
-<p>The first four parameters (with the <code class="docutils literal notranslate"><span class="pre">/Pipeline:0/Pipeline:0</span></code> prefix),
-<code class="docutils literal notranslate"><span class="pre">color/power_dr_min/max</span></code> are intended for the “Color Doppler” display.
-The next four parameters (with the <code class="docutils literal notranslate"><span class="pre">/Pipeline:0/Pipeline:0/Pipeline:0</span></code> prefix)
-are intended for the “Power Doppler” display.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Power Doppler data is used both in the process of generating Color Doppler and Power Doppler images –
-in particular, we are limiting Color Doppler image to to the area where
-Power Doppler data is within the <code class="docutils literal notranslate"><span class="pre">power_dr_min/max</span></code> range.
-Hence, there are two separate sets of parameters, as both Color and Power
-Doppler data can be used to produce Color/Power image streams.</p>
-</div>
+<div class="section" id="offline-image-reconstruction">
+<h2>Offline image reconstruction<a class="headerlink" href="#offline-image-reconstruction" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -263,10 +247,10 @@ Doppler data can be used to produce Color/Power image streams.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../matrix_array/index.html" class="btn btn-neutral float-right" title="Matrix Array: 3D B-mode imaging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../connecting_custom_probe/index.html" class="btn btn-neutral float-right" title="Connecting custom probe" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../index.html" class="btn btn-neutral float-left" title="Technotes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../doppler/index.html" class="btn btn-neutral float-left" title="Color and Power Doppler" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

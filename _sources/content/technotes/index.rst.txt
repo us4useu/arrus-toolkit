@@ -8,6 +8,7 @@ This section provides usage instructions for typical use cases of the us4R/us4R-
     :maxdepth: 1
     :caption: Use cases
 
-    connecting_custom_probe/index
     doppler/index
+    matrix_array/index
+    connecting_custom_probe/index
     trigger_input/index
