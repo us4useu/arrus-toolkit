@@ -39,8 +39,6 @@ def get_delays_raw(tx_focus, tx_ang_zx, tx_ang_zy, pitch, n_elements,
     center_y = y[16, 0]
     center_z = z[15, 15]
 
-    print(f"Center x and y: {center_x}, {center_y}")
-
     for f, ang_zx, ang_zy in zip(tx_focus, tx_ang_zx, tx_ang_zy):
         # Convert plane inclinations to the spherical angles
         ang_zenith = np.hypot(np.tan(ang_zx), np.tan(ang_zy))

@@ -19,8 +19,8 @@ from imaging import get_sequence, get_imaging, get_rf_imaging, get_rf_imaging_fl
 def configure(session: arrus.Session):
     us4r = session.get_device("/Us4R:0")
     medium = arrus.medium.Medium(name="ats560h", speed_of_sound=1450)
-    angles_oyz = np.asarray([0.0]) # np.linspace(-10, 10, 7) * np.pi / 180  # [rad]
-    angles_oxz = np.zeros(len(angles_oyz))
+    angles_oyz = np.linspace(-10, 10, 32) * np.pi / 180  # [rad]
+    angles_oxz = np.linspace(-10, 10, 32) * np.pi / 180  # [rad]
     tx_focus = np.zeros(len(angles_oyz))
     tx_focus[:] = np.inf
 
