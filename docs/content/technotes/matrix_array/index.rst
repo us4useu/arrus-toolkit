@@ -71,7 +71,8 @@ Offline image reconstruction
 - vtk
 - panel
 
-   You can do it using following command:
+You can do it using following command:
+
 
 ::
 
