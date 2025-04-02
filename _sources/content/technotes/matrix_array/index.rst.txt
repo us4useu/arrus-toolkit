@@ -71,11 +71,16 @@ Offline image reconstruction
 - vtk
 - panel
 
-You can do it using following command:
-``pip install jupyterlab vtk panel``
+   You can do it using following command:
+
+::
+
+pip install jupyterlab vtk panel
 
 2. Run the following jupyter notebook, which shows how to create and use a reconstruction pipeline. 
 
-``/path/to/examples/matrix_array/bmode/reconstruct_offline.ipynb.``
+::
+
+/path/to/examples/matrix_array/bmode/reconstruct_offline.ipynb.
 
 
