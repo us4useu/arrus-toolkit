@@ -65,11 +65,11 @@ After successfully launching the application, a window like the one below should
 
 Offline image reconstruction
 ----------------------------
-0. Install following packages:
-    - jupyterlab
-    - vtk
-    - panel
-1. Run the following jupyter notebook, which shows how to create and use a reconstruction pipeline. 
+1. Install following packages:
+- jupyterlab
+- vtk
+- panel
+2. Run the following jupyter notebook, which shows how to create and use a reconstruction pipeline. 
 
 ::
 
