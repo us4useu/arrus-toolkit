@@ -65,11 +65,32 @@ After successfully launching the application, a window like the one below should
 
 Offline image reconstruction
 ----------------------------
+
+For users who do not yet have our system, we have prepared a `Jupyter <https://jupyter.org/>`_ notebook that:
+
+- downloads data collected using the us4R system,
+- loads the data,
+- runs the 3D reconstruction,
+- visualizes the data.
+
+Requirements:
+
+- NVIDIA GPU with CUDA Compute Capability >= 5.2,
+- Operating system: Windows (>= 10) or Linux (e.g., Ubuntu 20.04 or later),
+- NVIDIA CUDA Toolkit version 11 or 12,
+- Python 3.8, 3.9 or 3.10.
+
+
+In order to run the offline image reconstruction:
+
 1. Install following packages:
 
 - jupyterlab
 - vtk
 - panel
+- matplotlib
+- ARRUS >= 0.10.0
+- cupy < 13.0.0
 
 You can do it using following command:
 
@@ -78,11 +99,13 @@ You can do it using following command:
 
     pip install jupyterlab vtk panel
 
+The ARRUS package (e.g., arrus 0.10.5) is available `here <https://github.com/us4useu/arrus/releases>`_. Depending on Python version you have installed (3.8, 3.9, or 3.10), you should select a ``.whl`` package with ``cp38``, ``cp39``, or ``cp310`` in its name. Depending on your operating system, use ``win_amd64`` (Windows) or ``linux_x86_64`` package.
 
-2. Run the following jupyter notebook, which shows how to create and use a reconstruction pipeline. 
+You can install the CuPy package using one of the following commands:
 
-::
+- for CUDA Toolkit 11.x: ``pip install cupy-cuda11x<13.0.0``,
+- for CUDA Toolkit 12.x: ``pip install cupy-cuda12x<13.0.0``.
 
-    /path/to/examples/matrix_array/bmode/reconstruct_offline.ipynb.
+2. Start Jupyter, open and run the `following notebook <https://github.com/us4useu/arrus-toolkit/blob/master/examples/matrix_array/bmode/reconstruct_offline.ipynb>`_.
 
 
