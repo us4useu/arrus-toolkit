@@ -93,6 +93,11 @@ First, create a ``us4r.prototxt`` file and put the below content into it.
         channels_mask: {
             channels: []
         }
+
+        us4oem_channels_mask: [
+            {},
+            {}
+        ]
     }
 
 Then, please set the appropriate:
