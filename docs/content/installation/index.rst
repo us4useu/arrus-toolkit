@@ -158,35 +158,211 @@ us4R-lite, model RL-2024-PCIe           2x us4OEM+      DBAR-LitePCIe
 
 Firmware-software compatibility table. **The current release of the software is the one listed at the top of the table.**
 
- ================================================================================= ========================================================================================================================================================== ================== =================== ==================== ======================= =============== ===============
-  ARRUS                                                                             Drivers                                                                                                                                                   Us4OEM+ Firmware   Us4OEM Firmware     DBAR-Lite Firmware   DBAR-Lite-PCIe Firmware   DBAR Firmware    CUDA
- ================================================================================= ========================================================================================================================================================== ================== =================== ==================== ======================= =============== ===============
-  `v0.11.2 <https://github.com/us4useu/arrus/releases/tag/v0.11.1>`__                 v0.12.0, Linux: `0.12.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.12.0/us4r-lkm-v0.12.0.run>`__, Windows: WD1450                      2.1.1.0            1.0.1.0, TX: a      0x243a5479         1.0.x-1.2.0               0x705c9732/0xc34eafc3/0xa0ef96f2      10.1-12.2
-  `v0.11.1 <https://github.com/us4useu/arrus/releases/tag/v0.11.1>`__                 v0.12.0, Linux: `0.12.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.12.0/us4r-lkm-v0.12.0.run>`__, Windows: WD1450                      2.1.1.0            1.0.1.0, TX: a      0x243a5479         1.0.x-1.2.0               0x705c9732/0xc34eafc3/0xa0ef96f2      10.1-12.2
-  `v0.11.0 <https://github.com/us4useu/arrus/releases/tag/v0.11.0>`__                 v0.12.0, Linux: `0.12.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.12.0/us4r-lkm-v0.12.0.run>`__, Windows: WD1450                      2.1.1.0            1.0.1.0, TX: a      0x243a5479         1.0.x-1.2.0               0x705c9732/0xc34eafc3/0xa0ef96f2      10.1-12.2
-  `v0.10.6 <https://github.com/us4useu/arrus/releases/tag/v0.10.6>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.5.0            1.0.1.0, TX: a      0x243a5479         1.0.x-1.2.0               0x705c9732/0xc34eafc3/0xa0ef96f2      10.1-12.2
-  `v0.10.5 <https://github.com/us4useu/arrus/releases/tag/v0.10.5>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.5.0            1.0.1.0, TX: a      0x243a5479         1.0.x-1.2.0               0x705c9732/0xc34eafc3/0xa0ef96f2      10.1-12.2
-  `v0.10.4 <https://github.com/us4useu/arrus/releases/tag/v0.10.4>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.5.0            1.0.1.0, TX: a      0x243a5479         1.0.x-1.2.0               0x705c9732/0xc34eafc3/0xa0ef96f2      10.1-12.2
-  `v0.10.3 <https://github.com/us4useu/arrus/releases/tag/v0.10.3>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.5.0            1.0.1.0, TX: a      0x243a5479         1.0.x-1.1.0               0x705c9732/0xc34eafc3/0xa0ef96f2      10.1-12.2
-  `v0.10.2 <https://github.com/us4useu/arrus/releases/tag/v0.10.2>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            1.0.1.0, TX: a      0x243a5479         1.0.x-1.1.0               0x705c9732/0xc34eafc3/0xa0ef96f2      10.1-12.2
-  `v0.10.1 <https://github.com/us4useu/arrus/releases/tag/v0.10.1>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            1.0.1.0, TX: a      0x243a5479         1.0.x-1.1.0               0x705c9732      10.1-12.2
-  `v0.10.0 <https://github.com/us4useu/arrus/releases/tag/v0.10.0>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            1.0.1.0, TX: a      0x243a5479         1.0.x-1.1.0               0x705c9732      10.1-12.2
-  `v0.9.3 <https://github.com/us4useu/arrus/releases/tag/v0.9.3>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            1.0.1.0, TX: a      0x243a5479           1.0.x-1.1.0               0x705c9732      10.1-12.2
-  `v0.9.2 <https://github.com/us4useu/arrus/releases/tag/v0.9.2>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            1.0.1.0, TX: a      0x243a5479           1.0.0-1.0.2               0x705c9732      10.1-12.2
-  `v0.9.1 <https://github.com/us4useu/arrus/releases/tag/v0.9.1>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            1.0.1.0, TX: a      0x243a5479           1.0.0-1.0.2               0x705c9732      10.1-12.2
-  `v0.9.0 <https://github.com/us4useu/arrus/releases/tag/v0.9.0>`__                 v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      2.0.4.0            1.0.1.0, TX: a      0x243a5479           1.0.0-1.0.2               0x705c9732      10.1-12.2
-  `v0.8.0 <https://github.com/us4useu/arrus/releases/tag/v0.8.0>`__                 v0.9.0, Linux: `0.2.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.9.0-dev-first/us4r-driver-v0.2.0-dev20221007.run>`__, Windows: WD1450 x                  0x0f255c84, TX: a   0x243a5479           x                         0x705c9732      10.1-12.2
-  `v0.7.8 <https://github.com/us4useu/arrus/releases/tag/v0.7.8>`__                 v0.8.7, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       x                  0xbd612458, TX: a   0x243a5479           x                         0xffe07334      10.1-12.2
-  `v0.7.7 <https://github.com/us4useu/arrus/releases/tag/v0.7.7>`__                 v0.8.7, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       x                  0xbd612458, TX: a   0x243a5479           x                         0xffe07334      10.1-12.2
-  `v0.7.6 <https://github.com/us4useu/arrus/releases/tag/v0.7.6>`__                 v0.8.7, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       x                  0xbd612458, TX: a   0x243a5479           x                         0xffe07334      10.1-12.2
-  `v0.7.5 <https://github.com/us4useu/arrus/releases/tag/v0.7.5>`__                 v0.8.7, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       x                  0xbd612458, TX: a   0x243a5479           x                         0xffe07334      10.1-12.2
-  `v0.7.4 <https://github.com/us4useu/arrus/releases/tag/v0.7.4>`__                 v0.8.7, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       x                  0xbd612458, TX: a   0x243a5479           x                         0xffe07334      10.1-12.2
-  `v0.7.3 <https://github.com/us4useu/arrus/releases/tag/v0.7.3>`__                 v0.8.7, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       x                  0xbd612458, TX: a   0x243a5479           x                         0xffe07334      10.1-12.2
-  `v0.7.2 <https://github.com/us4useu/arrus/releases/tag/v0.7.2>`__                 v0.8.6, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       x                  0xbd612458, TX: a   0x243a5479           x                         0xffe07334      10.1-12.2
-  `v0.7.1 <https://github.com/us4useu/arrus/releases/tag/v0.7.1>`__                 v0.8.6, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       x                  0xbd612458, TX: a   0x243a5479           x                         0xffe07334      10.1-12.2
-  `v0.7.0 <https://github.com/us4useu/arrus/releases/tag/v0.7.0>`__                 v0.8.6, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       x                  0xbd612458, TX: a   0x243a5479           x                         0xffe07334      10.1-12.2
- ================================================================================= ========================================================================================================================================================== ================== =================== ==================== ======================= =============== ===============
 
+.. list-table:: Compatibility matrix
+   :widths: 20 40 15 15 15 20 25 15
+   :header-rows: 1
+
+   * - ARRUS 
+     - Drivers 
+     - Us4OEM+ Firmware 
+     - Us4OEM Firmware 
+     - DBAR-Lite Firmware 
+     - DBAR-Lite-PCIe Firmware 
+     - DBAR Firmware 
+     - CUDA
+   * - `v0.11.2 <https://github.com/us4useu/arrus/releases/tag/v0.11.2>`__ 
+     - v0.12.0, Linux: `0.12.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.12.0/us4r-lkm-v0.12.0.run>`__, Windows: WD1450 
+     - 2.1.1.0 
+     - 1.0.1.0, TX: a 
+     - 0x243a5479 
+     - 1.0.x-1.2.0 
+     - 0x705c9732/0xc34eafc3/0xa0ef96f2 
+     - 10.1-12.2
+   * - `v0.11.1 <https://github.com/us4useu/arrus/releases/tag/v0.11.1>`__ 
+     - v0.12.0, Linux: `0.12.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.12.0/us4r-lkm-v0.12.0.run>`__, Windows: WD1450 
+     - 2.1.1.0 
+     - 1.0.1.0, TX: a 
+     - 0x243a5479 
+     - 1.0.x-1.2.0 
+     - 0x705c9732/0xc34eafc3/0xa0ef96f2 
+     - 10.1-12.2
+   * - `v0.11.0 <https://github.com/us4useu/arrus/releases/tag/v0.11.0>`__ 
+     - v0.12.0, Linux: `0.12.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.12.0/us4r-lkm-v0.12.0.run>`__, Windows: WD1450 
+     - 2.1.1.0 
+     - 1.0.1.0, TX: a 
+     - 0x243a5479 
+     - 1.0.x-1.2.0 
+     - 0x705c9732/0xc34eafc3/0xa0ef96f2 
+     - 10.1-12.2
+   * - `v0.10.6 <https://github.com/us4useu/arrus/releases/tag/v0.10.6>`__ 
+     - v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450
+     - 2.0.5.0 
+     - 1.0.1.0, TX: a 
+     - 0x243a5479 
+     - 1.0.x-1.2.0 
+     - 0x705c9732/0xc34eafc3/0xa0ef96f2 
+     - 10.1-12.2
+   * - `v0.10.5 <https://github.com/us4useu/arrus/releases/tag/v0.10.5>`__ 
+     - v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450
+     - 2.0.5.0 
+     - 1.0.1.0, TX: a 
+     - 0x243a5479 
+     - 1.0.x-1.2.0 
+     - 0x705c9732/0xc34eafc3/0xa0ef96f2 
+     - 10.1-12.2
+   * - `v0.10.4 <https://github.com/us4useu/arrus/releases/tag/v0.10.4>`__ 
+     - v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450
+     - 2.0.5.0 
+     - 1.0.1.0, TX: a 
+     - 0x243a5479 
+     - 1.0.x-1.2.0 
+     - 0x705c9732/0xc34eafc3/0xa0ef96f2 
+     - 10.1-12.2
+   * - `v0.10.3 <https://github.com/us4useu/arrus/releases/tag/v0.10.3>`__ 
+     - v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450
+     - 2.0.5.0 
+     - 1.0.1.0, TX: a 
+     - 0x243a5479 
+     - 1.0.x-1.2.0 
+     - 0x705c9732/0xc34eafc3/0xa0ef96f2 
+     - 10.1-12.2
+   * - `v0.10.2 <https://github.com/us4useu/arrus/releases/tag/v0.10.2>`__ 
+     - v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450
+     - 2.0.4.0 
+     - 1.0.1.0, TX: a 
+     - 0x243a5479 
+     - 1.0.x-1.2.0 
+     - 0x705c9732/0xc34eafc3/0xa0ef96f2 
+     - 10.1-12.2
+   * - `v0.10.1 <https://github.com/us4useu/arrus/releases/tag/v0.10.1>`__               
+     - v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      
+     - 2.0.4.0            
+     - 1.0.1.0, TX: a      
+     - 0x243a5479         
+     - 1.0.x-1.1.0               
+     - 0x705c9732                            
+     - 10.1-12.2
+   * - `v0.10.0 <https://github.com/us4useu/arrus/releases/tag/v0.10.0>`__              
+     -  v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      
+     - 2.0.4.0            
+     - 1.0.1.0, TX: a     
+     - 0x243a5479         
+     - 1.0.x-1.1.0              
+     - 0x705c9732                            
+     - 10.1-12.2
+   * - `v0.9.3 <https://github.com/us4useu/arrus/releases/tag/v0.9.3>`__                 
+     - v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450                      
+     - 2.0.4.0            
+     - 1.0.1.0, TX: a      
+     - 0x243a5479         
+     - 1.0.x-1.1.0               
+     - 0x705c9732
+     - 10.1-12.2
+   * - `v0.9.2 <https://github.com/us4useu/arrus/releases/tag/v0.9.2>`__ 
+     - v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450
+     - 2.0.4.0
+     - 1.0.1.0, TX: a
+     - 0x243a5479 
+     - 1.0.0-1.0.2 
+     - 0x705c9732 
+     - 10.1-12.2
+   * - `v0.9.1 <https://github.com/us4useu/arrus/releases/tag/v0.9.1>`__ 
+     - v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450 
+     - 2.0.4.0 
+     - 1.0.1.0, TX: a
+     - 0x243a5479 
+     - 1.0.0-1.0.2 
+     - 0x705c9732 
+     - 10.1-12.2
+   * - `v0.9.0 <https://github.com/us4useu/arrus/releases/tag/v0.9.0>`__                 
+     - v0.10.0, Linux: `0.10.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.10.0/us4r-lkm-v0.10.0.run>`__, Windows: WD1450 
+     - 2.0.4.0  
+     - 1.0.1.0, TX: a 
+     - 0x243a5479  
+     - 1.0.0-1.0.2 
+     - 0x705c9732 
+     - 10.1-12.2
+   * - `v0.8.0 <https://github.com/us4useu/arrus/releases/tag/v0.8.0>`__                 
+     - v0.9.0, Linux: `0.2.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.9.0-dev-first/us4r-driver-v0.2.0-dev20221007.run>`__, Windows: WD1450 x           
+     - x        
+     - 0x0f255c84, TX: a   
+     - 0x243a5479         
+     - x                         
+     - 0x705c9732                            
+     - 10.1-12.2 
+   * - `v0.7.8 <https://github.com/us4useu/arrus/releases/tag/v0.7.8>`__                 
+     - v0.8.7, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       
+     - x                  
+     - 0xbd612458, TX: a   
+     - 0x243a5479         
+     - x                         
+     - 0xffe07334                            
+     - 10.1-12.2
+   * - `v0.7.7 <https://github.com/us4useu/arrus/releases/tag/v0.7.7>`__                 
+     - v0.8.7, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       
+     - x                  
+     - 0xbd612458, TX: a   
+     - 0x243a5479         
+     - x                         
+     - 0xffe07334                            
+     - 10.1-12.2
+   * - `v0.7.6 <https://github.com/us4useu/arrus/releases/tag/v0.7.6>`__                 
+     - v0.8.7, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       
+     - x                  
+     - 0xbd612458, TX: a   
+     - 0x243a5479         
+     - x                         
+     - 0xffe07334                            
+     - 10.1-12.2
+   * - `v0.7.5 <https://github.com/us4useu/arrus/releases/tag/v0.7.5>`__                 
+     - v0.8.7, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       
+     - x                  
+     - 0xbd612458, TX: a   
+     - 0x243a5479         
+     - x                         
+     - 0xffe07334                            
+     - 10.1-12.2
+   * - `v0.7.4 <https://github.com/us4useu/arrus/releases/tag/v0.7.4>`__                 
+     - v0.8.7, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       
+     - x                  
+     - 0xbd612458, TX: a   
+     - 0x243a5479         
+     - x                         
+     - 0xffe07334                            
+     - 10.1-12.2
+   * - `v0.7.3 <https://github.com/us4useu/arrus/releases/tag/v0.7.3>`__                 
+     - v0.8.7, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       
+     - x                  
+     - 0xbd612458, TX: a   
+     - 0x243a5479         
+     - x                         
+     - 0xffe07334                            
+     - 10.1-12.2
+   * - `v0.7.2 <https://github.com/us4useu/arrus/releases/tag/v0.7.2>`__                 
+     - v0.8.6, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       
+     - x                  
+     - 0xbd612458, TX: a   
+     - 0x243a5479         
+     - x                         
+     - 0xffe07334                            
+     - 10.1-12.2
+   * - `v0.7.1 <https://github.com/us4useu/arrus/releases/tag/v0.7.1>`__                 
+     - v0.8.6, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       
+     - x                  
+     - 0xbd612458, TX: a   
+     - 0x243a5479         
+     - x                         
+     - 0xffe07334                            
+     - 10.1-12.2
+   * - `v0.7.0 <https://github.com/us4useu/arrus/releases/tag/v0.7.0>`__                 
+     - v0.8.6, Linux: `0.1.5 <https://github.com/us4useu/us4r-drivers/releases/download/v0.8.6/us4r-driver-v0.1.0.run>`__, Windows: WD1450                       
+     - x                  
+     - 0xbd612458, TX: a   
+     - 0x243a5479         
+     - x                         
+     - 0xffe07334                            
+     - 10.1-12.2
 
 
 .. _arrus-toolkit-installation-separately-drivers:
