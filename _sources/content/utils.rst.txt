@@ -61,6 +61,7 @@ Device Status
     --vucd                Prints UCD rail status and logs
     --nUS4OEM arg         Number of US4OEM devices
     --init arg            Execute us4oem initialization
+    --hvps_calibrate      Performs HVPS voltage setting calibration and stores calibration vector in OEM+ flash memory (Since ARRUS 0.13.0)
 
 High-Voltage supplier (HV256 or Us4RPSC)
 ========================================
