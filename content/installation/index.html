@@ -701,14 +701,14 @@ e.g. for Windows environment and Python 3.9 you should download
 <h4>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h4>
 <p>Requirements:</p>
 <ul class="simple">
-<li><p>Python 3.8 (or 3.9 or 3.10 for ARRUS &gt;= 0.9.0).</p></li>
+<li><p>Python 3.10-3.12 (3.8-3.10 for ARRUS &lt; 0.12.0).</p></li>
 </ul>
 <p>We recommend using <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda3</a>
 to manage Python environments.</p>
 <p>Install whl package located in the <code class="docutils literal notranslate"><span class="pre">python</span></code> subdirectory using
 <code class="docutils literal notranslate"><span class="pre">pip</span></code> package manager:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip uninstall arrus</span>
-<span class="go">pip install  arrus-x.y.z-cp38-cp38-win_amd64.whl</span>
+<span class="go">pip install  arrus-x.y.z-cp310-cp310-win_amd64.whl</span>
 </pre></div>
 </div>
 <p>Where <code class="docutils literal notranslate"><span class="pre">x.y.z</span></code> is the current version of ARRUS package.</p>
@@ -725,12 +725,16 @@ and described <a class="reference external" href="https://us4useu.github.io/arru
 <li><p>Adjust HV voltage.</p></li>
 <li><p>Run it: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">plane_wave_imaging.py</span></code>.</p></li>
 </ol>
+<p>If you would like to run one of our arrus-toolkit <a class="reference external" href="https://github.com/us4useu/arrus-toolkit/tree/master/examples">examples</a>  / <a class="reference external" href="https://us4useu.github.io/arrus-toolkit/content/technotes/index.html">technotes</a>, you will have to install <code class="docutils literal notranslate"><span class="pre">gui4us</span></code> in your Python environment. To do that, just run the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install gui4us</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="matlab">
 <h4>MATLAB<a class="headerlink" href="#matlab" title="Permalink to this headline">¶</a></h4>
 <p>Requirements:</p>
 <ul class="simple">
-<li><p>MATLAB 2022a, Parallel Computing Toolbox, Signal Processing Toolbox</p></li>
+<li><p>MATLAB 2024b, Parallel Computing Toolbox, Signal Processing Toolbox</p></li>
 </ul>
 <p>To check if everything is OK, run one of the scripts available
 <a class="reference external" href="https://github.com/us4useu/arrus/tree/master/api/matlab/examples">here</a>.</p>
