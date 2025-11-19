@@ -507,7 +507,7 @@ Python
 ~~~~~~
 Requirements:
 
-- Python 3.8 (or 3.9 or 3.10 for ARRUS >= 0.9.0).
+- Python 3.10-3.12 (3.8-3.10 for ARRUS < 0.12.0).
 
 We recommend using `Miniconda3 <https://docs.conda.io/en/latest/miniconda.html>`__
 to manage Python environments.
@@ -518,7 +518,7 @@ Install whl package located in the ``python`` subdirectory using
 .. code-block:: console
 
     pip uninstall arrus
-    pip install  arrus-x.y.z-cp38-cp38-win_amd64.whl
+    pip install  arrus-x.y.z-cp310-cp310-win_amd64.whl
 
 Where ``x.y.z`` is the current version of ARRUS package.
 
@@ -538,12 +538,19 @@ and described `here <https://us4useu.github.io/arrus-docs/releases/current/pytho
 2. Adjust HV voltage.
 3. Run it: ``python plane_wave_imaging.py``.
 
+If you would like to run one of our arrus-toolkit `examples <https://github.com/us4useu/arrus-toolkit/tree/master/examples>`__  / `technotes <https://us4useu.github.io/arrus-toolkit/content/technotes/index.html>`__, you will have to install ``gui4us`` in your Python environment. To do that, just run the following command:
+
+.. code-block:: console
+
+    pip install gui4us
+
+
 MATLAB
 ~~~~~~
 
 Requirements:
 
-- MATLAB 2022a, Parallel Computing Toolbox, Signal Processing Toolbox
+- MATLAB 2024b, Parallel Computing Toolbox, Signal Processing Toolbox
 
 To check if everything is OK, run one of the scripts available
 `here <https://github.com/us4useu/arrus/tree/master/api/matlab/examples>`__.
