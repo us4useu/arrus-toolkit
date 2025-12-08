@@ -53,7 +53,7 @@ Device Status
 ::
 
     ./Us4OEMStatus
-    Allows to check FPGA firmware version, TX firmware version, FPGA temperature:
+    Allows to check FPGA firmware version, TX firmware version, FPGA temperature, perform HVPS coefficients pre-calculation:
     --help                produce help message
     --clearrail           Clear UCD rail status
     --clearlog            Clear UCD rail fault logs
@@ -61,7 +61,11 @@ Device Status
     --vucd                Prints UCD rail status and logs
     --nUS4OEM arg         Number of US4OEM devices
     --init arg            Execute us4oem initialization
-    --calibrate_hvps      Performs HVPS voltage setting calibration and stores calibration vector in OEM+ flash memory (Since ARRUS 0.13.0)
+    --calibrate_hvps      Performs HVPS voltage setting calibration and stores calibration vector in OEM+ flash memory (Since ARRUS 0.13.0). Optionally, this parameter allows specifying the maximum voltage up to which the calibration should be performed; by default, it is set to 90 [V].
+
+Examples:
+1. Display help message: ``./Us4OEMStatus --help``
+2. Pre-configure HVPS up to 45 V: ``./Us4OEMStatus --nUS4OEM 2 --calibrate_hvps 45``
 
 High-Voltage supplier (HV256 or Us4RPSC)
 ========================================
