@@ -171,6 +171,14 @@ Firmware-software compatibility table. **The current release of the software is 
      - DBAR-Lite-PCIe Firmware 
      - DBAR Firmware 
      - CUDA
+   * - `v0.13.6 <https://github.com/us4useu/arrus/releases/tag/v0.13.6>`__
+     - v0.12.0, Linux: `0.12.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.12.0/us4r-lkm-v0.12.0.run>`__, Windows: WD1450
+     - `2.1.4.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.14.4>`__
+     - 1.0.1.0, TX: a
+     - 0x243a5479
+     - 1.0.x-1.2.0
+     - 0x705c9732/0xc34eafc3/0xa0ef96f2
+     - 10.1-12.2
    * - `v0.13.5 <https://github.com/us4useu/arrus/releases/tag/v0.13.5>`__
      - v0.12.0, Linux: `0.12.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.12.0/us4r-lkm-v0.12.0.run>`__, Windows: WD1450
      - `2.1.4.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.14.4>`__
