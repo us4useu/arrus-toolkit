@@ -1,6 +1,7 @@
 from typing import Tuple
 
 import numpy as np
+import cupy as cp
 import arrus.medium
 from arrus.devices.probe import ProbeModel
 from arrus.ops.imaging import *
@@ -15,7 +16,8 @@ from gui4us.model.envs.arrus import (
     ArrusEnvConfiguration,
     Curve
 )
-from reconstruction import Slice, ReconstructHriRca
+
+from reconstruction import Slice, ReconstructHriRca, Concatenate
 
 # ------------------------------------------ SEQUENCE
 def create_pw_sequence(
@@ -80,6 +82,7 @@ def to_hri(
         tx_orientation: str,
         rx_orientation: str,
         name: str,
+        zeros=False
 ):
     return Pipeline(
         steps=(
@@ -93,20 +96,21 @@ def to_hri(
                  tx_orientation=tx_orientation,
                  rx_orientation=rx_orientation
              ),
+            Lambda(lambda data: cp.zeros_like(data) if zeros else data)
         ),
         placement="/GPU:0",
         name=name
     )
 
 
-def to_bmode(dr_min, dr_max, name: str):
+def to_bmode(name: str):
     return Pipeline(
         steps=(
-             Mean(axis=0),  # Just to reduce the batch axis
-            Squeeze(),
+             Concatenate(axis=0, name="concat"),  # Concatenate XY and YX sequences
+             Mean(axis=0),  # Average HRIs (coherently)
+             Squeeze(),
              EnvelopeDetection(),
              LogCompression(),
-             DynamicRangeAdjustment(min=dr_min, max=dr_max),
              Squeeze(),
         ),
         placement="/GPU:0",
@@ -147,9 +151,9 @@ def configure(session: arrus.Session):
     pri = 400e-6
 
     # Imaging grid.
-    y_grid = np.arange(-8e-3, 8e-3, 0.2e-3)
-    x_grid = np.arange(-8e-3, 8e-3, 0.2e-3)
-    z_grid = np.arange(5e-3, 40e-3, 0.2e-3)
+    y_grid = np.arange(-8e-3, 8e-3, 0.1e-3)
+    x_grid = np.arange(-8e-3, 8e-3, 0.1e-3)
+    z_grid = np.arange(5e-3, 40e-3, 0.1e-3)
 
     common_parameters = dict(
         medium=medium,
@@ -159,10 +163,9 @@ def configure(session: arrus.Session):
         sample_range=sample_range,
         pri=pri,
     )
-
     # Initial TGC curve.
-    tgc_sampling_points = np.linspace(0, n_samples / sampling_frequency, 10)
-    tgc_values = np.linspace(24, 54, 10)
+    tgc_sampling_points = np.linspace(np.min(z_grid), np.max(z_grid), 10)
+    tgc_values = np.linspace(34, 54, 10)
 
     # TX with OX elements, RX with OY elements
     sequence_xy = create_pw_sequence(
@@ -188,27 +191,33 @@ def configure(session: arrus.Session):
         pass_zero="bandpass", fs=us4r.current_sampling_frequency
     )
 
+    preprocess_xy = create_processing(name="preprocess_xy")
+    preprocess_yx = create_processing(name="preprocess_yx")
+
     to_hri_xy = to_hri(
         name="to_hri_xy",
         x_grid=x_grid, y_grid=y_grid, z_grid=z_grid,
         fir_taps=fir_taps,
         tx_orientation="ox",
-        rx_orientation="oy"
+        rx_orientation="oy",
     )
-
-    # TODO merge HRI xy and HRI yx
-    to_bmode_all = to_bmode(dr_min=20, dr_max=80, name="to_bmode")
+    to_hri_yx = to_hri(
+        name="to_hri_yx",
+        x_grid=x_grid, y_grid=y_grid, z_grid=z_grid,
+        fir_taps=fir_taps,
+        tx_orientation="oy",
+        rx_orientation="ox",
+    )
+    to_bmode_all = to_bmode(name="to_bmode")
     to_slice_xz = to_slice(axis=0, name="to_slice_xz")
     to_slice_yz = to_slice(axis=1, name="to_slice_yz")
 
-    preprocess_xy = create_processing(name="preprocess_xy")
-    preprocess_yx = create_processing(name="preprocess_yx")
-
     processing = Graph(
         operations={
-            to_hri_xy, to_bmode_all, to_slice_xz, to_slice_yz,
-            preprocess_xy,
-            preprocess_yx
+            preprocess_xy, preprocess_yx,
+            to_bmode_all,
+            to_hri_xy, to_hri_yx,
+            to_slice_xz, to_slice_yz,
         },
         dependencies={
             "Output:0": to_slice_xz.name,
@@ -217,7 +226,8 @@ def configure(session: arrus.Session):
             "Output:3": preprocess_yx.name,
             to_slice_yz.name: to_bmode_all.name,
             to_slice_xz.name: to_bmode_all.name,
-            to_bmode_all.name: to_hri_xy.name,
+            to_bmode_all.name: [to_hri_xy.name, to_hri_yx.name],
+            to_hri_yx.name: preprocess_yx.name,
             to_hri_xy.name: preprocess_xy.name,
             preprocess_xy.name: sequence_xy.name,
             preprocess_yx.name: sequence_yx.name

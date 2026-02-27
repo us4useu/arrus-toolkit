@@ -3,10 +3,10 @@ from gui4us.cfg.display import *
 # Display configuration file.
 displays = {
     "XY": Display2D(
-        title=f"XY sequence (one frame)",
+        title=f"y = 0",
         layers=(
             Layer2D(
-                value_range=(20, 80),
+                value_range=(30, 80),
                 cmap="gray",
                 input=StreamDataId("default", 0),
             ),
@@ -14,10 +14,10 @@ displays = {
         ax_labels=("OX (m)", "OZ (m)")
     ),
     "YX": Display2D(
-        title=f"YX sequence (one frame)",
+        title=f"x = 0",
         layers=(
             Layer2D(
-                value_range=(20, 80),
+                value_range=(30, 80),
                 cmap="gray",
                 input=StreamDataId("default", 1),
             ),

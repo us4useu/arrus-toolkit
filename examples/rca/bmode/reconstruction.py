@@ -1,3 +1,5 @@
+from typing import Tuple, List
+
 from arrus.utils.imaging import *
 import cupy as cp
 import numpy as np
@@ -8,20 +10,23 @@ import arrus
 
 
 class Concatenate(Operation):
-    def __init__(self, axis):
-        super().__init__()
+    def __init__(self, axis, name: str = None):
+        super().__init__(name=name)
         self.axis = axis
 
-    def prepare(self, const_metadata):
+    def prepare(self, const_metadata: List[arrus.metadata.ConstMetadata]):
         # TODO verify that all the metadata objects are compatible, i.e. have the same data type, etc.
         axis_total_size = 0
         for cm in const_metadata:
             axis_total_size += cm.input_shape[self.axis]
         output_shape = list(const_metadata[0].input_shape)
         output_shape[self.axis] = axis_total_size
-        return const_metadata[0].copy(input_shape=tuple(output_shape))
+        res = const_metadata[0].copy(input_shape=tuple(output_shape))
+        print("!!!!!!!!!!!!!!!!!!!! METADATA")
+        print(res)
+        return res
 
-    def process(self, data):
+    def process(self, data: Tuple[cp.ndarray, cp.ndarray]):
         return cp.concatenate(data, axis=self.axis)
 
 
@@ -193,7 +198,7 @@ class ReconstructHriRca(Operation):
 
         self.probe_rx_pitch = cp.float32(self.array_rx.pitch)
         self.probe_rx_n_elements = cp.int32(self.array_rx.n_elements)
-        rx_arrangement = self.get_arrangement_code(self.array_rx)
+        rx_arrangement = self.get_arrangement_code(self.array_rx_orientation)
         self.array_rx_orientation = cp.uint8(rx_arrangement)
 
         # TX focus and angle
@@ -245,7 +250,6 @@ class ReconstructHriRca(Operation):
 
     def process(self, data):
         data = cp.ascontiguousarray(data)
-
         params = (
             self.output,
             data,
