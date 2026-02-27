@@ -1,35 +1,78 @@
 us4r: {
-    probe:
-    {
-        id: {
-            manufacturer: "Vermon"
-            name: "RCA128"
-        }
-        n_elements: 256,
-        pitch: 0.2e-3,
-        tx_frequency_range: {
-            begin: 1e6,
-            end: 15e6
+    probe: [
+        {
+            id: {
+                manufacturer: "Vermon"
+                name: "RCA128-OX"
+            }
+            n_elements: 128,
+            pitch: 0.2e-3,
+            tx_frequency_range: {
+                begin: 1e6,
+                end: 15e6
+            },
+            voltage_range {
+                begin: 0,
+                end: 50
+            }
         },
-        voltage_range {
-            begin: 0,
-            end: 50
+        {
+            id: {
+                manufacturer: "Vermon"
+                name: "RCA128-OY"
+            }
+            n_elements: 128,
+            pitch: 0.2e-3,
+            tx_frequency_range: {
+                begin: 1e6,
+                end: 15e6
+            },
+            voltage_range {
+                begin: 0,
+                end: 50
+            }
         }
-    }
+    ]
 
     adapter_id: {
         manufacturer: "us4us"
         name: "dlp408r"
     }
 
-    probe_to_adapter_connection: {
-        channel_mapping_ranges: [
+    probe_to_adapter_connection: [
         {
-            begin: 0
-            end: 255
+            probe_model_id: {
+                manufacturer: "Vermon"
+                name: "RCA128-OX"
+            }
+            probe_adapter_model_id: {
+                manufacturer: "us4us",
+                name: "dlp408r"
+            }
+            channel_mapping_ranges: [
+                {
+                    begin: 0
+                    end: 127
+                }
+            ]
+        },
+        {
+            probe_model_id: {
+                manufacturer: "Vermon"
+                name: "RCA128-OY"
+            }
+            probe_adapter_model_id: {
+                manufacturer: "us4us",
+                name: "dlp408r"
+            }
+            channel_mapping_ranges: [
+                {
+                    begin: 128
+                    end: 255
+                }
+            ]
         }
     ]
-    }
 
     # Default initial values.
     rx_settings: {
@@ -42,19 +85,9 @@ us4r: {
     hv: {
         model_id {
             manufacturer: "us4us"
-            name: "hv256"
+            name: "us4oemhvps"
         }
     }
-
-    channels_mask: {
-        channels: []
-    }
-
-	# us4oem channels mask are redundant here to minimize the risk of changing masking by mistake
-    us4oem_channels_mask: [
-        {channels: []},
-        {channels: []}
-    ]
 }
 
 
