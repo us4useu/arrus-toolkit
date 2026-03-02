@@ -85,7 +85,7 @@ us4r: {
     hv: {
         model_id {
             manufacturer: "us4us"
-            name: "hv256"
+            name: "us4oemhvps"
         }
     }
 }

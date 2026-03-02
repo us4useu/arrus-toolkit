@@ -52,9 +52,9 @@ def create_pw_sequence(
                 ),
                 rx=Rx(
                     # Receive with all elements.
-                    aperture=Aperture(center=0.0, size=array_rx.n_elements),
+                    aperture=Aperture(center=0.0, size=array_tx.n_elements),
                     sample_range=sample_range,
-                    placement=array_rx_id
+                    placement=array_tx_id
                 ),
                 pri=pri
             )
@@ -64,12 +64,12 @@ def create_pw_sequence(
     )
 
 
-def create_processing(name: str):
+def create_processing(name: str, angles):
     return Pipeline(
         steps=(
             RemapToLogicalOrder(),
             Squeeze(),
-            SelectFrames([0]),
+            SelectFrames([len(angles)//2]),
             Squeeze(),
         ),
         placement="/GPU:0",
@@ -90,7 +90,7 @@ def configure(session: arrus.Session):
     array_oy_id = f"Probe:{oy_ordinal}"
 
     sampling_frequency = us4r.sampling_frequency
-    n_samples = 2048
+    n_samples = 4*1024
 
     medium = arrus.medium.Medium(name="ats549", speed_of_sound=1450)
     angles = np.linspace(-10, 10, 32) * np.pi / 180  # [rad]
@@ -110,7 +110,7 @@ def configure(session: arrus.Session):
 
     # Initial TGC curve.
     tgc_sampling_points = np.linspace(0, n_samples / sampling_frequency, 10)
-    tgc_values = np.linspace(14, 54, 10)
+    tgc_values = np.linspace(14, 44, 10)
 
     # TX with OX elements, RX with OY elements
     sequence_xy = create_pw_sequence(
@@ -130,8 +130,8 @@ def configure(session: arrus.Session):
         **common_parameters
     )
 
-    preprocess_rf_xy = create_processing("preprocess_XY")
-    preprocess_rf_yx = create_processing("preprocess_YX")
+    preprocess_rf_xy = create_processing("preprocess_XY", angles)
+    preprocess_rf_yx = create_processing("preprocess_YX", angles)
 
     processing = Graph(
         operations={preprocess_rf_xy, preprocess_rf_yx},
@@ -153,7 +153,7 @@ def configure(session: arrus.Session):
         medium=medium,
         scheme=scheme,
         tgc=Curve(points=tgc_sampling_points, values=tgc_values),
-        voltage=20
+        voltage=5
     )
 
 

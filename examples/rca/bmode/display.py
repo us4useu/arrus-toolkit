@@ -6,7 +6,7 @@ displays = {
         title=f"y = 0",
         layers=(
             Layer2D(
-                value_range=(30, 80),
+                value_range=(45, 80),
                 cmap="gray",
                 input=StreamDataId("default", 0),
             ),
@@ -17,7 +17,7 @@ displays = {
         title=f"x = 0",
         layers=(
             Layer2D(
-                value_range=(30, 80),
+                value_range=(45, 80),
                 cmap="gray",
                 input=StreamDataId("default", 1),
             ),
