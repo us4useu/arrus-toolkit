@@ -1,0 +1,357 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Row-column Array Probe (RCA) &mdash; ARRUS Toolkit  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Utils" href="../../utils.html" />
+    <link rel="prev" title="Connecting external Trigger Input" href="../trigger_input/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> ARRUS Toolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/index.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Technotes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../doppler/index.html">Color and Power Doppler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../matrix_array/index.html">Matrix Array: 3D B-mode imaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../connecting_custom_probe/index.html">Connecting custom probe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trigger_input/index.html">Connecting external Trigger Input</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Row-column Array Probe (RCA)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#intended-use">Intended use</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#assumptions">Assumptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#parameters">Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#rf-data">RF data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#how-to-run">How to run</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#d-volume-slices-in-gui4us">2D volume slices in GUI4us</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">How to run</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#d-volume-visualization">3D volume visualization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">How to run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../misc/acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ARRUS Toolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Technotes</a> &raquo;</li>
+        
+      <li>Row-column Array Probe (RCA)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="row-column-array-probe-rca">
+<h1>Row-column Array Probe (RCA)<a class="headerlink" href="#row-column-array-probe-rca" title="Permalink to this headline">¶</a></h1>
+<p>In this document we present instructions on how to use the RCA probe with the
+us4us us4R-Lite+ ultrasound systems.</p>
+<p>This document describes ARRUS-Toolkit examples: <code class="docutils literal notranslate"><span class="pre">rca/rf</span></code>, <code class="docutils literal notranslate"><span class="pre">rca/bmode</span></code> and <code class="docutils literal notranslate"><span class="pre">rca/3d</span></code>.</p>
+<div class="section" id="intended-use">
+<h2>Intended use<a class="headerlink" href="#intended-use" title="Permalink to this headline">¶</a></h2>
+<p>The example provided here serves as a starting point for testing the RCA probe. It
+can be further adapted for specific requirements, such as raw RF data acquisition,
+evaluating custom RX beamformers, or testing alternative TX/RX sequences.</p>
+</div>
+<div class="section" id="assumptions">
+<h2>Assumptions<a class="headerlink" href="#assumptions" title="Permalink to this headline">¶</a></h2>
+<p>The figure below shows the axis orientation for the Vermon 6 MHz RCA probe.</p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="../../../_images/vermon_rca_axes.png"><img alt="../../../_images/vermon_rca_axes.png" src="../../../_images/vermon_rca_axes.png" style="width: 451.0px; height: 439.0px;" /></a>
+</div>
+</div>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>Hardware:</p>
+<ul class="simple">
+<li><p>us4R-lite+ system</p></li>
+<li><p>RCA probe (tested on <a class="reference external" href="https://vermon.com/product/row-column-array-6-0mhz-256-elts/">Vermon RCA 6.0 MHz 128 + 128</a> probe).</p></li>
+</ul>
+<p>Software:</p>
+<ul class="simple">
+<li><p>ARRUS Python &gt;= 0.13.0</p></li>
+<li><p>gui4us &gt;= 0.3.0-dev20260303</p></li>
+<li><p>arrus_rca_utils: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">/path/to/arrus-toolkit/examples/rca/utils</span></code></p></li>
+<li><p><em>optionally: VTK &gt;= 9.2.0 for 3D visualization, HoloPlayService 1.2.6 and vtk-lookingglass == 1.0.0 for LookingGlassFactory 1st generation HoloDisplay</em></p></li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Download example from <a class="reference external" href="https://github.com/us4useu/arrus-toolkit/tree/master/examples/rca/">rca/</a> directory (you can also clone the whole arrus-toolkit repository).</p></li>
+<li><p><em>Optionally: update the ``us4r.prototxt``: set the proper probe adapter name, probe name, HV model name, pin mapping if necessary.</em>.</p></li>
+</ol>
+<div class="section" id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
+<p>The examples are adapted for the Vermon RCA 6 MHz probe (128 + 128 elements).
+To adapt it to other probes, please change the probe parameters and pin mapping in the <code class="docutils literal notranslate"><span class="pre">us4r.prototxt</span></code> file.</p>
+<p>The below parameters can be changed in the <code class="docutils literal notranslate"><span class="pre">rca/rf/env.py</span></code>, <code class="docutils literal notranslate"><span class="pre">rca/bmode/env.py</span></code> or <code class="docutils literal notranslate"><span class="pre">rca/3d/run.py</span></code>
+scripts, in the section e.g.:</p>
+<p>We also encourage you to modify other parameters of the TX/RX sequence in the env.py file.
+For more information, please refer to the documentation for <a class="reference external" href="https://github.com/us4useu/arrus/releases">ARRUS</a> release you are using.</p>
+</div>
+</div>
+<div class="section" id="rf-data">
+<h2>RF data<a class="headerlink" href="#rf-data" title="Permalink to this headline">¶</a></h2>
+<p>This section describes ARRUS-Toolkit example: <code class="docutils literal notranslate"><span class="pre">rca/rf</span></code>.</p>
+<p>This example shows how to display raw RF data acquired from the RCA probe in real-time.</p>
+<div class="section" id="how-to-run">
+<h3>How to run<a class="headerlink" href="#how-to-run" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Make sure the RCA probe is properly connected.</p></li>
+<li><p>Start the example: execute the following command in terminal: <code class="docutils literal notranslate"><span class="pre">gui4us</span> <span class="pre">--cfg</span> <span class="pre">/path/to/examples/rca/rf</span></code>, then press Start button.</p></li>
+</ol>
+<p>After successfully launching the application, a window like the one below should appear. The window presents one of the RF frames acquired for each TX/RX sequences.</p>
+<div class="figure align-default">
+<img alt="../../../_images/rf.png" src="../../../_images/rf.png" />
+</div>
+<p>To stop the system, close the GUI4us window.</p>
+</div>
+</div>
+<div class="section" id="d-volume-slices-in-gui4us">
+<h2>2D volume slices in GUI4us<a class="headerlink" href="#d-volume-slices-in-gui4us" title="Permalink to this headline">¶</a></h2>
+<p>This section describes ARRUS-Toolkit example: <code class="docutils literal notranslate"><span class="pre">rca/bmode</span></code>.</p>
+<p>This example shows how to acquire and reconstruct full 3D volume, and display 2D volume slices in GUI4us.</p>
+<p>Currently, GUI4us does not support 3D volume display (however, this will be added in the future). For now,
+you can use the 3D VTK visualizer if you would like to visualize the 3D volume in real-time.</p>
+<div class="section" id="id1">
+<h3>How to run<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Make sure the RCA probe is properly connected.</p></li>
+<li><p>Start the example: execute the following command in terminal: <code class="docutils literal notranslate"><span class="pre">gui4us</span> <span class="pre">--cfg</span> <span class="pre">/path/to/examples/rca/bmode</span></code>, then press Start button.</p></li>
+</ol>
+<p>After successfully launching the application, a window like the one below should appear. The window presents B-mode images for planes x = 0 and y = 0.</p>
+<div class="figure align-default">
+<img alt="../../../_images/cyst.png" src="../../../_images/cyst.png" />
+</div>
+<p>To stop the system, close the GUI4us window.</p>
+</div>
+</div>
+<div class="section" id="d-volume-visualization">
+<h2>3D volume visualization<a class="headerlink" href="#d-volume-visualization" title="Permalink to this headline">¶</a></h2>
+<p>This section describes ARRUS-Toolkit example: <code class="docutils literal notranslate"><span class="pre">rca/3d</span></code>.</p>
+<p>This example shows how to acquire and reconstruct full 3D volume, and display it in real-time using the 3D VTK visualizer.</p>
+<div class="section" id="id2">
+<h3>Parameters<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>To change the dynamic range, set the <code class="docutils literal notranslate"><span class="pre">VTkVisualizer(dr_min</span> <span class="pre">and</span> <span class="pre">dr_max)</span></code> parameters in the <code class="docutils literal notranslate"><span class="pre">rca/3d/run.py</span></code> script.</p>
+<p>You can enable the integration with LookingGlassFactory display by setting <code class="docutils literal notranslate"><span class="pre">VTkVisualizer(use_lgf=True)</span></code> parameter. NOTE: currently this feature is only supported with 1st
+generation LookingGlassFactory HoloDisplay 8.9”, with HoloPlayService 1.2.6.</p>
+</div>
+<div class="section" id="id3">
+<h3>How to run<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Make sure the RCA probe is properly connected.</p></li>
+<li><p>Start the example: execute the following command in terminal: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">/path/to/examples/rca/3d/run.py</span></code>.</p></li>
+</ol>
+<p>After successfully launching the application, a window like the one below should appear. The window presents the 3D volume reconstructed from the RCA probe data.</p>
+<div class="figure align-default">
+<img alt="../../../_images/cyst_3d.png" src="../../../_images/cyst_3d.png" />
+</div>
+<p>To stop the system, press Ctrl+C in the terminal (multiple times if necessary).</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../utils.html" class="btn btn-neutral float-right" title="Utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../trigger_input/index.html" class="btn btn-neutral float-left" title="Connecting external Trigger Input" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2026, us4us Ltd
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
