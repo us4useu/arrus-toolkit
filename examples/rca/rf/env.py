@@ -82,8 +82,8 @@ def configure(session: arrus.Session):
     us4r = session.get_device("/Us4R:0")
 
     # The ordinal number of the OX and OY sub-arrays. See us4r.prototxt
-    ox_ordinal = 0
-    oy_ordinal = 1
+    oy_ordinal = 0
+    ox_ordinal = 1
     array_ox = us4r.get_probe_model(ordinal=ox_ordinal)
     array_oy = us4r.get_probe_model(ordinal=oy_ordinal)
     array_ox_id = f"Probe:{ox_ordinal}"

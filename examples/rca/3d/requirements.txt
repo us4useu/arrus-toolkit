@@ -1,0 +1,2 @@
+vtk==9.2.2
+# vtk-lookingglass==1.0.0  # Optional, required to run with the Looking Glass Factory.
