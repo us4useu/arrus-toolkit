@@ -1,20 +1,28 @@
 =================================
-Connecting external Trigger Input
+Row-column Array Probe (RCA)
 =================================
 
-In this document we present instructions on how to connect and use an external
-trigger generator with the us4us ultrasound systems.
+In this document we present instructions on how to use the RCA probe with the
+us4us us4R-Lite+ ultrasound systems.
 
-This document describes ARRUS-Toolkit example: ``common/trigger_input``
+This document describes ARRUS-Toolkit examples: ``rca/rf``, ``rca/bmode`` and ``rca/3d``.
 
 Intended use
 ------------
 
-The instruction and example provided here can be applied for whatever application
-it is necessary to synchronize the ultrasound system with an external trigger
-signal, such as: photo-acoustic imaging, externally controlled transmissions, etc.
+The example provided here serves as a starting point for testing the RCA probe. It
+can be further adapted for specific requirements, such as raw RF data acquisition,
+evaluating custom RX beamformers, or testing alternative TX/RX sequences.
 
-The example described here provides access to the raw channel data (RF).
+
+Assumptions
+-----------
+
+The figure below shows the axis orientation for the Vermon 6 MHz RCA probe.
+
+.. figure:: img/vermon_rca_axes.png
+   :scale: 50%
+
 
 Requirements
 ------------
@@ -22,144 +30,112 @@ Requirements
 Hardware:
 
 - us4R-lite+ system
-- General-purpose signal generator
+- RCA probe (tested on `Vermon RCA 6.0 MHz 128 + 128 <https://vermon.com/product/row-column-array-6-0mhz-256-elts/>`_ probe).
 
 Software:
 
-- ARRUS Python >= 0.11.0
-- gui4us >= 0.3.0-dev20241008
+- ARRUS Python >= 0.13.0
+- gui4us >= 0.3.0-dev20260303
+- arrus_rca_utils: ``pip install -e /path/to/arrus-toolkit/examples/rca/utils``
+- *optionally: VTK >= 9.2.0 for 3D visualization, HoloPlayService 1.2.6 and vtk-lookingglass == 1.0.0 for LookingGlassFactory 1st generation HoloDisplay*
+
 
 Installation
 ------------
 
-Hardware:
-
-- Connect the signal generator output to the ultrasound system "TRIG IN" port.
-- Connect the ultrasound system "CLK OUT" port to the signal generator clock input.
-
-Software:
-
-1. Download the `trigger_input <https://github.com/us4useu/arrus-toolkit/tree/master/examples/common/trigger_input>`_ example (the whole directory).
-2. Update the ``us4r.prototxt``: set the proper probe adapter name, probe name, HV model name.
+1. Download example from `rca/ <https://github.com/us4useu/arrus-toolkit/tree/master/examples/rca/>`_ directory (you can also clone the whole arrus-toolkit repository).
+2. *Optionally: update the ``us4r.prototxt``: set the proper probe adapter name, probe name, HV model name, pin mapping if necessary.*.
 
 
 Parameters
-----------
+~~~~~~~~~~
 
-General-purpose signal generator
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The examples are adapted for the Vermon RCA 6 MHz probe (128 + 128 elements). 
+To adapt it to other probes, please change the probe parameters and pin mapping in the ``us4r.prototxt`` file.
 
-.. caution::
-
-    When a high frequency value is used (>= 100 Hz), we recommend setting the
-    n_frames value also sufficiently high (e.g. 100 frames for 100 Hz)
-    to mitigate the overhead caused by starting and stopping the transfer
-    via the interface between the system and the host PC.
-
-    See also the ``Python scripts`` section for more information.
-
-+-------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-| Name        | Value                                                                                                                                     |
-+=============+===========================================================================================================================================+
-| Frequency   | In accordance with user requirements (max 10 kHz).                                                                                        |
-+-------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-| Amplitude   | Please see `us4R <https://us4useu.github.io/us4r-user-docs/>`_/`us4R-lite <https://us4useu.github.io/us4r-lite-user-docs/>`_ user manual. |
-+-------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-| Waveform    | Pulse                                                                                                                                     |
-+-------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-| Pulse Width | 10 us                                                                                                                                     |
-+-------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-| Rise edge   | ~ 9 ns                                                                                                                                    |
-+-------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-| Load        | Please see `us4R <https://us4useu.github.io/us4r-user-docs/>`_/`us4R-lite <https://us4useu.github.io/us4r-lite-user-docs/>`_ user manual. |
-+-------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-
-Python scripts
-~~~~~~~~~~~~~~
-
-The below parameters can be changed in the ``common/trigger_input/env.py``
-script file, in the section e.g.:
-
-::
-
-    # ------------ PARAMETERS
-    n_samples = 2048
-    n_frames = 100
-    tx_aperture = [True]*n_elements
-    tx_delays = np.sum(tx_aperture)
-    # -------------
-
-
-+-------------+-----------------------------------------------------------------------------------+
-| Name        | Description                                                                       |
-+=============+===================================================================================+
-| n_frames    | Number of logical frames to be acquired in a single data transfer.                |
-|             |                                                                                   |
-|             | One logical frame may be translated into multiple physical TX/RX operations,      |
-|             |                                                                                   |
-|             | depending on the number of elements in your transducer and the number of RX       |
-|             |                                                                                   |
-|             | channels available in the ultrasonic system.                                      |
-|             |                                                                                   |
-|             | For example, if 128 elements of the probe are used in RX on the system with       |
-|             |                                                                                   |
-|             | 64 RX channels, the observed frame rate will be halved.                           |
-|             |                                                                                   |
-|             | This value should be selected according to the chosen signal generator frequency. |
-|             |                                                                                   |
-|             | When high frequency values are used (>= 100 Hz), we recommend setting the number  |
-|             |                                                                                   |
-|             | of frames also sufficiently high to mitigate the overhead caused by starting      |
-|             |                                                                                   |
-|             | and stopping the transfer via the interface between the system and the host PC.   |
-+-------------+-----------------------------------------------------------------------------------+
-| tx_aperture | TX aperture definition.                                                           |
-|             |                                                                                   |
-|             | The TX aperture should be defined as boolean array (mask) for selected probe      |
-|             |                                                                                   |
-|             | elements to be used in TX.                                                        |
-|             |                                                                                   |
-|             | For the photo-acoustic application, please consider setting this value            |
-|             |                                                                                   |
-|             | to ``[False]*n_elements``.                                                        |
-+-------------+-----------------------------------------------------------------------------------+
-| n_samples   | Number of samples to acquire in a single RX (RF frame). This value determines     |
-|             |                                                                                   |
-|             | imaging maximum depth.                                                            |
-+-------------+-----------------------------------------------------------------------------------+
+The below parameters can be changed in the ``rca/rf/env.py``, ``rca/bmode/env.py`` or ``rca/3d/run.py``
+scripts, in the section e.g.:
 
 We also encourage you to modify other parameters of the TX/RX sequence in the env.py file.
-For more information, please refer to the documentation for your version of `ARRUS <https://github.com/us4useu/arrus/releases>`_.
+For more information, please refer to the documentation for `ARRUS <https://github.com/us4useu/arrus/releases>`_ release you are using.
+
+
+
+RF data 
+-------
+
+
+This section describes ARRUS-Toolkit example: ``rca/rf``.
+
+This example shows how to display raw RF data acquired from the RCA probe in real-time.
+
 
 How to run
-----------
+~~~~~~~~~~
 
-1. Turn on the appropriate output of the signal generator.
-2. Start the example, please execute the following command in the terminal:
+1. Make sure the RCA probe is properly connected.
+2. Start the example: execute the following command in terminal: ``gui4us --cfg /path/to/examples/rca/rf``, then press Start button.
 
-::
+After successfully launching the application, a window like the one below should appear. The window presents one of the RF frames acquired for each TX/RX sequences.
 
-    gui4us --cfg /path/to/examples/common/trigger_input
 
-After successfully launching the application, a window like the one below should appear.
+.. figure:: img/rf.png
 
-.. figure:: img/trigger_off.png
 
-3. Press Start button.
+To stop the system, close the GUI4us window.
 
-After running the example, the presented RF data should be updated with the frame
-according to the frequency set on the generator.
 
-.. figure:: img/trigger_on.png
+2D volume slices in GUI4us
+--------------------------
 
-You can acquire data by pressing ``Capture`` button, then by pressing ``Save``.
-The data will be saved in the current working directory (i.e. the currently
-visited folder in the terminal).
+This section describes ARRUS-Toolkit example: ``rca/bmode``.
 
-To stop the TX/RX sequence, please close the GUI4us window.
+This example shows how to acquire and reconstruct full 3D volume, and display 2D volume slices in GUI4us.
 
-Utils
------
+Currently, GUI4us does not support 3D volume display (however, this will be added in the future). For now, 
+you can use the 3D VTK visualizer if you would like to visualize the 3D volume in real-time.
 
-The ``analyse.ipynb`` notebook shows how to read the data acquired using
-the gui4us capture buffer.
+
+How to run
+~~~~~~~~~~
+
+1. Make sure the RCA probe is properly connected.
+2. Start the example: execute the following command in terminal: ``gui4us --cfg /path/to/examples/rca/bmode``, then press Start button.
+
+After successfully launching the application, a window like the one below should appear. The window presents B-mode images for planes x = 0 and y = 0.
+
+.. figure:: img/cyst.png
+
+To stop the system, close the GUI4us window.
+
+
+3D volume visualization
+-----------------------
+
+This section describes ARRUS-Toolkit example: ``rca/3d``.
+
+This example shows how to acquire and reconstruct full 3D volume, and display it in real-time using the 3D VTK visualizer.
+
+Parameters
+~~~~~~~~~~
+
+To change the dynamic range, set the ``VTkVisualizer(dr_min and dr_max)`` parameters in the ``rca/3d/run.py`` script.
+
+
+You can enable the integration with LookingGlassFactory display by setting ``VTkVisualizer(use_lgf=True)`` parameter. NOTE: currently this feature is only supported with 1st 
+generation LookingGlassFactory HoloDisplay 8.9", with HoloPlayService 1.2.6. 
+
+How to run
+~~~~~~~~~~
+
+1. Make sure the RCA probe is properly connected.
+2. Start the example: execute the following command in terminal: ``python /path/to/examples/rca/3d/run.py``.
+
+After successfully launching the application, a window like the one below should appear. The window presents the 3D volume reconstructed from the RCA probe data.
+
+.. figure:: img/cyst_3d.png
+
+To stop the system, press Ctrl+C in the terminal (multiple times if necessary).
+
+
+

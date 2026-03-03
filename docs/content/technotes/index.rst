@@ -12,3 +12,4 @@ This section provides usage instructions for typical use cases of the us4R/us4R-
     matrix_array/index
     connecting_custom_probe/index
     trigger_input/index
+    rca/index
