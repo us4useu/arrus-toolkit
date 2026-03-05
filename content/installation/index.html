@@ -749,10 +749,10 @@ to manage Python environments.</p>
 </div>
 <p>Where <code class="docutils literal notranslate"><span class="pre">x.y.z</span></code> is the current version of ARRUS package.</p>
 <p>The below packages are required to run the example with B-mode imaging:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install cupy-cudaxyz matplotlib==3.7.2</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install cupy-cuda{xyz}&lt;13.0.0 matplotlib==3.7.2</span>
 </pre></div>
 </div>
-<p>Where <code class="docutils literal notranslate"><span class="pre">xyz</span></code> is the version of the CUDA Toolkit installed on your host PC.</p>
+<p>Where <code class="docutils literal notranslate"><span class="pre">{xyz}</span></code> is the version of the CUDA Toolkit installed on your host PC. For example, for CUDA 11.8 you can use <code class="docutils literal notranslate"><span class="pre">cupy-cuda11x&lt;13.0.0</span></code>.</p>
 <p>To check if everything is OK, run one of the examples provided
 <a class="reference external" href="https://github.com/us4useu/arrus/tree/master/api/python/examples">here</a>
 and described <a class="reference external" href="https://us4useu.github.io/arrus-docs/releases/current/python/content/examples.html">here</a>. For example, to run <code class="docutils literal notranslate"><span class="pre">plane_wave_imaging.py</span></code>:</p>

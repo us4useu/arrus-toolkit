@@ -558,9 +558,9 @@ The below packages are required to run the example with B-mode imaging:
 
 .. code-block:: console
 
-    pip install cupy-cudaxyz matplotlib==3.7.2
+    pip install cupy-cuda{xyz}<13.0.0 matplotlib==3.7.2
 
-Where ``xyz`` is the version of the CUDA Toolkit installed on your host PC.
+Where ``{xyz}`` is the version of the CUDA Toolkit installed on your host PC. For example, for CUDA 11.8 you can use ``cupy-cuda11x<13.0.0``. 
 
 To check if everything is OK, run one of the examples provided
 `here <https://github.com/us4useu/arrus/tree/master/api/python/examples>`__
