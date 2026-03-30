@@ -148,12 +148,14 @@ The choice of firmware to install depends on the components your us4us system ha
 Below, we present the number and types of OEMs and digital backplane that are part of the systems manufactured by us4us.
 
 ======================================= =============== =================
-System                                  OEMs            Digital backplane
+Product                                 OEMs            Digital backplane
 ======================================= =============== =================
 us4R, model R-2021 (legacy)             4x - 8x us4OEM  DBAR
 us4R, model R-2023                      4x - 8x us4OEM+ DBAR
 us4R-lite, model RL-2020 (legacy - TB3) 2x us4OEM       DBARLite
 us4R-lite, model RL-2024-PCIe           2x us4OEM+      DBAR-LitePCIe
+USSS2                                   2x us4OEM+      DBAR-LitePCIe
+us4OEM+                                 1x us4OEM+      -
 ======================================= =============== =================
 
 Firmware-software compatibility table. **The current release of the software is the one listed at the top of the table.**
