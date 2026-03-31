@@ -155,7 +155,7 @@ us4R, model R-2023                      4x - 8x us4OEM+ DBAR
 us4R-lite, model RL-2020 (legacy - TB3) 2x us4OEM       DBARLite
 us4R-lite, model RL-2024-PCIe           2x us4OEM+      DBAR-LitePCIe
 USSS2                                   2x us4OEM+      DBAR-LitePCIe
-us4OEM+                                 1x us4OEM+      -
+us4OEM+                                 1x us4OEM+      \-
 ======================================= =============== =================
 
 Firmware-software compatibility table. **The current release of the software is the one listed at the top of the table.**
