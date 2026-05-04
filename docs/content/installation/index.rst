@@ -173,6 +173,14 @@ Firmware-software compatibility table. **The current release of the software is 
      - DBAR-Lite-PCIe Firmware 
      - DBAR Firmware 
      - CUDA
+   * - `v0.14.0 <https://github.com/us4useu/arrus/releases/tag/v0.14.0>`__
+     - v0.15.0, Linux: `0.15.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.15.0/us4r-lkm-v0.15.0.run>`__, Windows: `0.15.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.15.0/us4oem-driver-v0.15.0.zip>`__,, legacy: jungo-1450-12052026
+     - `2.1.5.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.14.9>`__
+     - 1.0.1.0, TX: a
+     - 0x243a5479
+     - 1.0.x-1.3.0
+     - 0x705c9732/0xc34eafc3/0xa0ef96f2
+     - 10.1-12.2
    * - `v0.13.8 <https://github.com/us4useu/arrus/releases/tag/v0.13.8>`__
      - v0.12.0, Linux: `0.12.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.12.0/us4r-lkm-v0.12.0.run>`__, Windows: WD1450
      - `2.1.5.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.14.9>`__
@@ -493,7 +501,9 @@ folder, e.g.:
 Windows
 ~~~~~~~
 
-1. Download and extract ``us4oem-drivers-1450.zip`` (contact us4us support to make sure you get the newest version).
+**NOTE: Since ARRUS 0.14.0 the previous Jungo us4OEM driver for Windows `us4oem-driver-1450.zip` is marked as deprecated**. We will discontinue support for Jungo driver starting from ARRUS 1.0.0.
+
+1. Download and extract ``jungo-us4oem-drivers-1450.zip`` (contact us4us support to make sure you get the newest version).
 2. Run ``install.bat`` with **administrative privileges**. Confirm driver
    installation if necessary.
 
