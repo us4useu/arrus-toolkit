@@ -173,6 +173,14 @@ Firmware-software compatibility table. **The current release of the software is 
      - DBAR-Lite-PCIe Firmware 
      - DBAR Firmware 
      - CUDA
+   * - `v0.14.0 <https://github.com/us4useu/arrus/releases/tag/v0.14.0>`__
+     - v0.12.0, Linux: `0.12.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.12.0/us4r-lkm-v0.12.0.run>`__, Windows: WD1450-12052026
+     - `2.1.5.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.14.9>`__ or 2.2.0.0
+     - 1.0.1.0, TX: a
+     - 0x243a5479
+     - 1.0.x-1.3.0
+     - 0x705c9732/0xc34eafc3/0xa0ef96f2
+     - 11.0-12.8
    * - `v0.13.8 <https://github.com/us4useu/arrus/releases/tag/v0.13.8>`__
      - v0.12.0, Linux: `0.12.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.12.0/us4r-lkm-v0.12.0.run>`__, Windows: WD1450
      - `2.1.5.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.14.9>`__
@@ -474,6 +482,14 @@ Download the linux driver then in command line run:
 
 where ``{us4r-driver.run}`` is the name of the downloaded file.
 
+Before installing the new version, it may be needed to uninstall the previous release.
+You can do that by specifying the ``uninstall`` parameter:
+
+::
+
+  sudo ./{us4r-driver.run} -- uninstall
+
+
 After executing the above command, there should be ``us4oem*`` nodes in the ``/dev``
 folder, e.g.:
 
@@ -493,7 +509,7 @@ folder, e.g.:
 Windows
 ~~~~~~~
 
-1. Download and extract ``us4oem-drivers-1450.zip`` (contact us4us support to make sure you get the newest version).
+1. Download and extract ``us4oem-drivers-1450-12052026.zip`` (contact us4us support to make sure you get the newest version).
 2. Run ``install.bat`` with **administrative privileges**. Confirm driver
    installation if necessary.
 
