@@ -175,7 +175,7 @@ Firmware-software compatibility table. **The current release of the software is 
      - CUDA
    * - `v0.14.0 <https://github.com/us4useu/arrus/releases/tag/v0.14.0>`__
      - v0.12.0, Linux: `0.12.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.12.0/us4r-lkm-v0.12.0.run>`__, Windows: WD1450-12052026
-     - `2.1.5.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.14.9>`__ (all us4OEM+s) or 2.2.0.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.15.0>`__ (**ENCRYPTED us4OEM+s only**)
+     - `2.1.5.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.14.9>`__ (all us4OEM+s) or `2.2.0.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.15.0>`__ (**ENCRYPTED us4OEM+s only**)
      - 1.0.1.0, TX: a
      - 0x243a5479
      - 1.0.x-1.3.0
