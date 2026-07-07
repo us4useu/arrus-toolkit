@@ -61,7 +61,7 @@ Device Status
     --vucd                Prints UCD rail status and logs
     --nUS4OEM arg         Number of US4OEM devices
     --init arg            Execute us4oem initialization
-    --calibrate_hvps      Performs HVPS voltage setting calibration and stores calibration vector in OEM+ flash memory (Since ARRUS 0.13.0). Optionally, this parameter allows specifying the maximum voltage up to which the calibration should be performed; by default, it is set to 90 [V].
+    --tune_hvps      Performs HVPS voltage setting calibration and stores calibration vector in OEM+ flash memory (Since ARRUS 0.13.0). Optionally, this parameter allows specifying the maximum voltage up to which the calibration should be performed; by default, it is set to 90 [V].
 
 Examples:
 
