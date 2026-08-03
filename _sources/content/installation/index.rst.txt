@@ -173,6 +173,14 @@ Firmware-software compatibility table. **The current release of the software is 
      - DBAR-Lite-PCIe Firmware 
      - DBAR Firmware 
      - CUDA
+   * - `v0.14.1 <https://github.com/us4useu/arrus/releases/tag/v0.14.1>`__
+     - v0.15.1, Linux: `0.15.1 <https://github.com/us4useu/us4r-drivers/releases/download/v0.15.1/us4r-lkm-v0.15.1.run>`__, Windows: `0.15.1 <https://github.com/us4useu/us4r-drivers/releases/download/v0.15.1/us4oem-driver-v0.15.1-win_x86_64.zip>`__
+     - `2.1.5.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.14.9>`__ (all us4OEM+s) or `2.2.0.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.15.0>`__ (**ENCRYPTED us4OEM+s only**)
+     - 1.0.1.0, TX: a
+     - 0x243a5479
+     - 1.0.x-1.3.0
+     - 0x705c9732/0xc34eafc3/0xa0ef96f2
+     - 11.0-12.8
    * - `v0.14.0 <https://github.com/us4useu/arrus/releases/tag/v0.14.0>`__
      - v0.12.0, Linux: `0.12.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.12.0/us4r-lkm-v0.12.0.run>`__, Windows: WD1450-12052026
      - `2.1.5.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.14.9>`__ (all us4OEM+s) or `2.2.0.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.15.0>`__ (**ENCRYPTED us4OEM+s only**)
@@ -509,12 +517,15 @@ folder, e.g.:
 Windows
 ~~~~~~~
 
-1. Download and extract ``us4oem-drivers-1450-12052026.zip`` (contact us4us support to make sure you get the newest version).
+.. note::
+
+    Since ARRUS 0.14.1, we recommend using the us4us Windows driver. To update the us4us Windows driver, first uninstall the previous version by double-clicking ``uninstall.bat`` available in the ``us4oem-drivers-1450-12052026.zip`` or ``us4oem-drivers-1450.zip`` archive.
+
+1. Download and extract the latest Windows driver (see the table above).
 2. Run ``install.bat`` with **administrative privileges**. Confirm driver
    installation if necessary.
 
-``us4oem`` and ``WinDriver1450`` nodes should now be visible in the
-Device Manager.
+The ``us4oem`` nodes should now be visible in the Device Manager under the "Imaging devices" node.
 
 .. figure:: img/dev_manager.png
     :scale: 100%
