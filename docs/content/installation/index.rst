@@ -519,7 +519,9 @@ Windows
 
 .. note::
 
-    Since ARRUS 0.14.1, we recommend using the us4us Windows driver. To update the us4us Windows driver, first uninstall the previous version by double-clicking ``uninstall.bat`` available in the ``us4oem-drivers-1450-12052026.zip`` or ``us4oem-drivers-1450.zip`` archive.
+    Since ARRUS 0.14.1, we recommend using the us4us Windows driver. To update the us4us Windows driver, first uninstall the previous version: download, then run as an Administrator the `uninstall_windriver.bat <https://github.com/us4useu/us4r-drivers/releases/download/v0.15.1/uninstall_windriver.bat>`__.
+
+To install us4us us4OEM driver:
 
 1. Download and extract the latest Windows driver (see the table above).
 2. Run ``install.bat`` with **administrative privileges**. Confirm driver
