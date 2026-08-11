@@ -26,7 +26,7 @@ Before you start the installation, please ensure that:
 
 - your computer meets the following requirements:
 
-    - operating system: Ubuntu 20.04 or newer is recommended, Windows 10 and Windows 11 are supported,
+    - operating system: Ubuntu 20.04 or newer is recommended, Windows 10 (1709 or later) and Windows 11 are supported,
     - the host PC should have an NVIDIA GPU installed, with `Compute Capability <https://developer.nvidia.com/cuda-gpus>`_ >= 5.2,
 
 - the ultrasound system is powered on and properly connected to the computer -- please refer to the us4R/us4R-lite User Manual for details. After connecting and powering on the ultrasound device, please reboot the host PC.
