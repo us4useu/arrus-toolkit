@@ -174,7 +174,7 @@ Firmware-software compatibility table. **The current release of the software is 
      - DBAR Firmware 
      - CUDA
    * - `v0.14.2 <https://github.com/us4useu/arrus/releases/tag/v0.14.2>`__
-     - v0.15.2, Linux: `0.15.2 <https://github.com/us4useu/us4r-drivers/releases/download/v0.15.1/us4r-lkm-v0.15.2.run>`__, Windows: `0.16.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.15.2/us4oem-driver-v0.16.0-win_x86_64.zip>`__
+     - Linux: `0.15.2 <https://github.com/us4useu/us4r-drivers/releases/download/v0.15.2/us4r-lkm-v0.15.2.run>`__, Windows: `0.16.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.15.2/us4oem-driver-v0.16.0-win_x86_64.zip>`__
      - `2.1.5.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.15.2>`__ (all us4OEM+s) or `2.2.0.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.15.2>`__ (**ENCRYPTED us4OEM+s only**)
      - 1.0.1.0, TX: a
      - 0x243a5479
