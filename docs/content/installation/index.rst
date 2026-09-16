@@ -173,6 +173,14 @@ Firmware-software compatibility table. **The current release of the software is 
      - DBAR-Lite-PCIe Firmware 
      - DBAR Firmware 
      - CUDA
+   * - `v0.14.2 <https://github.com/us4useu/arrus/releases/tag/v0.14.2>`__
+     - v0.15.2, Linux: `0.15.2 <https://github.com/us4useu/us4r-drivers/releases/download/v0.15.1/us4r-lkm-v0.15.2.run>`__, Windows: `0.16.0 <https://github.com/us4useu/us4r-drivers/releases/download/v0.15.2/us4oem-driver-v0.16.0-win_x86_64.zip>`__
+     - `2.1.5.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.15.2>`__ (all us4OEM+s) or `2.2.0.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.15.2>`__ (**ENCRYPTED us4OEM+s only**)
+     - 1.0.1.0, TX: a
+     - 0x243a5479
+     - 1.0.x-1.3.0
+     - 0x705c9732/0xc34eafc3/0xa0ef96f2
+     - 11.0-12.8
    * - `v0.14.1 <https://github.com/us4useu/arrus/releases/tag/v0.14.1>`__
      - v0.15.1, Linux: `0.15.1 <https://github.com/us4useu/us4r-drivers/releases/download/v0.15.1/us4r-lkm-v0.15.1.run>`__, Windows: `0.15.1 <https://github.com/us4useu/us4r-drivers/releases/download/v0.15.1/us4oem-driver-v0.15.1-win_x86_64.zip>`__
      - `2.1.5.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.14.9>`__ (all us4OEM+s) or `2.2.0.0 <https://github.com/us4useu/us4r-drivers/releases/tag/v0.15.0>`__ (**ENCRYPTED us4OEM+s only**)
