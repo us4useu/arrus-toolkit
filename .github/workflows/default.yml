@@ -11,9 +11,13 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     # HTML
-    - uses: us4useu/sphinx-action@master
+    - uses: actions/setup-python@v5
       with:
-        docs-folder: "docs/"
+        python-version: "3.10"
+    - name: Build documentation
+      run: |
+        pip install -r docs/requirements.txt
+        make -C docs html
     # Publish docs on GH Pages.
     - name: Commit documentation changes
       run: |
