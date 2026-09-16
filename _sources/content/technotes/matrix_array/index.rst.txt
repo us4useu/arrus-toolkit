@@ -43,7 +43,7 @@ The example was developed and tested on the following setup:
 Installation
 ------------
 
-1. Download the `color doppler <https://github.com/us4useu/arrus-toolkit/tree/master/examples/matrix_array/bmode>`_ example (the whole directory).
+1. Download the `matrix array <https://github.com/us4useu/arrus-toolkit/tree/master/examples/matrix_array/bmode>`_ example (the whole directory).
 2. Update the ``us4r.prototxt`` in the ``env.py`` file: the ``session_cfg`` parameter of the ``UltrasoundEnv`` object constructor.
 
 How to run
