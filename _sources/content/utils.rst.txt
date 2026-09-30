@@ -66,7 +66,7 @@ Device Status
 Examples:
 
 1. Display help message: ``./Us4OEMStatus --help``
-2. Pre-configure HVPS up to 45 V: ``./Us4OEMStatus --nUS4OEM 2 --tune_hvps 80``
+2. Pre-configure HVPS up to 45 V: ``./Us4OEMStatus --nUS4OEM 2 --calibrate_hvps 45``
 
 High-Voltage supplier (HV256 or Us4RPSC)
 ========================================
