@@ -10,6 +10,19 @@ from typing import Dict, Sequence
 from numbers import Number
 
 
+def warm_up(operation, const_metadata):
+    """Runs the operation once on zeros of its input shape, i.e. compiles its GPU kernels now.
+
+    ARRUS warms the operations up while the pipeline is prepared (Operation.initialize), but not
+    the ones inside a nested Pipeline -- and every Doppler operation here is nested. Without this,
+    their kernels are compiled while the first frame is processed, which takes longer than the
+    us4R watchdog allows (1 s by default): the device stops right after starting.
+    """
+    dummy = cp.zeros(const_metadata.input_shape, dtype=const_metadata.dtype)
+    operation.process(dummy)
+    cp.cuda.Device().synchronize()
+
+
 class CreateDopplerFrame(Operation):
     """
     Creates the final ColorDoppler frame.
@@ -38,6 +51,7 @@ class CreateDopplerFrame(Operation):
         input_shape = const_metadata.input_shape
         input_dtype = const_metadata.dtype
         self.output_buffer = cp.zeros(input_shape[1:], dtype=input_dtype)
+        warm_up(self, const_metadata)
         return const_metadata.copy(input_shape=self.output_buffer.shape)
 
     def process(self, data):
@@ -136,6 +150,7 @@ class ReconstructDoppler(Operation):
         self.tx_frequency = op.tx.excitation.center_frequency
         self.c = op.tx.speed_of_sound
         self.scale = self.c/(2*np.pi*self.pri*self.tx_frequency*2*math.cos(self.angle))
+        warm_up(self, metadata)
         return metadata.copy(input_shape=self.output_shape, dtype=cp.float32, is_iq_data=False)
 
     def process(self, data):
@@ -193,6 +208,7 @@ class FilterWallClutter(Operation):
                 "       fir, butter, cheby1, cheby2, ellip, bessel."
             )
         self.ba = cp.array(self.ba)
+        warm_up(self, metadata)
         return metadata
 
     def process(self, data):
