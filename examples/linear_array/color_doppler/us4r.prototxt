@@ -37,4 +37,5 @@ us4r: {
             channels: []
         }
     ]
+    watchdog: {enabled: false}
 }

@@ -1,3 +1,4 @@
+import os
 import arrus.medium
 from arrus.utils.imaging import *
 from arrus.ops.imaging import *
@@ -47,6 +48,6 @@ def configure(session: arrus.Session):
 
 
 ENV = UltrasoundEnv(
-    session_cfg="/home/pjarosik/us4r.prototxt",
+    session_cfg=os.path.expanduser(os.environ.get("ARRUS_SESSION_CFG", "~/us4r.prototxt")),
     configure=configure,
 )
