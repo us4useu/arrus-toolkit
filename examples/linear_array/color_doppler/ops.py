@@ -277,7 +277,7 @@ class Persistence(Operation):
         self._position = (self._position + 1) % self.n_frames
         self._count = min(self._count + 1, self.n_frames)
         # While filling up (after a reset), the frames are in the slots [0, count).
-        return self.buffer[:self._count].mean(axis=0)
+        return self.buffer[:self._count].max(axis=0)
 
     def get_parameters(self) -> Dict[str, ParameterDef]:
         return {

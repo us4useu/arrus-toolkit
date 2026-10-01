@@ -50,6 +50,7 @@ from gui4us import AppCfg, Gui4us
 from gui4us.cfg import Display2D, DisplayLocation, GridSpec, Layer2D, ViewCfg
 from gui4us.model import StreamDataId
 from gui4us.model.envs.arrus import ArrusEnvConfiguration, Curve, UltrasoundEnv
+import cupyx.scipy.ndimage
 
 
 # The custom operations (ops.py, doppler.cc) live next to this script.
@@ -67,10 +68,10 @@ BMODE_SEQUENCE, DOPPLER_SEQUENCE = "BmodeSequence", "DopplerSequence"
 
 #: Dynamic ranges: the B-mode [dB, relative to the frame maximum], the Doppler velocity [m/s] (also
 #: the colour map range), the Doppler power [dB].
-BMODE_DRANGE = (35, 80)
-COLOR_DRANGE = (-250e-3, 250e-3)
+BMODE_DRANGE = (25, 80)
+COLOR_DRANGE = (50e-3, 300e-3)
 COLOR_RANGE = COLOR_DRANGE
-POWER_DRANGE = (30, 80)
+POWER_DRANGE = (45, 80)
 
 #: The Graph outputs: Output:0 -- the B-mode, Output:1 and Output:2 -- the colour and the power Doppler.
 BMODE_OUTPUT, COLOR_OUTPUT, POWER_OUTPUT = 0, 1, 2
@@ -78,8 +79,8 @@ BMODE_OUTPUT, COLOR_OUTPUT, POWER_OUTPUT = 0, 1, 2
 #: The wall (clutter) filter: "butter" -- IIR high-pass along the ensemble (normalized cut-off frequency,
 #: order), or "svd" -- SVD clutter filter (the number of the removed strongest/weakest components).
 CLUTTER_FILTER = "butter"
-WALL_FILTER_WN, WALL_FILTER_N = 0.1, 4
-SVD_N_TISSUE, SVD_N_NOISE = 3, 0
+WALL_FILTER_WN, WALL_FILTER_N = 0.5, 8
+SVD_N_TISSUE, SVD_N_NOISE = 12, 0
 #: Persistence: the Doppler estimates are averaged over this many last frames (1: no persistence).
 PERSISTENCE = 5
 DECIMATION_FACTOR = 4
@@ -126,7 +127,7 @@ def create_sta_sequence(n_periods: float, center_frequency: float,
 
 
 def create_bmode_sequence(speed_of_sound: float) -> TxRxSequence:
-    return create_sta_sequence(n_periods=0.5,
+    return create_sta_sequence(n_periods=1,
                            center_frequency=8e6, speed_of_sound=speed_of_sound,
                            sample_range=(0, n_samples), pri=200e-6, name=BMODE_SEQUENCE)
 
@@ -151,6 +152,7 @@ def speckle_steps(srad_settings: Optional[dict], frame_shape: Tuple[int, int]) -
 def create_clutter_filter(clutter_filter: str = CLUTTER_FILTER, svd_n_tissue: int = SVD_N_TISSUE,
                           svd_n_noise: int = SVD_N_NOISE):
     """The wall (clutter) filter of the Doppler ensemble."""
+    print(f"filter type:{clutter_filter}")
     if clutter_filter == "butter":
         return FilterWallClutter(wn=WALL_FILTER_WN, n=WALL_FILTER_N, ftype="butter", btype="highpass")
     if clutter_filter == "svd":
@@ -205,12 +207,12 @@ def create_processing(fs: float, x_grid: np.ndarray, z_grid: np.ndarray,
             create_clutter_filter(clutter_filter, svd_n_tissue, svd_n_noise),
             ReconstructDoppler(),
             # The colour and the power estimates averaged over the last frames.
-            Persistence(n_frames=persistence),
             Pipeline(
                 # -> Output:1 of "Doppler": the power Doppler.
                 steps=(
                     CreateDopplerFrame(color_dynamic_range=COLOR_DRANGE,
                                        power_dynamic_range=POWER_DRANGE, frame_type="power"),
+                    Lambda(lambda data: cupyx.scipy.ndimage.median_filter(data, size=4)),
                     Transpose(),
                 ),
                 placement=placement,
@@ -218,7 +220,9 @@ def create_processing(fs: float, x_grid: np.ndarray, z_grid: np.ndarray,
             # -> Output:0 of "Doppler": the colour Doppler.
             CreateDopplerFrame(color_dynamic_range=COLOR_DRANGE,
                                power_dynamic_range=POWER_DRANGE, frame_type="color"),
+            Lambda(lambda data: cupyx.scipy.ndimage.median_filter(data, size=4)),
             Transpose(),
+            Persistence(n_frames=persistence),
         ),
         placement=placement,
         name="Doppler",
@@ -361,7 +365,6 @@ def main():
         raise KeyboardInterrupt()
     signal.signal(signal.SIGTERM, _on_sigterm)
 
-    arrus.set_clog_level(arrus.logging.TRACE)
     with create_gui(args.cfg, voltage=args.voltage, view=args.view, host=args.host, port=args.port,
                     n_coherent=args.n_coherent, n_incoherent=args.n_incoherent,
                     srad_settings=None if args.no_srad else SRAD_SETTINGS,
